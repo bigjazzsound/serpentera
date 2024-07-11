@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: &name chat
+  name: chat
 spec:
   interval: 30m
   chart:
@@ -16,7 +16,7 @@ spec:
         namespace: bjw-s
   values:
     controllers:
-      app:
+      chat:
         containers:
           web:
             image:
@@ -30,8 +30,8 @@ spec:
               startup:
                 enabled: false
     service:
-      app:
-        controller: *name
+      chat:
+        controller: chat
         ports:
           http:
             port: 80
