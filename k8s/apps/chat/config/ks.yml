@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 30m0s
-  path: ./apps/base/chat
+  path: ./k8s/apps/chat
   prune: true
   retryInterval: 2m0s
   sourceRef:
