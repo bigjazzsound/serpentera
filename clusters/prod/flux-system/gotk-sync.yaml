@@ -11,7 +11,7 @@ spec:
     branch: init
   secretRef:
     name: flux-system
-  url: https://github.com/bigjazzsound/serpentera.git
+  url: ssh://git@github.com/bigjazzsound/serpentera
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
