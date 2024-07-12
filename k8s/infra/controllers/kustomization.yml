@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - cert-manager.yml
   - metallb.yml
+  - ingress-nginx.yml
