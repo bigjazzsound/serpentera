@@ -51,4 +51,4 @@ spec:
         tls:
           - hosts:
               - chat.cjf.sh
-            secretName: chat-ingress-cert
+            secretName: letsencrypt-aws
