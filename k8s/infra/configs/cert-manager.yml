@@ -9,8 +9,8 @@ spec:
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     solvers:
       - selector:
-        dnsZones:
-          - "cjf.sh"
+          dnsZones:
+            - "cjf.sh"
         dns01:
           route53:
             region: us-east-1
