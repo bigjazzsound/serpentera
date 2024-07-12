@@ -35,3 +35,12 @@ spec:
         ports:
           http:
             port: 80
+    ingress:
+      chat:
+        hosts:
+          - host: chat.cjf.sh
+            paths:
+              - path: /
+                service:
+                  identifier: chat
+                  port: http
