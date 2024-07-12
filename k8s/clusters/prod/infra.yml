@@ -32,3 +32,11 @@ spec:
   path: ./k8s/infra/configs
   prune: true
   wait: true
+  patches:
+    - patch: |
+        - op: replace
+          path: /spec/acme/server
+          value: https://acme-v02.api.letsencrypt.org/directory
+      target:
+        kind: ClusterIssuer
+        name: letsencrypt
