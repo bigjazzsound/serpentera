@@ -26,9 +26,9 @@ spec:
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: cjf-sh-tls
+  name: cjf-sh
 spec:
-  secretName: ""
+  secretName: "cjf-sh-tls"
   issuerRef:
     name: letsencrypt-prod
     kind: ClusterIssuer
