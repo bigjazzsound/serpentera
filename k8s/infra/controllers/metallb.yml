@@ -10,9 +10,8 @@ metadata:
   name: metallb
   namespace: metallb
 spec:
-  type: oci
   interval: 24h
-  url: oci://registry-1.docker.io/bitnamicharts/metallb
+  url: https://metallb.github.io/metallb
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
