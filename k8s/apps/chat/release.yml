@@ -48,7 +48,3 @@ spec:
                 service:
                   identifier: chat
                   port: http
-        tls:
-          - hosts:
-              - chat.cjf.sh
-            secretName: letsencrypt-aws

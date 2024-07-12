@@ -2,7 +2,7 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt
+  name: letsencrypt-prod
 spec:
   acme:
     email: acme@cjf.sh
@@ -22,3 +22,17 @@ spec:
             secretAccessKeySecretRef:
               name: prod-route53-credentials
               key: secret-access-key
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: cjf-sh-tls
+spec:
+  secretName: ""
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: "cjf.sh"
+  dnsNames:
+    - "cjf.sh"
+    - "*.cjf.sh"
