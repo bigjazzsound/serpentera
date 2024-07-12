@@ -38,6 +38,7 @@ spec:
             port: 80
     ingress:
       chat:
+        className: nginx
         hosts:
           - host: chat.cjf.sh
             paths:
