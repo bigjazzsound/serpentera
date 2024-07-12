@@ -39,6 +39,8 @@ spec:
     ingress:
       chat:
         className: nginx
+        annotations:
+          cert-manager.io/cluster-issuer: "letsencrypt"
         hosts:
           - host: chat.cjf.sh
             paths:
