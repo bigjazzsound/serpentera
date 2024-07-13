@@ -1,0 +1,40 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: cert-manager
+  namespace: flux-system
+spec:
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./k8s/infra/cert-manager
+  prune: true
+  wait: true
+  patches:
+    - patch: &patch |
+        - op: replace
+          path: /spec/acme/solvers
+          value: |
+            - selector:
+                dnsZones:
+                  - "cjf.sh"
+              dns01:
+                route53:
+                  region: us-east-1
+                  accessKeyIDSecretRef:
+                    name: prod-route53-credentials
+                    key: access-key-id
+                  secretAccessKeySecretRef:
+                    name: prod-route53-credentials
+                    key: secret-access-key
+      target:
+        kind: ClusterIssuer
+        name: letsencrypt-prod
+    - patch: *patch
+      target:
+        kind: ClusterIssuer
+        name: letsencrypt-staging
