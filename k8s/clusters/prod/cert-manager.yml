@@ -34,7 +34,7 @@ spec:
       target:
         kind: ClusterIssuer
         name: letsencrypt-prod
-    - patch: *patch
+    - value: *patch
       target:
         kind: ClusterIssuer
         name: letsencrypt-staging
