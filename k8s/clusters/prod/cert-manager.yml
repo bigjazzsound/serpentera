@@ -15,10 +15,10 @@ spec:
   prune: true
   wait: true
   patches:
-    - value:
+    - patch: &patch |
         - op: replace
           path: /spec/acme/solvers
-          value: |
+          value:
             - selector:
                 dnsZones:
                   - "cjf.sh"
@@ -34,7 +34,7 @@ spec:
       target:
         kind: ClusterIssuer
         name: letsencrypt-prod
-    - value: *patch
+    - patch: *patch
       target:
         kind: ClusterIssuer
         name: letsencrypt-staging
