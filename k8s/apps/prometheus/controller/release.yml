@@ -9,8 +9,8 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: prometheus
-      version: "<version>"
+      chart: kube-prometheus-stack
+      version: "56.x"
       sourceRef:
         kind: HelmRepository
         name: prometheus
