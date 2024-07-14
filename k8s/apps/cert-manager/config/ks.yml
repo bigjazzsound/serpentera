@@ -27,7 +27,7 @@ metadata:
 spec:
   dependsOn:
     - name: cert-manager
-    - name: cert-manageri-issuers
+    - name: cert-manager-issuers
   interval: 1h
   retryInterval: 1m
   timeout: 5m
