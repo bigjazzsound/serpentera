@@ -41,3 +41,17 @@ spec:
         ports:
           http:
             port: 80
+    ingress:
+      chat:
+        className: nginx
+        hosts:
+          - host: "chat.cjf.sh"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - chat.cjf.sh
+            secretName: cjf-sh-tls
