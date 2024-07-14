@@ -54,4 +54,3 @@ spec:
         tls:
           - hosts:
               - chat.cjf.sh
-            secretName: cjf-sh-tls
