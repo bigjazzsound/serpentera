@@ -6,6 +6,8 @@ metadata:
   name: cert-manager-issuers
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cert-manager
   interval: 1h
   retryInterval: 1m
   timeout: 5m
@@ -23,6 +25,9 @@ metadata:
   name: cert-manager-certificates
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: cert-manager
+    - name: cert-manageri-issuers
   interval: 1h
   retryInterval: 1m
   timeout: 5m
