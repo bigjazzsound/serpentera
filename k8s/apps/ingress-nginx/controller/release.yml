@@ -20,3 +20,7 @@ spec:
     crds: CreateReplace
   upgrade:
     crds: CreateReplace
+  values:
+    controller:
+      extraArgs:
+        default-ssl-certificate: cert-manager/cjf-sh-tls
