@@ -23,3 +23,5 @@ spec:
   values:
     alertmanager:
       enabled: false # Use mimir's alertmanager
+    grafana:
+      enabled: false # Manage grafana using their helm chart
