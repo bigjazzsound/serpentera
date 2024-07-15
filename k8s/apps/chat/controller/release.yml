@@ -39,6 +39,7 @@ spec:
       chat:
         controller: chat
         type: LoadBalancer
+        externalTrafficPolicy: Local
         ports:
           http:
             port: 80
