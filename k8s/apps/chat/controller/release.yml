@@ -38,6 +38,7 @@ spec:
     service:
       chat:
         controller: chat
+        type: LoadBalancer
         ports:
           http:
             port: 80
