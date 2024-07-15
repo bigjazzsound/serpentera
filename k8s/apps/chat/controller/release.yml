@@ -24,7 +24,7 @@ spec:
     controllers:
       chat:
         containers:
-          web:
+          app:
             image:
               repository: ghcr.io/cinnyapp/cinny
               tag: v3.2.0
@@ -36,22 +36,20 @@ spec:
               startup:
                 enabled: false
     service:
-      chat:
+      app:
         controller: chat
-        type: LoadBalancer
-        externalTrafficPolicy: Cluster
         ports:
           http:
             port: 80
     ingress:
-      chat:
+      app:
         className: nginx
         hosts:
           - host: "chat.cjf.sh"
             paths:
               - path: /
                 service:
-                  identifier: chat
+                  identifier: app
                   port: http
         tls:
           - hosts:
