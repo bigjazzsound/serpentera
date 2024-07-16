@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./namespace.yml
   - ./controller/ks.yml
+  - ./config/ks.yml
