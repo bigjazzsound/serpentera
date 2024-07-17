@@ -46,3 +46,10 @@ spec:
         ports:
           http:
             port: 10300
+    persistence:
+      data:
+        accessMode: ReadWriteOnce
+        size: 1Gi
+        globalMounts:
+          - path: /data
+            readOnly: false
