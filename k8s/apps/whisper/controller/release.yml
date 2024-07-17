@@ -28,9 +28,11 @@ spec:
             image:
               repository: docker.io/rhasspy/wyoming-whisper
               tag: "2.1.0"
-            command:
-              - --model tiny-int8
-              - --language en
+            args:
+              - --model
+              - tiny-int8
+              - --language
+              - en
             probes:
               liveness:
                 enabled: false
