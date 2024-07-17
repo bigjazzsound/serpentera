@@ -9,7 +9,7 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: app-template
+      chart: openebs
       version: 4.1.0
       interval: 30m
       sourceRef:
