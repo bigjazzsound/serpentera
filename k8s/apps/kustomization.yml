@@ -7,5 +7,6 @@ resources:
   - ./chat
   - ./ingress-nginx
   - ./metallb
+  - ./openebs
   - ./prometheus
   - ./whisper
