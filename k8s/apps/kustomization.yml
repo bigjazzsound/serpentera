@@ -8,5 +8,7 @@ resources:
   - ./ingress-nginx
   - ./metallb
   - ./openebs
+  - ./piper
   - ./prometheus
+  - ./wakeword
   - ./whisper
