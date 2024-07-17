@@ -5,6 +5,7 @@ kind: Kustomization
 resources:
   - ./bjw-s.yml
   - ./cert-manager.yml
+  - ./immich.yml
   - ./ingress-nginx.yml
   - ./metallb.yml
   - ./openebs.yml
