@@ -1,0 +1,53 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: piper
+  namespace: piper
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    controllers:
+      piper:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/cinnyapp/cinny
+              tag: v3.2.0
+            args:
+              - --voice
+              - en_US-lessac-medium
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+    service:
+      app:
+        controller: piper
+        type: LoadBalancer
+        ports:
+          http:
+            port: 10200
+    persistence:
+      data:
+        type: emptyDir
+        globalMounts:
+          - path: /data
+            readOnly: false
