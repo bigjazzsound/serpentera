@@ -41,7 +41,6 @@ spec:
     service:
       app:
         controller: piper
-        type: LoadBalancer
         ports:
           http:
             port: 10200

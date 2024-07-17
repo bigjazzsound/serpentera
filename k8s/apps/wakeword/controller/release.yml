@@ -41,7 +41,6 @@ spec:
     service:
       app:
         controller: wakeword
-        type: LoadBalancer
         ports:
           http:
             port: 10400
