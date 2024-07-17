@@ -48,8 +48,7 @@ spec:
             port: 10300
     persistence:
       data:
-        accessMode: ReadWriteOnce
-        size: 1Gi
+        type: emptyDir
         globalMounts:
           - path: /data
             readOnly: false
