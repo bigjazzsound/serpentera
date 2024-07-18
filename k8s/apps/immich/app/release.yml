@@ -35,7 +35,7 @@ spec:
       enabled: true
 
     redis:
-      enabled: true
+      enabled: false
       architecture: standalone
       auth:
         enabled: false
