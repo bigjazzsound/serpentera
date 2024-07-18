@@ -6,8 +6,6 @@ metadata:
   name: immich
   namespace: flux-system
 spec:
-  dependsOn:
-    - name: immich-storage
   interval: 1h
   retryInterval: 1m
   timeout: 5m
