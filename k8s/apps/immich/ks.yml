@@ -6,6 +6,8 @@ metadata:
   name: immich
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: openebs
   interval: 1h
   retryInterval: 1m
   timeout: 5m
