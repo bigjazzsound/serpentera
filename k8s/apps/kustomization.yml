@@ -6,7 +6,7 @@ resources:
   - ./cert-manager
   - ./chat
   - ./ingress-nginx
-  - ./immich
+  - ./immich/ks.yml
   - ./metallb
   - ./openebs
   - ./piper
