@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: immich
+  namespace: immich
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: immich
+      version: "0.7.0"
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: immich
+        namespace: flux-system
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    image:
+      tag: v1.106.1
+
+    immich:
+      metrics:
+        enabled: true
+      persistence:
+        library:
+          existingClaim: immich-pvc
+
+    postgresql:
+      enabled: true
+
+    redis:
+      enabled: true
+      architecture: standalone
+      auth:
+        enabled: false
+
+    server:
+      enabled: true
+      ingress:
+        main:
+          enabled: false
+          annotations:
+            # proxy-body-size is set to 0 to remove the body limit on file uploads
+            nginx.ingress.kubernetes.io/proxy-body-size: "0"
+          hosts:
+            - host: pics.cjf.sh
+              paths:
+                - path: "/"
+          tls: []
+
+    machine-learning:
+      enabled: true
+      persistence:
+        cache:
+          enabled: true
+          size: 10Gi
+          type: emptyDir
+          accessMode: ReadWriteMany
+          storageClass: openebs-hostpath
