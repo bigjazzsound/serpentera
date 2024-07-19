@@ -22,5 +22,7 @@ spec:
     crds: CreateReplace
   values:
     controller:
+      ingressClassResource:
+        default: true
       extraArgs:
         default-ssl-certificate: cert-manager/cjf-sh-tls
