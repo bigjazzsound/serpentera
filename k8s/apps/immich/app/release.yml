@@ -57,15 +57,12 @@ spec:
       architecture: standalone
       auth:
         enabled: false
-      persistence:
-        storageClass: openebs-hostpath
 
     server:
       enabled: true
       ingress:
         main:
           enabled: true
-          className: nginx
           annotations:
             # proxy-body-size is set to 0 to remove the body limit on file uploads
             nginx.ingress.kubernetes.io/proxy-body-size: "0"
@@ -85,4 +82,3 @@ spec:
           size: 10Gi
           type: emptyDir
           accessMode: ReadWriteMany
-          storageClass: openebs-hostpath
