@@ -21,3 +21,7 @@ spec:
       replicated:
         mayastor:
           enabled: false
+    provisioner:
+      localprovisioner:
+        hostpathClass:
+          isDefaultClass: true
