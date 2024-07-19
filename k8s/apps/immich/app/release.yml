@@ -72,7 +72,9 @@ spec:
             - host: pics.cjf.sh
               paths:
                 - path: "/"
-          tls: []
+          tls:
+            - hosts:
+                - pics.cjf.sh
 
     machine-learning:
       enabled: true
