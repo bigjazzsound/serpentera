@@ -5,8 +5,9 @@ kind: Kustomization
 resources:
   - ./cert-manager
   - ./chat
-  - ./ingress-nginx
+  - ./external-secrets/ks.yml
   - ./immich/ks.yml
+  - ./ingress-nginx
   - ./metallb
   - ./openebs
   - ./piper
