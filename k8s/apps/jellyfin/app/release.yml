@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jellyfin
+  namespace: jellyfin
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: jellyfin
+      # version: "0.7.0"
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: jellyfin
+        namespace: flux-system
