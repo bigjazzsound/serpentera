@@ -10,7 +10,7 @@ spec:
   chart:
     spec:
       chart: jellyfin
-      # version: "0.7.0"
+      version: "20.1.6"
       interval: 30m
       sourceRef:
         kind: HelmRepository
