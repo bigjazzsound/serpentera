@@ -47,13 +47,13 @@ spec:
       config:
         type: emptyDir
         advancedMounts:
-          plex:
+          jellyfin:
             app:
               - path: /config
       cache:
         type: emptyDir
         advancedMounts:
-          plex:
+          jellyfin:
             app:
               - path: /cache
       media:
@@ -61,6 +61,6 @@ spec:
         server: 10.0.0.70
         path: /var/tank/media
         advancedMounts:
-          plex:
+          jellyfin:
             app:
               - path: /media
