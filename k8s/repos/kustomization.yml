@@ -8,6 +8,7 @@ resources:
   - ./external-secrets.yml
   - ./immich.yml
   - ./ingress-nginx.yml
+  - ./intel.yml
   - ./metallb.yml
   - ./openebs.yml
   - ./prometheus.yml
