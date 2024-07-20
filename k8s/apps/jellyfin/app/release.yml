@@ -9,10 +9,37 @@ spec:
   interval: 30m
   chart:
     spec:
-      chart: jellyfin
-      version: "20.1.6"
+      chart: app-template
+      version: 3.2.1
       interval: 30m
       sourceRef:
         kind: HelmRepository
-        name: jellyfin
+        name: bjw-s
         namespace: flux-system
+  values:
+    controllers:
+      jellyfin:
+        containers:
+          app:
+            image:
+              repository: docker.io/jellyfin/jellyfin
+              tag: latest
+    service:
+      app:
+        controller: jellyfin
+        ports:
+          http:
+            port: 8096
+    ingress:
+      app:
+        className: nginx
+        hosts:
+          - host: "media.cjf.sh"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - media.cjf.sh
