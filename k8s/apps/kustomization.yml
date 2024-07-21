@@ -12,6 +12,7 @@ resources:
   - ./intel-gpu-plugin/ks.yml
   - ./jellyfin/ks.yml
   - ./metallb
+  - ./nfd/ks.yml
   - ./openebs
   - ./piper
   - ./prometheus
