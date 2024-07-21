@@ -26,6 +26,11 @@ spec:
               tag: latest
             env:
               JELLYFIN_PublishedServerUrl: http://media.cjf.sh
+            resources:
+              requests:
+                gpu.intel.com/i915: 1
+              limits:
+                gpu.intel.com/i915: 1
     service:
       app:
         controller: jellyfin
