@@ -8,6 +8,7 @@ resources:
   - ./external-secrets/ks.yml
   - ./immich/ks.yml
   - ./ingress-nginx
+  - ./intel-device-plugin/ks.yml
   - ./jellyfin/ks.yml
   - ./metallb
   - ./openebs
