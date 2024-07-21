@@ -52,7 +52,9 @@ spec:
               - media.cjf.sh
     persistence:
       config:
-        type: emptyDir
+        type: hostPath
+        hostPath: /srv/jellyfin/config
+        hostPathType: DirectoryOrCreate
         advancedMounts:
           jellyfin:
             app:
