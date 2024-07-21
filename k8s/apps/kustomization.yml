@@ -9,6 +9,7 @@ resources:
   - ./immich/ks.yml
   - ./ingress-nginx
   - ./intel-device-plugin/ks.yml
+  - ./intel-gpu-plugin/ks.yml
   - ./jellyfin/ks.yml
   - ./metallb
   - ./openebs
