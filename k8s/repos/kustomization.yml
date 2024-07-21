@@ -10,5 +10,6 @@ resources:
   - ./ingress-nginx.yml
   - ./intel.yml
   - ./metallb.yml
+  - ./nfd.yml
   - ./openebs.yml
   - ./prometheus.yml
