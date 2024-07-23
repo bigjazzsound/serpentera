@@ -42,7 +42,7 @@ spec:
         ports:
           http:
             port: 80
-          http-initial:
+          init:
             port: 3000
           dns:
             port: 53
@@ -52,15 +52,33 @@ spec:
         className: nginx
         hosts:
           - &ingress
-            host: adguardhome.cjf.sh
+            host: dns.cjf.sh
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
           - <<: *ingress
-            host: dns.cjf.sh
+            host: inti-dns.cjf.sh
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: init
         tls:
           - hosts:
-              - adguardhome.cjf.sh
               - dns.cjf.sh
+              - init-dns.cjf.sh
+    persistence:
+      work:
+        type: emptyDir
+        globalMounts:
+          - path: /work
+            readOnly: false
+      config:
+        type: hostPath
+        hostPath: /srv/adguardhome/config
+        hostPathType: DirectoryOrCreate
+        globalMounts:
+          - path: /conf
+            readOnly: false
