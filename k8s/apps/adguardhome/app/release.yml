@@ -26,7 +26,7 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/adguard/adguardhome:latest
+              repository: docker.io/adguard/adguardhome
               tag: "v0.107.52"
             probes:
               liveness:
