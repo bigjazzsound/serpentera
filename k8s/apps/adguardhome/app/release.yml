@@ -59,7 +59,7 @@ spec:
                   identifier: app
                   port: http
           - <<: *ingress
-            host: inti-dns.cjf.sh
+            host: init-dns.cjf.sh
             paths:
               - path: /
                 service:
