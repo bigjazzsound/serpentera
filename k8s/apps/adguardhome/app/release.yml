@@ -45,7 +45,7 @@ spec:
             port: 3000
       dns:
         controller: adguardhome
-        type: NodePort
+        type: LoadBalancer
         ports:
           dns-tcp:
             port: 53
