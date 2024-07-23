@@ -43,6 +43,10 @@ spec:
             port: 80
           init:
             port: 3000
+      dns:
+        controller: adguardhome
+        type: LoadBalancer
+        ports:
           dns-tcp:
             port: 53
           dns-udp:
