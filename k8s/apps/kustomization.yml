@@ -3,6 +3,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - ./adguardhome/ks.yml
   - ./cert-manager
   - ./chat
   - ./external-secrets/ks.yml

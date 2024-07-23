@@ -1,0 +1,66 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: adguardhome
+  namespace: adguardhome
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    controllers:
+      adguardhome:
+        containers:
+          app:
+            image:
+              repository: docker.io/adguard/adguardhome:latest
+              tag: v3.2.0
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+    service:
+      app:
+        controller: adguardhome
+        type: LoadBalancer
+        ports:
+          http:
+            port: 80
+          http-initial:
+            port: 3000
+          dns:
+            port: 53
+            protocol: UDP
+    ingress:
+      app:
+        className: nginx
+        hosts:
+          - &ingress
+            host: adguardhome.cjf.sh
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+          - <<: *ingress
+            host: dns.cjf.sh
+        tls:
+          - hosts:
+              - adguardhome.cjf.sh
+              - dns.cjf.sh
