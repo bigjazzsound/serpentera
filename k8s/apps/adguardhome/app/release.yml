@@ -38,13 +38,14 @@ spec:
     service:
       app:
         controller: adguardhome
-        type: LoadBalancer
         ports:
           http:
             port: 80
           init:
             port: 3000
-          dns:
+          dns-tcp:
+            port: 53
+          dns-udp:
             port: 53
             protocol: UDP
     ingress:
