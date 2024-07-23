@@ -45,13 +45,12 @@ spec:
             port: 3000
       dns:
         controller: adguardhome
-        type: LoadBalancer
+        type: NodePort
         ports:
           dns-tcp:
             port: 53
           dns-udp:
             port: 53
-            targetPort: 53
             protocol: UDP
     ingress:
       app:
