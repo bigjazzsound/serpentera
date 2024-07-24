@@ -37,14 +37,13 @@ spec:
                 enabled: false
     service:
       app:
-        controller: adguardhome
         ports:
           http:
             port: 80
           init:
             port: 3000
       dns:
-        controller: adguardhome
+        externalTrafficPolicy: Local
         type: LoadBalancer
         ports:
           dns-tcp:
