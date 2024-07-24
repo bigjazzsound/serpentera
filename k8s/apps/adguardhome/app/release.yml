@@ -49,10 +49,10 @@ spec:
         ports:
           dns-tcp:
             port: 53
-            nodePort: 53
+            targetPort: 53
           dns-udp:
             port: 53
-            nodePort: 53
+            targetPort: 53
             protocol: UDP
     ingress:
       app:
