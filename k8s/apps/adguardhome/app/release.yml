@@ -48,9 +48,6 @@ spec:
         externalTrafficPolicy: Local
         type: LoadBalancer
         ports:
-          dns-tcp:
-            port: 53
-            targetPort: 53
           dns-udp:
             port: 53
             targetPort: 53
