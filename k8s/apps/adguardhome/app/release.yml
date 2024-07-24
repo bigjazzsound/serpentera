@@ -45,7 +45,6 @@ spec:
             port: 3000
       dns:
         controller: adguardhome
-        externalTrafficPolicy: Local
         type: LoadBalancer
         ports:
           dns-udp:
