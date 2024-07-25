@@ -77,11 +77,13 @@ spec:
     persistence:
       work:
         type: persistentVolumeClaim
+        storageClass: openebs-hostpath
         globalMounts:
           - path: /work
             readOnly: false
       config:
         type: persistentVolumeClaim
+        storageClass: openebs-hostpath
         globalMounts:
           - path: /conf
             readOnly: false
