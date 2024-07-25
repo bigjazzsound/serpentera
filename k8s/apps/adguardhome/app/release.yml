@@ -78,12 +78,16 @@ spec:
       work:
         type: persistentVolumeClaim
         storageClass: openebs-hostpath
+        accessMode: ReadWriteOnce
+        size: 2Gi
         globalMounts:
           - path: /work
             readOnly: false
       config:
         type: persistentVolumeClaim
         storageClass: openebs-hostpath
+        accessMode: ReadWriteOnce
+        size: 10Mi
         globalMounts:
           - path: /conf
             readOnly: false
