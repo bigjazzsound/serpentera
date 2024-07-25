@@ -52,7 +52,6 @@ spec:
             protocol: UDP
           dns-tcp:
             port: 53
-            protocol: UDP
     ingress:
       app:
         className: nginx
@@ -77,14 +76,14 @@ spec:
               - init-dns.cjf.sh
     persistence:
       work:
-        type: hostPath
+        type: host
         hostPath: /srv/adguardhome/work
         hostPathType: DirectoryOrCreate
         globalMounts:
           - path: /work
             readOnly: false
       config:
-        type: hostPath
+        type: host
         hostPath: /srv/adguardhome/config
         hostPathType: DirectoryOrCreate
         globalMounts:
