@@ -76,14 +76,14 @@ spec:
               - init-dns.cjf.sh
     persistence:
       work:
-        type: host
+        type: hostPath
         hostPath: /srv/adguardhome/work
         hostPathType: DirectoryOrCreate
         globalMounts:
           - path: /work
             readOnly: false
       config:
-        type: host
+        type: hostPath
         hostPath: /srv/adguardhome/config
         hostPathType: DirectoryOrCreate
         globalMounts:
