@@ -76,10 +76,12 @@ spec:
               - init-dns.cjf.sh
     persistence:
       work:
+        type: persistentVolumeClaim
         globalMounts:
           - path: /work
             readOnly: false
       config:
+        type: persistentVolumeClaim
         globalMounts:
           - path: /conf
             readOnly: false
