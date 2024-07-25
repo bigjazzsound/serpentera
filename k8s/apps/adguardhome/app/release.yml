@@ -81,7 +81,7 @@ spec:
         accessMode: ReadWriteOnce
         size: 2Gi
         globalMounts:
-          - path: /work
+          - path: /opt/adguardhome/work
             readOnly: false
       config:
         type: persistentVolumeClaim
@@ -89,5 +89,5 @@ spec:
         accessMode: ReadWriteOnce
         size: 10Mi
         globalMounts:
-          - path: /conf
+          - path: /opt/adguardhome/conf
             readOnly: false
