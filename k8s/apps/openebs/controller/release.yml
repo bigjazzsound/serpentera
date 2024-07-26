@@ -25,4 +25,6 @@ spec:
       hostpathClass:
         isDefaultClass: true
         basePath: "/var/tank"
-        reclaimPolicy: Retain
+        # TODO: you cannot change the reclaimPolicy after creation and I do not want to do this
+        # right now.
+        # reclaimPolicy: Retain
