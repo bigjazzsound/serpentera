@@ -21,7 +21,8 @@ spec:
       replicated:
         mayastor:
           enabled: false
-    provisioner:
-      localprovisioner:
-        hostpathClass:
-          isDefaultClass: true
+    localpv-provisioner:
+      hostpathClass:
+        isDefaultClass: true
+        basePath: "/var/tank"
+        reclaimPolicy: Retain
