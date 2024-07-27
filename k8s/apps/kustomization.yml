@@ -17,5 +17,6 @@ resources:
   - ./openebs
   - ./piper
   - ./prometheus
+  - ./recipes/ks.yml
   - ./wakeword
   - ./whisper
