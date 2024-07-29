@@ -6,8 +6,6 @@ metadata:
   name: emqx
   namespace: emqx
 spec:
-  dependsOn:
-    - name: prometheus
   interval: 5m
   chart:
     spec:
