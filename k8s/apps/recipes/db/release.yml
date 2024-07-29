@@ -6,7 +6,7 @@ metadata:
   name: recipes-db
   namespace: recipes
 spec:
-  interval: 30m
+  interval: 5m
   chart:
     spec:
       chart: postgresql
