@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: emqx
+  namespace: emqx
+spec:
+  dependsOn:
+    - name: prometheus
+  interval: 5m
+  chart:
+    spec:
+      chart: emqx
+      version: 0.16.1
+      sourceRef:
+        kind: HelmRepository
+        name: emqx
+        namespace: flux-system
+      interval: 30m
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    persistence:
+      enabled: true
+    metrics:
+      enable: true

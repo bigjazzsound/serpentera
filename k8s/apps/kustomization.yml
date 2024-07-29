@@ -6,6 +6,7 @@ resources:
   - ./adguardhome/ks.yml
   - ./cert-manager
   - ./chat
+  - ./emqx/ks.yml
   - ./external-secrets/ks.yml
   - ./immich/ks.yml
   - ./ingress-nginx
