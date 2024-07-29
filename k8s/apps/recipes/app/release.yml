@@ -26,8 +26,8 @@ spec:
         containers:
           app:
             image:
-              repository: docker.io/adguard/recipes
-              tag: "v0.107.52"
+              repository: docker.io/vabene1111/recipes
+              tag: "1.5"
             env:
               DB_ENGINE: django.db.backends.postgresql
               POSTGRES_DB: tandoor
