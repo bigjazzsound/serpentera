@@ -28,6 +28,7 @@ spec:
     ingress:
       mqtt:
         enabled: true
-        hosts: mqtt.cjf.sh
+        hosts:
+          - mqtt.cjf.sh
         tls:
           - mqtt.cjf.sh
