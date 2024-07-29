@@ -24,6 +24,3 @@ spec:
     auth:
       username: tandoor
       database: tandoor
-      existingSecret: postgres-password
-      secretKeys:
-        userPasswordKey: password
