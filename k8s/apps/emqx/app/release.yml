@@ -25,3 +25,9 @@ spec:
       enabled: true
     metrics:
       enable: true
+    ingress:
+      mqtt:
+        enabled: true
+        hosts: mqtt.cjf.sh
+        tls:
+          - mqtt.cjf.sh
