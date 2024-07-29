@@ -31,4 +31,5 @@ spec:
         hosts:
           - mqtt.cjf.sh
         tls:
-          - mqtt.cjf.sh
+          - hosts:
+              - mqtt.cjf.sh
