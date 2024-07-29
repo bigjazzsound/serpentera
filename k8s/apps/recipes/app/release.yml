@@ -31,7 +31,7 @@ spec:
             env:
               DB_ENGINE: django.db.backends.postgresql
               POSTGRES_DB: tandoor
-              POSTGRES_HOST: recipes-db-postgresql-0
+              POSTGRES_HOST: recipes-db-postgresql
               POSTGRES_PORT: 5432
               POSTGRES_USER: tandoor
               POSTGRES_PASSWORD:
