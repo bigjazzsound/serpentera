@@ -22,7 +22,13 @@ spec:
       hass:
         pod:
           annotations:
-            k8s.v1.cni.cncf.io/networks: multus/multus-iot
+            k8s.v1.cni.cncf.io/networks: |
+              [
+                {
+                  "name":"multus-iot",
+                  "namespace": "network"
+                }
+              ]
         containers:
           app:
             image:
