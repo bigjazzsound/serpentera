@@ -6,7 +6,7 @@ metadata:
   name: hass
   namespace: hass
 spec:
-  interval: 30m
+  interval: 2m
   chart:
     spec:
       chart: app-template
