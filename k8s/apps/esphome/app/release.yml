@@ -22,11 +22,7 @@ spec:
       esphome:
         pod:
           annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [{
-                "name":"multus-iot",
-                "namespace": "network"
-              }]
+            k8s.v1.cni.cncf.io/networks: multus/multus-iot
         containers:
           app:
             image:
