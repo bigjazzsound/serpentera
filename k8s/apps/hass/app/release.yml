@@ -27,6 +27,10 @@ spec:
                 {
                   "name":"multus-iot",
                   "namespace": "multus"
+                },
+                {
+                  "name":"multus-dmz",
+                  "namespace": "multus"
                 }
               ]
         containers:
