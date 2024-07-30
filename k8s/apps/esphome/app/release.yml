@@ -26,7 +26,7 @@ spec:
               [
                 {
                   "name":"multus-iot",
-                  "namespace": "network"
+                  "namespace": "multus"
                 }
               ]
         containers:
