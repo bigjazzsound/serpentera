@@ -1,0 +1,66 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: hass
+  namespace: hass
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      hass:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/home-assistant/home-assistant
+              tag: 2024.7.3
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+
+    service:
+      app:
+        controller: hass
+        ports:
+          http:
+            port: 8123
+      iot:
+        controller: hass
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/address-pool: iot
+
+    ingress:
+      app:
+        hosts:
+          - host: hass.cjf.sh
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      config:
+        type: hostPath
+        hostPath: /srv/hass/config
+        hostPathType: DirectoryOrCreate
+        advancedMounts:
+          hass:
+            app:
+              - path: /config
