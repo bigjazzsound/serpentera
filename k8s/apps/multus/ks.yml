@@ -15,3 +15,22 @@ spec:
   path: ./k8s/apps/multus/app
   prune: true
   wait: true
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/kustomize.toolkit.fluxcd.io/kustomization_v1.json
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: multus-config
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: multus
+  interval: 1h
+  retryInterval: 1m
+  timeout: 5m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  path: ./k8s/apps/multus/config
+  prune: true
+  wait: true
