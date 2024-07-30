@@ -39,6 +39,14 @@ spec:
         ports:
           http:
             port: 8123
+      iot:
+        controller: hass
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/address-pool: iot
+        ports:
+          http:
+            port: 8123
 
     ingress:
       app:
