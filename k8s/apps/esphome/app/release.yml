@@ -1,0 +1,68 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: esphome
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+
+  values:
+    controllers:
+      esphome:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/esphome/esphome
+              tag: 2024.7.1
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+
+    service:
+      app:
+        controller: esphome
+        type: LoadBalancer
+        annotations:
+          metallb.universe.tf/address-pool: iot
+        ports:
+          http:
+            port: 6052
+
+    ingress:
+      app:
+        hosts:
+          - host: esphome.cjf.sh
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+
+    persistence:
+      config:
+        type: hostPath
+        hostPath: /srv/esphome/config
+        hostPathType: DirectoryOrCreate
+        advancedMounts:
+          esphome:
+            app:
+              - path: /config
+
+      esphome-cache:
+        type: emptyDir
+        globalMounts:
+          - path: /config/.esphome

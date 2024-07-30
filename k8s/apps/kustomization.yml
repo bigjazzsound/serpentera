@@ -7,6 +7,7 @@ resources:
   - ./cert-manager
   - ./chat
   - ./emqx/ks.yml
+  - ./esphome/ks.yml
   - ./external-secrets/ks.yml
   - ./immich/ks.yml
   - ./ingress-nginx
