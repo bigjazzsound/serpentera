@@ -32,13 +32,12 @@ spec:
                 enabled: false
               startup:
                 enabled: false
-        pod:
-          securityContext:
-            capabilities:
-              add:
-                - NET_ADMIN
-                - NET_RAW
-                - NET_BROADCAST
+            securityContext:
+              capabilities:
+                add:
+                  - NET_ADMIN
+                  - NET_RAW
+                  - NET_BROADCAST
 
     service:
       app:
