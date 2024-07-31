@@ -12,6 +12,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./k8s/apps/zigbee2mqtt/auth
+  path: ./k8s/apps/zigbee2mqtt/app
   prune: true
   wait: true
