@@ -1,0 +1,90 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: omada
+  namespace: omada
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  values:
+    controllers:
+      omada:
+        containers:
+          app:
+            image:
+              repository: docker.io/mbentley/omada-controller
+              tag: "5.14"
+            env:
+              PUID: 508
+              PGID: 508
+              MANAGE_HTTP_PORT: 8088
+              PORTAL_HTTP_PORT: 8088
+              PORT_APP_DISCOVERY: 27001
+              PORT_ADOPT_V1: 29812
+              PORT_UPGRADE_V1: 29813
+              PORT_MANAGER_V1: 29811
+              PORT_MANAGER_V2: 29814
+              PORT_DISCOVERY: 29810
+              SHOW_SERVER_LOGS: true
+              SHOW_MONGODB_LOGS: false
+              TZ: America/New_York
+    service:
+      app:
+        controller: omada
+        ports:
+          manage_http:
+            port: 8088
+          portal_http:
+            port: 8088
+          port_app_discovery:
+            port: 27001
+          port_adopt_v1:
+            port: 29812
+          port_upgrade_v1:
+            port: 29813
+          port_manager_v1:
+            port: 29811
+          port_manager_v2:
+            port: 29814
+          port_discovery:
+            port: 29810
+    ingress:
+      app:
+        className: nginx
+        hosts:
+          - host: omada.cjf.sh
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: manage_http
+        tls:
+          - hosts:
+              - omada.cjf.sh
+    persistence:
+      data:
+        type: hostPath
+        hostPath: /srv/omada/data
+        hostPathType: DirectoryOrCreate
+        advancedMounts:
+          omada:
+            app:
+              - path: /opt/tplink/EAPController/data
+      logs:
+        type: hostPath
+        hostPath: /srv/omada/logs
+        hostPathType: DirectoryOrCreate
+        advancedMounts:
+          omada:
+            app:
+              - path: /opt/tplink/EAPController/logs

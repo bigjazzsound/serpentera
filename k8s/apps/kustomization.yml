@@ -18,6 +18,7 @@ resources:
   - ./metallb
   - ./multus/ks.yml
   - ./nfd/ks.yml
+  - ./omada/ks.yml
   - ./openebs
   - ./piper
   - ./prometheus
