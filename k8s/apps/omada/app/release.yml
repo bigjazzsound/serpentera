@@ -46,6 +46,10 @@ spec:
             port: 8088
           portal-http:
             port: 8089
+          manage-https:
+            port: 8043
+          portal-https:
+            port: 8843
       service:
         controller: omada
         type: LoadBalancer
@@ -71,7 +75,7 @@ spec:
               - path: /
                 service:
                   identifier: app
-                  port: manage-http
+                  port: manage-https
         tls:
           - hosts:
               - omada.cjf.sh
