@@ -25,3 +25,4 @@ resources:
   - ./recipes/ks.yml
   - ./wakeword
   - ./whisper
+  - ./zigbee2mqtt/ks.yml
