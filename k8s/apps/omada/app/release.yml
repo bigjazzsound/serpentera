@@ -75,7 +75,7 @@ spec:
               - path: /
                 service:
                   identifier: app
-                  port: manage-https
+                  port: manage-http
         tls:
           - hosts:
               - omada.cjf.sh
