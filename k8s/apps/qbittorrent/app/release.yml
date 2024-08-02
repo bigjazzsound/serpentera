@@ -20,6 +20,11 @@ spec:
   values:
     controllers:
       qbittorrent:
+        pod:
+          securityContext:
+            fsGroup: 2000
+            fsGroupChangePolicy: "OnRootMismatch"
+
         containers:
           app:
             nameOverride: qbittorrent
