@@ -22,16 +22,32 @@ spec:
       qbittorrent:
         containers:
           app:
+            nameOverride: qbittorrent
             image:
-              repository: ghcr.io/linuxserver/qbittorrent
-              tag: latest
+              repository: ghcr.io/onedr0p/qbittorrent
+              tag: 4.6.5@sha256:c019af23966ebafcaf1713d4553bc043246858b711a7d57d8bee358a89990a3e
+            env:
+              UMASK: "022"
+              QBITTORRENT__PORT: 8080
             probes:
               liveness:
-                enabled: false
+                enabled: true
               readiness:
-                enabled: false
+                enabled: true
               startup:
-                enabled: false
+                enabled: true
+                spec:
+                  failureThreshold: 30
+                  periodSeconds: 5
+            securityContext:
+              runAsUser: 2000
+              runAsGroup: 2000
+              runAsNonRoot: true
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities:
+                drop:
+                  - ALL
 
           gluetun:
             image:
