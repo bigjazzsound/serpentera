@@ -12,6 +12,6 @@ spec:
   sourceRef:
     kind: GitRepository
     name: flux-system
-  path: ./k8s/apps/qbittorent/app
+  path: ./k8s/apps/qbittorrent/app
   prune: true
   wait: true
