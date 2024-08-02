@@ -23,8 +23,7 @@ spec:
         containers:
           app:
             image:
-              # repository: ghcr.io/linuxserver/qbittorrent
-              repository: quay.io/curl/curl
+              repository: ghcr.io/linuxserver/qbittorrent
               tag: latest
             command:
               - sleep
@@ -79,6 +78,9 @@ spec:
                 service:
                   identifier: app
                   port: http
+        tls:
+          - hosts:
+              - torrent.cjf.sh
 
     persistence:
       work:
