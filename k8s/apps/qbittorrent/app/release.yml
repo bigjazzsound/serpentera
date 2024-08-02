@@ -47,6 +47,7 @@ spec:
               VPN_INTERFACE: wg0
               SERVER_CITIES: Atlanta GA
               FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/12,10.244.0.0/16 # Allow access to k8s subnets
+              WIREGUARD_ADDRESSES: "10.64.222.21/32"
               WIREGUARD_PRIVATE_KEY:
                 valueFrom:
                   secretKeyRef:
