@@ -46,6 +46,7 @@ spec:
               VPN_TYPE: wireguard
               VPN_INTERFACE: wg0
               SERVER_CITIES: Atlanta GA
+              FIREWALL_OUTBOUND_SUBNETS: 10.244.0.0/16
               WIREGUARD_PRIVATE_KEY:
                 valueFrom:
                   secretKeyRef:
