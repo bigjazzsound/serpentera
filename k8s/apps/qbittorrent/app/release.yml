@@ -44,6 +44,7 @@ spec:
             env:
               VPN_SERVICE_PROVIDER: mullvad
               VPN_TYPE: wireguard
+              VPN_INTERFACE: wg0
               SERVER_CITIES: Atlanta GA
               WIREGUARD_PRIVATE_KEY:
                 valueFrom:
