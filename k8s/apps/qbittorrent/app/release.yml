@@ -104,15 +104,19 @@ spec:
     ingress:
       app:
         hosts:
-          - host: torrent.cjf.sh
+          - &host
+            host: torrent.cjf.sh
             paths:
               - path: /
                 service:
                   identifier: app
                   port: http
+          - <<: *host
+            host: torrents.cjf.sh
         tls:
           - hosts:
               - torrent.cjf.sh
+              - torrents.cjf.sh
 
     persistence:
       config:
