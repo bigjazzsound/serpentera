@@ -22,7 +22,7 @@ resources:
   - ./openebs
   - ./piper
   - ./prometheus
-  - ./qbittorent/ks.yml
+  - ./qbittorrent/ks.yml
   - ./recipes/ks.yml
   - ./wakeword
   - ./whisper
