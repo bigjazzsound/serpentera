@@ -41,19 +41,10 @@ spec:
               VPN_SERVICE_PROVIDER: mullvad
               VPN_TYPE: wireguard
               VPN_INTERFACE: wg0
-              SERVER_CITIES: Atlanta GA
               FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/12,10.244.0.0/16 # Allow access to k8s subnets
-              DNS_KEEP_NAMESERVER: on
-              WIREGUARD_ADDRESSES:
-                valueFrom:
-                  secretKeyRef:
-                    name: wireguard
-                    key: ip-address
-              WIREGUARD_PRIVATE_KEY:
-                valueFrom:
-                  secretKeyRef:
-                    name: wireguard
-                    key: private-key
+            envFrom:
+              - secretRef:
+                  name: qbittorrent
             securityContext:
               capabilities:
                 add:
