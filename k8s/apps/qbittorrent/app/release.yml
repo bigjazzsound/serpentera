@@ -42,7 +42,6 @@ spec:
               VPN_TYPE: wireguard
               VPN_INTERFACE: wg0
               FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/12,10.244.0.0/16 # Allow access to k8s subnets
-              DNS_KEEP_NAMESERVER: on
             envFrom:
               - secretRef:
                   name: qbittorrent
