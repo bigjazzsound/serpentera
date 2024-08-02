@@ -25,9 +25,6 @@ spec:
             image:
               repository: ghcr.io/linuxserver/qbittorrent
               tag: latest
-            command:
-              - sleep
-              - infinity
             probes:
               liveness:
                 enabled: false
