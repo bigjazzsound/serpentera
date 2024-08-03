@@ -63,6 +63,7 @@ spec:
               VPN_TYPE: wireguard
               VPN_INTERFACE: wg0
               DNS_KEEP_NAMESERVERS: on
+              DOT: off
               FIREWALL_INPUT_PORTS: 8080
               FIREWALL_OUTBOUND_SUBNETS: 10.96.0.0/12,10.244.0.0/16 # Allow access to k8s subnets
             envFrom:
