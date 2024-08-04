@@ -24,6 +24,7 @@ resources:
   - ./prometheus
   - ./prowlarr/ks.yml
   - ./qbittorrent/ks.yml
+  - ./readarr/ks.yml
   - ./recipes/ks.yml
   - ./wakeword
   - ./whisper

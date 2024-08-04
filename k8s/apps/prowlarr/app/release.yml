@@ -54,3 +54,11 @@ spec:
         tls:
           - hosts:
               - prowlarr.cjf.sh
+      config:
+        type: persistentVolumeClaim
+        storageClass: openebs-hostpath
+        accessMode: ReadWriteOnce
+        size: 2Mi
+        globalMounts:
+          - path: /config
+            readOnly: false
