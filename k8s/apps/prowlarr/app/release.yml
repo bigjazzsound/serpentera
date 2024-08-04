@@ -54,6 +54,7 @@ spec:
         tls:
           - hosts:
               - prowlarr.cjf.sh
+    persistence:
       config:
         type: persistentVolumeClaim
         storageClass: openebs-hostpath
