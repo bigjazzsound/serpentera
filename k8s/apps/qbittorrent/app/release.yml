@@ -81,6 +81,11 @@ spec:
         ports:
           http:
             port: 8080
+      nzbget:
+        controller: qbittorrent
+        ports:
+          http:
+            port: 6789
 
     ingress:
       app:
