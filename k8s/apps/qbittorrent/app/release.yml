@@ -124,11 +124,19 @@ spec:
         globalMounts:
           - path: /config
             readOnly: false
-      downloads:
-        type: persistentVolumeClaim
-        storageClass: openebs-hostpath
-        accessMode: ReadWriteOnce
-        size: 8Ti
-        globalMounts:
-          - path: /downloads
-            readOnly: false
+      nzbget:
+        type: nfs
+        server: 10.0.0.70
+        path: /var/tank/daijinryuu/nzbget
+        advancedMounts:
+          qbittorrent:
+            nzbget:
+              - path: /downloads
+      torrents:
+        type: nfs
+        server: 10.0.0.70
+        path: /var/tank/daijinryuu/torrents
+        advancedMounts:
+          qbittorrent:
+            app:
+              - path: /downloads
