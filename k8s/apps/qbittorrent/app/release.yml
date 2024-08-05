@@ -20,11 +20,6 @@ spec:
   values:
     controllers:
       qbittorrent:
-        pod:
-          securityContext:
-            fsGroup: 2000
-            fsGroupChangePolicy: "OnRootMismatch"
-
         containers:
           app:
             nameOverride: qbittorrent
@@ -44,15 +39,6 @@ spec:
                 spec:
                   failureThreshold: 30
                   periodSeconds: 5
-            securityContext:
-              runAsUser: 2000
-              runAsGroup: 2000
-              runAsNonRoot: true
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
 
           gluetun:
             image:
@@ -84,15 +70,6 @@ spec:
               CRON_ENABLED: true
               CRON_SCHEDULE: "*/5 * * * *"
               LOG_TIMESTAMP: false
-            securityContext:
-              runAsUser: 2000
-              runAsGroup: 2000
-              runAsNonRoot: true
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities:
-                drop:
-                  - ALL
 
           nzbget:
             image:
@@ -101,9 +78,6 @@ spec:
             env:
               PUID: 2000
               PGID: 2000
-            securityContext:
-              runAsUser: 2000
-              runAsGroup: 2000
 
     service:
       app:
