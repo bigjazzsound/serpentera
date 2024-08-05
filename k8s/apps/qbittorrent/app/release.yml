@@ -103,17 +103,6 @@ spec:
           - hosts:
               - torrent.cjf.sh
               - torrents.cjf.sh
-      nzbget:
-        hosts:
-          - host: nzbget.cjf.sh
-            paths:
-              - path: /
-                service:
-                  identifier: nzbget
-                  port: http
-        tls:
-          - hosts:
-              - nzbget.cjf.sh
 
     persistence:
       config:
