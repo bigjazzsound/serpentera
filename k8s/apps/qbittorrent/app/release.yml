@@ -96,7 +96,7 @@ spec:
 
           nzbget:
             image:
-              repository: ghcr.io/linuxserver/nzbget
+              repository: docker.io/linuxserver/nzbget
               tag: "24.1.20240802"
             env:
               PUID: 2000
