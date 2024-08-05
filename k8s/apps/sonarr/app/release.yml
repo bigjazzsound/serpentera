@@ -66,8 +66,8 @@ spec:
       media:
         type: nfs
         server: 10.0.0.70
-        path: /var/tank/daijinryuu/nzbget
+        path: /var/tank/daijinryuu/media
         advancedMounts:
           sonarr:
             app:
-              - path: /downloads
+              - path: /media
