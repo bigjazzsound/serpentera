@@ -22,23 +22,19 @@ spec:
       qbittorrent:
         containers:
           app:
-            nameOverride: qbittorrent
             image:
-              repository: ghcr.io/onedr0p/qbittorrent
-              tag: 4.6.5@sha256:c019af23966ebafcaf1713d4553bc043246858b711a7d57d8bee358a89990a3e
+              repository: ghcr.io/linuxserver/qbittorrent
+              tag: 4.6.5
             env:
-              UMASK: "022"
-              QBITTORRENT__PORT: 8080
+              PUID: 2000
+              PGID: 2000
             probes:
               liveness:
-                enabled: true
+                enabled: false
               readiness:
-                enabled: true
+                enabled: false
               startup:
-                enabled: true
-                spec:
-                  failureThreshold: 30
-                  periodSeconds: 5
+                enabled: false
 
           gluetun:
             image:
