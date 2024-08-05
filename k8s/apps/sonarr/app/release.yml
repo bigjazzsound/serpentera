@@ -74,3 +74,11 @@ spec:
           sonarr:
             app:
               - path: /media
+      nzbget:
+        type: nfs
+        server: 10.0.0.70
+        path: /var/tank/daijinryuu/nzbget
+        advancedMounts:
+          sonarr:
+            app:
+              - path: /downloads
