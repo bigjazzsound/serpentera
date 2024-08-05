@@ -26,6 +26,7 @@ resources:
   - ./qbittorrent/ks.yml
   - ./readarr/ks.yml
   - ./recipes/ks.yml
+  - ./sonarr/ks.yml
   - ./wakeword
   - ./whisper
   - ./zigbee2mqtt/ks.yml
