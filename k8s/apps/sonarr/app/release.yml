@@ -63,11 +63,11 @@ spec:
         globalMounts:
           - path: /config
             readOnly: false
-      shows:
-        type: persistentVolumeClaim
-        storageClass: openebs-hostpath
-        accessMode: ReadWriteOnce
-        size: 100Gi
-        globalMounts:
-          - path: /shows
-            readOnly: false
+      media:
+        type: nfs
+        server: 10.0.0.70
+        path: /var/tank/daijinryuu/torrents
+        advancedMounts:
+          sonarr:
+            app:
+              - path: /downloads
