@@ -93,8 +93,8 @@ spec:
             paths:
               - path: /
                 service:
-                  identifier: app
-                  port: http
+                  identifier: qbittorrent
+                  port: qbittorrent
           - <<: *host
             host: torrents.cjf.sh
           - host: nzb.cjf.sh
