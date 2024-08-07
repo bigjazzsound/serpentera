@@ -118,13 +118,13 @@ spec:
         globalMounts:
           - path: /config
             readOnly: false
-      nzbget:
+      nzb:
         type: nfs
         server: 10.0.0.70
         path: /var/tank/daijinryuu/nzbget
         advancedMounts:
           qbittorrent:
-            nzbget:
+            nzb:
               - path: /downloads
       torrents:
         type: nfs
