@@ -97,17 +97,10 @@ spec:
                   port: qbittorrent
           - <<: *host
             host: torrents.cjf.sh
-          - host: nzb.cjf.sh
-            paths:
-              - path: /
-                service:
-                  identifier: nzb
-                  port: nzb
         tls:
           - hosts:
               - torrent.cjf.sh
               - torrents.cjf.sh
-              - nzb.cjf.sh
 
     persistence:
       config:
