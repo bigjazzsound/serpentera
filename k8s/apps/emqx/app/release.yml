@@ -41,3 +41,8 @@ spec:
         tls:
           - hosts:
               - emqx.cjf.sh
+      persistence:
+        enabled: true
+        storageClass: openebs-hostpath
+        accessMode: ReadWriteOnce
+        size: 100Mi
