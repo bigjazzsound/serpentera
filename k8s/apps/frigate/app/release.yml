@@ -68,10 +68,11 @@ spec:
       config-file:
         type: configMap
         name: frigate-config
-        globalMounts:
-          - path: /config/config.yml
-            subPath: config.yml
-            readOnly: true
+        advancedMounts:
+          frigate:
+            app:
+              - path: /config/config.yml
+                subPath: config.yml
       storage:
         type: hostPath
         hostPath: /srv/frigate/storage
