@@ -44,6 +44,8 @@ spec:
         ports:
           http:
             port: 8971
+          feed:
+            port: 5000
 
     ingress:
       app:
