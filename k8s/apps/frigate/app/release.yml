@@ -57,6 +57,15 @@ spec:
 
     persistence:
       config:
+        type: persistentVolumeClaim
+        storageClass: openebs-hostpath
+        accessMode: ReadWriteOnce
+        size: 10Mi
+        advancedMounts:
+          frigate:
+            app:
+              - path: /config
+      config-file:
         type: configMap
         name: frigate-config
         globalMounts:
