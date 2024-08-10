@@ -9,6 +9,7 @@ resources:
   - ./emqx/ks.yml
   - ./esphome/ks.yml
   - ./external-secrets/ks.yml
+  - ./frigate/ks.yml
   - ./hass/ks.yml
   - ./immich/ks.yml
   - ./ingress-nginx
