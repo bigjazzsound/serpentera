@@ -33,3 +33,10 @@ spec:
         tls:
           - hosts:
               - mqtt.cjf.sh
+      dashboard:
+        enabled: true
+        hosts:
+          - emqx.cjf.sh
+        tls:
+          - hosts:
+              - emqx.cjf.sh
