@@ -16,3 +16,5 @@ spec:
         kind: HelmRepository
         name: intel
         namespace: flux-system
+  values:
+    sharedDevNum: 12
