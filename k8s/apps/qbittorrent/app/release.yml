@@ -100,6 +100,12 @@ spec:
                   port: qbittorrent
           - <<: *host
             host: torrents.cjf.sh
+        tls:
+          - hosts:
+              - torrent.cjf.sh
+              - torrents.cjf.sh
+      nzb:
+        hosts:
           - host: nzb.cjf.sh
             paths:
               - path: /
@@ -108,8 +114,6 @@ spec:
                   port: nzb
         tls:
           - hosts:
-              - torrent.cjf.sh
-              - torrents.cjf.sh
               - nzb.cjf.sh
 
     persistence:
