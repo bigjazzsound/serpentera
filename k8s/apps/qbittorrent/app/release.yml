@@ -89,17 +89,21 @@ spec:
             port: 8080
 
     ingress:
-      app:
-        hosts:
-          - host: torrent.cjf.sh
-            paths:
-              - path: /
-                service:
-                  identifier: qbittorrent
-                  port: qbittorrent
-        tls:
-          - hosts:
-              - torrent.cjf.sh
+      # app:
+      #   hosts:
+      #     - &host
+      #       host: torrent.cjf.sh
+      #       paths:
+      #         - path: /
+      #           service:
+      #             identifier: qbittorrent
+      #             port: qbittorrent
+      #     - <<: *host
+      #       host: torrents.cjf.sh
+      #   tls:
+      #     - hosts:
+      #         - torrent.cjf.sh
+      #         - torrents.cjf.sh
       nzb:
         hosts:
           - host: nzb.cjf.sh
