@@ -88,33 +88,33 @@ spec:
           nzb:
             port: 8080
 
-    ingress:
-      app:
-        hosts:
-          - &host
-            host: torrent.cjf.sh
-            paths:
-              - path: /
-                service:
-                  identifier: qbittorrent
-                  port: qbittorrent
-          - <<: *host
-            host: torrents.cjf.sh
-        tls:
-          - hosts:
-              - torrent.cjf.sh
-              - torrents.cjf.sh
-      nzb:
-        hosts:
-          - host: nzb.cjf.sh
-            paths:
-              - path: /
-                service:
-                  identifier: nzb
-                  port: nzb
-        tls:
-          - hosts:
-              - nzb.cjf.sh
+    # ingress:
+    #   app:
+    #     hosts:
+    #       - &host
+    #         host: torrent.cjf.sh
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: qbittorrent
+    #               port: qbittorrent
+    #       - <<: *host
+    #         host: torrents.cjf.sh
+    #     tls:
+    #       - hosts:
+    #           - torrent.cjf.sh
+    #           - torrents.cjf.sh
+    #   nzb:
+    #     hosts:
+    #       - host: nzb.cjf.sh
+    #         paths:
+    #           - path: /
+    #             service:
+    #               identifier: nzb
+    #               port: nzb
+    #     tls:
+    #       - hosts:
+    #           - nzb.cjf.sh
 
     persistence:
       config:
