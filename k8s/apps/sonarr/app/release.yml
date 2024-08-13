@@ -69,7 +69,7 @@ spec:
       media:
         type: nfs
         server: 10.0.0.70
-        path: /var/tank/daijinryuu/media
+        path: /var/tank/media
         advancedMounts:
           sonarr:
             app:
