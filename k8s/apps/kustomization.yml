@@ -25,6 +25,7 @@ resources:
   - ./prometheus
   - ./prowlarr/ks.yml
   - ./qbittorrent/ks.yml
+  - ./radarr/ks.yml
   - ./readarr/ks.yml
   - ./recipes/ks.yml
   - ./sonarr/ks.yml
