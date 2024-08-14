@@ -1,0 +1,84 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2.json
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: radarr
+  namespace: radarr
+spec:
+  interval: 30m
+  chart:
+    spec:
+      chart: app-template
+      version: 3.2.1
+      interval: 30m
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+  install:
+    crds: CreateReplace
+  upgrade:
+    crds: CreateReplace
+  values:
+    controllers:
+      radarr:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/linuxserver/radarr
+              tag: 5.8.3
+            env:
+              PUID: 2000
+              PGID: 2000
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+    service:
+      app:
+        controller: radarr
+        ports:
+          http:
+            port: 7878
+    ingress:
+      app:
+        className: nginx
+        hosts:
+          - host: radarr.cjf.sh
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - radarr.cjf.sh
+    persistence:
+      config:
+        type: persistentVolumeClaim
+        storageClass: openebs-hostpath
+        accessMode: ReadWriteOnce
+        size: 2Mi
+        globalMounts:
+          - path: /config
+            readOnly: false
+      media:
+        type: nfs
+        server: 10.0.0.70
+        path: /var/tank/media/movies
+        advancedMounts:
+          radarr:
+            app:
+              - path: /media
+      nzbget:
+        type: nfs
+        server: 10.0.0.70
+        path: /var/tank/daijinryuu/nzbget
+        advancedMounts:
+          radarr:
+            app:
+              - path: /downloads
