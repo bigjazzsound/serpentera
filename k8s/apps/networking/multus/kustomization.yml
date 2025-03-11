@@ -1,0 +1,9 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/kustomization
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: networking
+resources:
+  - https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-cni/refs/tags/v4.1.4/deployments/multus-daemonset-thick.yml
+  - ./config/ks.yml
+  - ./app/network-attachments.yml
