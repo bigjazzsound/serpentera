@@ -1,2 +1,3 @@
 resources:
+  - ./ingress-nginx.yml
   - ./node-feature-discovery.yml
