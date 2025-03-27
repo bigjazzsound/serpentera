@@ -16,7 +16,10 @@ spec:
   timeout: 2m0s
   wait: true
   patches:
-    - patch: |
+    - target:
+        kind: HelmRelease
+        name: openebs
+      patch: |
         - op: add
           path: /spec/values/localpv-provisioner/hostpathClass
           value:
