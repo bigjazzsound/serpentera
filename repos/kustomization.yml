@@ -1,3 +1,4 @@
 resources:
   - ./ingress-nginx.yml
+  - ./metallb.yml
   - ./node-feature-discovery.yml
