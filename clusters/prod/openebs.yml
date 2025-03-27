@@ -16,7 +16,7 @@ spec:
   timeout: 2m0s
   wait: true
   patches:
-    - patch: |-
+    - patch: |
         - op: add
           path: /spec/values/localpv-provisioner/hostpathClass/basePath
           value:
