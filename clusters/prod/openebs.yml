@@ -18,5 +18,6 @@ spec:
   patches:
     - patch: |
         - op: add
-          path: /spec/values/localpv-provisioner/hostpathClass/basePath
-          value: /var/tank
+          path: /spec/values/localpv-provisioner/hostpathClass
+          value:
+            basePath: /var/tank
