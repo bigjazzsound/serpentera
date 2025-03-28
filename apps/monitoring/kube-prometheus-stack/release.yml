@@ -14,7 +14,7 @@ spec:
         kind: HelmRepository
         name: prometheus-community
         namespace: flux-system
-      version: 70.3.x0
+      version: 70.3.x
   install:
     createNamespace: true
   interval: 30m0s
