@@ -4,6 +4,3 @@ kind: IPAddressPool
 metadata:
   name: metallb
   namespace: metallb
-spec:
-  addresses:
-    - 10.0.0.200-10.0.0.250

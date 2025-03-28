@@ -34,3 +34,12 @@ spec:
     namespace: flux-system
   timeout: 2m0s
   wait: true
+  patches:
+    - target:
+        kind: IPAddressPool
+        name: metallb
+      patch: |
+        - op: add
+          path: /spec/addresses
+          value:
+            - 10.0.0.200-10.0.0.250
