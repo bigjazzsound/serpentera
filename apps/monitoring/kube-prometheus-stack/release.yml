@@ -19,3 +19,8 @@ spec:
     createNamespace: true
   interval: 30m0s
   targetNamespace: monitoring
+  values:
+    alertmanager:
+      enabled: false # Use mimir's alertmanager
+    grafana:
+      enabled: false # Manage grafana using their helm chart
