@@ -3,3 +3,4 @@ resources:
   - ./metallb.yml
   - ./node-feature-discovery.yml
   - ./openebs.yml
+  - ./prometheus-community.yml
