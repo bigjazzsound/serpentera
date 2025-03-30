@@ -46,7 +46,7 @@ spec:
             port: 53
     persistence:
       config:
-        name: blocky-configmap
+        name: config
         type: configMap
         advancedMounts:
           blocky:
@@ -55,5 +55,21 @@ spec:
                 subPath: config.yml
     configMaps:
       config:
-        data:
-          foo: bar
+        data: |
+          upstreams:
+            groups:
+              default:
+                - 46.182.19.48
+                - 80.241.218.68
+                - tcp-tls:fdns1.dismail.de:853
+                - https://dns.digitale-gesellschaft.ch/dns-query
+          blocking:
+            denylists:
+              ads:
+                - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+            clientGroupsBlock:
+              default:
+                - ads
+          ports:
+            dns: 53
+            http: 4000
