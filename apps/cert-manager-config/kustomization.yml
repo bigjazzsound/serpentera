@@ -3,6 +3,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
+  - secret.yml
   - cluster-issuer-staging.yml
   - cluster-issuer-prod.yml
   - cert.yml
