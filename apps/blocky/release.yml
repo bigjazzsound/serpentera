@@ -20,6 +20,8 @@ spec:
   interval: 30m0s
   targetNamespace: blocky
   values:
+    global:
+      fullnameOverride: blocky
     controllers:
       blocky:
         containers:
@@ -46,7 +48,7 @@ spec:
             port: 53
     persistence:
       config:
-        name: config
+        name: blocky-config
         type: configMap
         advancedMounts:
           blocky:
