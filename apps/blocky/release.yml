@@ -39,7 +39,7 @@ spec:
             port: 3000
       dns:
         controller: blocky
-        type: NodePort
+        type: LoadBalancer
         ports:
           dns-udp:
             port: 53
