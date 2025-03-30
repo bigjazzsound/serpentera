@@ -20,6 +20,7 @@ spec:
   interval: 30m0s
   targetNamespace: openebs
   values:
+    fullnameOverride: openebs
     engines:
       replicated:
         mayastor:
