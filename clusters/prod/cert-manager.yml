@@ -34,3 +34,7 @@ spec:
   wait: true
   dependsOn:
     - name: cert-manager
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
