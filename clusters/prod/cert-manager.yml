@@ -15,8 +15,6 @@ spec:
     namespace: flux-system
   timeout: 2m0s
   wait: true
-  dependsOn:
-    - name: aws
 ---
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
