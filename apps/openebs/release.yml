@@ -36,5 +36,3 @@ spec:
         reclaimPolicy: Retain
     zfs-localpv:
       enabled: true
-      zfsNode:
-        kubeletDir: /var/tank
