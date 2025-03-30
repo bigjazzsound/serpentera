@@ -36,3 +36,5 @@ spec:
         reclaimPolicy: Retain
     zfs-localpv:
       enabled: true
+      zfsNode:
+        kubeletDir: /var/lib/k0s/kubelet/
