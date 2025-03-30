@@ -19,9 +19,7 @@ spec:
             region: us-east-1
             accessKeyIDSecretRef:
               name: prod-route53-credentials
-              namespace: default
               key: access-key-id
             secretAccessKeySecretRef:
               name: prod-route53-credentials
-              namespace: default
               key: secret-access-key
