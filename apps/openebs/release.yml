@@ -28,3 +28,5 @@ spec:
       hostpathClass:
         isDefaultClass: true
         reclaimPolicy: Retain
+    zfs-localpv:
+      enabled: false
