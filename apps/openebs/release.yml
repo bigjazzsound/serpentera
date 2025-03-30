@@ -30,3 +30,9 @@ spec:
         reclaimPolicy: Retain
     zfs-localpv:
       enabled: true
+    engines:
+      local:
+        lvm:
+          enabled: false
+        zfs:
+          enabled: true
