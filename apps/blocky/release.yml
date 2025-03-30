@@ -41,11 +41,9 @@ spec:
         ports:
           dns-udp:
             port: 53
-            nodePort: 53
             protocol: UDP
           dns-tcp:
             port: 53
-            nodePort: 53
     persistence:
       config:
         name: blocky-configmap
