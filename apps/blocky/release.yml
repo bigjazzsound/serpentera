@@ -57,7 +57,7 @@ spec:
                 subPath: config.yml
     configMaps:
       config:
-        data:
+        data: |
           upstreams:
             groups:
               default:
