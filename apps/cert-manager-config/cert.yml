@@ -8,7 +8,7 @@ metadata:
 spec:
   secretName: cjf-sh-tls
   issuerRef:
-    name: letsencrypt-staging
+    name: letsencrypt-prod
     kind: ClusterIssuer
   commonName: cjf.sh
   dnsNames:
