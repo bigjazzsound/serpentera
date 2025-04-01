@@ -20,6 +20,8 @@ spec:
   interval: 30m0s
   targetNamespace: cinny
   values:
+    global:
+      fullnameOverride: cinny
     controllers:
       chat:
         containers:
