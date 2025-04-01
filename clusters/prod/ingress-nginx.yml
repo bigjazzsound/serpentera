@@ -17,3 +17,14 @@ spec:
   wait: true
   dependsOn:
     - name: metallb-pool
+  patches:
+    - target:
+        kind: HelmRelease
+        name: ingress-nginx
+      patch: |
+        - op: add
+          path: /spec
+          value:
+            controller:
+              extraArgs:
+                default-ssl-certificate: cert-manager/cjf-sh-tls
