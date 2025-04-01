@@ -23,9 +23,7 @@ spec:
         name: ingress-nginx
       patch: |
         - op: add
-          path: /spec
+          path: /spec/values/controller
           value:
-            values:
-              controller:
-                extraArgs:
-                  default-ssl-certificate: cert-manager/cjf-sh-tls
+            extraArgs:
+              default-ssl-certificate: cert-manager/cjf-sh-tls
