@@ -20,6 +20,7 @@ spec:
   interval: 30m0s
   targetNamespace: ingress-nginx
   values:
+    fullnameOverride: ingress-nginx
     controller:
       ingressClassResource:
         default: true
