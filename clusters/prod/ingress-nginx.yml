@@ -25,6 +25,7 @@ spec:
         - op: add
           path: /spec
           value:
-            controller:
-              extraArgs:
-                default-ssl-certificate: cert-manager/cjf-sh-tls
+            values:
+              controller:
+                extraArgs:
+                  default-ssl-certificate: cert-manager/cjf-sh-tls
