@@ -11,7 +11,7 @@ spec:
       interval: 5m0s
       reconcileStrategy: ChartVersion
       sourceRef:
-        kind: HelmRepository
+        kind: OCIRepository
         name: immich
         namespace: flux-system
       version: 0.9.x
