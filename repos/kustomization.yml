@@ -1,5 +1,6 @@
 resources:
   - ./bjw-s.yml
+  - ./immich.yml
   - ./ingress-nginx.yml
   - ./jetstack.yml
   - ./metallb.yml
