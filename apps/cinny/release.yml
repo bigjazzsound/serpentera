@@ -38,7 +38,7 @@ spec:
             port: 80
     ingress:
       app:
-        className: nginx
+        className: tailscale
         hosts:
           - host: "chat.cjf.sh"
             paths:
