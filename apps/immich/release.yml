@@ -5,16 +5,10 @@ metadata:
   name: immich
   namespace: flux-system
 spec:
-  chart:
-    spec:
-      chart: immich
-      interval: 5m0s
-      reconcileStrategy: ChartVersion
-      chartRef:
-        kind: OCIRepository
-        name: immich
-        namespace: flux-system
-      version: 0.9.x
+  chartRef:
+    kind: OCIRepository
+    name: immich
+    namespace: flux-system
   install:
     createNamespace: true
   interval: 30m0s
