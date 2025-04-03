@@ -37,10 +37,10 @@ spec:
           http:
             port: 80
     ingress:
-      app:
-        className: tailscale
-        hosts:
-          - host: "chat.cjf.sh"
+      app: &ingress
+        className: nginx
+        hosts: &hosts
+          - host: chat.cjf.sh
             paths:
               - path: /
                 service:
@@ -49,3 +49,6 @@ spec:
         tls:
           - hosts:
               - chat.cjf.sh
+      tailscale:
+        <<: *ingress
+        className: tailscale
