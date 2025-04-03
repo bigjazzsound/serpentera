@@ -10,7 +10,7 @@ spec:
       chart: immich
       interval: 5m0s
       reconcileStrategy: ChartVersion
-      sourceRef:
+      chartRef:
         kind: OCIRepository
         name: immich
         namespace: flux-system
