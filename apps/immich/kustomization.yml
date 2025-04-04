@@ -4,4 +4,6 @@ kind: Kustomization
 resources:
   - ns.yml
   - pvc.yml
+  - secrets.yml
+  - pg-cluster.yml
   - release.yml
