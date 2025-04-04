@@ -6,8 +6,8 @@ metadata:
   namespace: immich
 type: kubernetes.io/basic-auth
 data:
-  username: ENC[AES256_GCM,data:eSLpCK1S,iv:9bLwkUAnqEDi6+XI+IgEU2j4T17a1fazUM9mvWQiYNk=,tag:wOxvIoCwvKsYDnw3bjjiWA==,type:str]
-  password: ENC[AES256_GCM,data:QsCkTAvPVYaf3bl0UIRBQA==,iv:G65ZQ1qLKFp7T3SDthasKcWsQO6pzF41Druyp6R+d9I=,tag:DXDFC9rqn1fnbS6G0i+MAg==,type:str]
+  username: ENC[AES256_GCM,data:ptVZC5xyu08=,iv:Q8KCuPNoEtKi4t062P45cBixltavD8rWsRaCem9jWKU=,tag:Rre/0lju4HdtfZ+i2OuswA==,type:str]
+  password: ENC[AES256_GCM,data:uG3n8FuZOw8v3Kxn9rPJVJQbJKlUBosQ,iv:O32Y3j22k3zXyKaMS2cxZXajEq4nTDql6jAuWs6L2/s=,tag:WAGVgxmoERfUchfVAMMIsA==,type:str]
 sops:
   kms: []
   gcp_kms: []
@@ -17,14 +17,14 @@ sops:
     - recipient: age1rl3vtd8j4680289tkm2s7jmy25ev83gdwca5hrgprauue506gcuqktqzmp
       enc: |
         -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBaM3BuQjdjY1VYZ1NDN0FI
-        UUllREM4aFZJWUVQQ29wS3ZlZlgvcVNKd25NCitlR2oyNWZUbnBXRmUvcDd5cEFo
-        cUJ3RVQ1WmlTQ29IQ2hpb3ZRQ1ppaDgKLS0tIG8vaUZOcHdKdFFWbmhsb0JWK2p2
-        Rm1ranZKVWRwUnVQMVdhWkZPZUp0ZDgK9yAREndjN27X/+AYiVH4hLu1ug6r3HKk
-        Px7QytQuhqkjHPTZlm1ibp6fDBB5MXwv2PQfMzW8IksplBs7hIAZAA==
+        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSA2bERzaE0xM0VpS05MM3ow
+        MTgxMTFaMW95Tk1oeG9MQVBsTnZONCtzMlhnCm9jaUFTQVVMc0hMTzdSbUNBcXNp
+        M0grSDlOc3p6eUZJaG9GeStYSGlGM3MKLS0tIGN3RVhoMUJRQ3QydWoyNnlwK1JM
+        azdOb2ZnWEtIbkdibnZyckdWVWlzOGcKYvpv0mYsI78KORib7lK3hVvR27wNt0Jj
+        1d1yLCH1+P70400KfZBgTH4wuyzSxLMJ1r5gfQH2FC09p59hblot3Q==
         -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2025-04-04T16:21:12Z"
-  mac: ENC[AES256_GCM,data:3cUUZsV4w6gevWi7alo8B/8HBfB5QBnaY7hEfnH7qmtFNUOywgxUDVeODvonEXE8gI88/43Vf0gQi2UMwdd56nixHtPhu+WlqnT17ZeO+ica56I5FLJ9A19h/oBZmtNNYfBnl+xMtQxFy+LimX+fnQUBzv1PzkHCAK1n6+pNXOw=,iv:aZwR4ryGl6h7A8BQ6GMfD6fH+bMDQOHaMQ7cPryRsBM=,tag:UXkvNsp2L0MONpBMxPukng==,type:str]
+  lastmodified: "2025-04-04T16:45:14Z"
+  mac: ENC[AES256_GCM,data:PpFZmKfXf5crEs4uc2Wuy8EysB7sVPFu8qm5w6wN8B1nngC/tKL6yL8OjtcGqWM5vFBJ6CaSNTYOlEXPvE+sTmD5pk3rrv1TdJiMGiNl02ihC09W2zfOVWeLg7UhsHwlldL1uUH14YX4d21npUzm5E8ROQM419KF87ez/LMy994=,iv:XhSrExJOIT7NypUzJBbu7Nefytf7x8NMvIIP2zhmBZc=,tag:ABmFJFk/54CW5x5496dfBA==,type:str]
   pgp: []
   encrypted_regex: ^(data|stringData)$
   version: 3.9.4
