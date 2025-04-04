@@ -17,3 +17,9 @@ spec:
     fullnameOverride: valkey
     auth:
       enabled: false
+    primary:
+      persistence:
+        storageClass: openebs-hostpath
+    replica:
+      persistence:
+        storageClass: openebs-hostpath
