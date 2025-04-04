@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: valkey
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: valkey
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 30m0s
+  targetNamespace: immich
+  values:
+    fullnameOverride: valkey
+    auth:
+      enabled: false

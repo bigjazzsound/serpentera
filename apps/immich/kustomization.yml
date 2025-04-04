@@ -6,4 +6,5 @@ resources:
   - pvc.yml
   - secrets.yml
   - pg-cluster.yml
+  - redis.yml
   - release.yml
