@@ -9,3 +9,4 @@ resources:
   - ./openebs.yml
   - ./prometheus-community.yml
   - ./tailscale.yml
+  - ./valkey.yml
