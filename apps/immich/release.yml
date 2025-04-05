@@ -30,6 +30,9 @@ spec:
           name: immich-postgres
           key: password
     server:
+      service:
+        main:
+          type: LoadBalancer
       ingress:
         main: &ingress
           enabled: true
