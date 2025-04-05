@@ -14,6 +14,8 @@ spec:
   interval: 30m0s
   targetNamespace: immich
   values:
+    image:
+      tag: v1.131.3
     immich:
       metrics:
         enabled: true
