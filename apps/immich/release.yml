@@ -31,7 +31,7 @@ spec:
           key: password
     server:
       ingress:
-        main:
+        main: &ingress
           enabled: true
           annotations:
             # proxy-body-size is set to 0 to remove the body limit on file uploads
