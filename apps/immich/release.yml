@@ -14,7 +14,6 @@ spec:
   interval: 30m0s
   targetNamespace: immich
   values:
-    fullnameOverride: immich
     immich:
       metrics:
         enabled: true
