@@ -24,6 +24,15 @@ spec:
       enable: true
     persistence:
       enabled: true
-      storageClass: openebs-hostpath
+      storageClassName: openebs-hostpath
       accessMode: ReadWriteOnce
       size: 100Mi
+    ingress:
+      mqtt:
+        enabled: true
+        ingressClassName: nginx
+        hosts:
+          - mqtt.cjf.sh
+        tls:
+          - hosts:
+              - mqtt.cjf.sh
