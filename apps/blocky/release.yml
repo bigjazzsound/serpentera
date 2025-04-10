@@ -85,3 +85,6 @@ spec:
             redis:
               address: redis-primary.blocky:6379
               required: true
+            log:
+              level: info
+              format: json
