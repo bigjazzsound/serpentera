@@ -64,10 +64,8 @@ spec:
                 default:
                   - https://dns.cloudflare.com/dns-query
             bootstrapDns:
-              - tls://1.1.1.1
-              - tls://1.0.0.1
-              - tls://2606:4700:4700::1111
-              - tls://2606:4700:4700::1001
+              - https://1.1.1.1/dns-query
+              - https://1.0.0.1/dns-query
             blocking:
               denylists:
                 ads:
