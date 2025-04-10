@@ -28,7 +28,7 @@ spec:
           app:
             image:
               repository: docker.io/rhasspy/wyoming-whisper
-              tag: "2.1.0"
+              tag: "2.4.0"
             args:
               - --model
               - tiny-int8
