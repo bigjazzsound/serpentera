@@ -74,13 +74,26 @@ spec:
         <<: *ingress
         className: tailscale
 
-    # TODO:
     persistence:
       config:
-        type: hostPath
-        hostPath: /srv/hass/config
-        hostPathType: DirectoryOrCreate
+        name: hass-config
+        type: configMap
         advancedMounts:
           hass:
             app:
-              - path: /config
+              - path: /config/configuration.yaml
+                subPath: configuration.yaml
+
+    configMaps:
+      config:
+        data:
+          configuration.yaml: |
+            default_config:
+
+            http:
+              use_x_forwarded_for:
+                true
+              trusted_proxies:
+                - 0.0.0.0/0
+
+            ffmpeg:
