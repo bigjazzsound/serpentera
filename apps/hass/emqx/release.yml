@@ -20,6 +20,7 @@ spec:
   interval: 30m0s
   targetNamespace: hass
   values:
+    fullnameOverride: mqtt
     metrics:
       enable: true
     persistence:
