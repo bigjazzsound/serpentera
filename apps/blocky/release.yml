@@ -62,17 +62,24 @@ spec:
             upstreams:
               groups:
                 default:
-                  - 46.182.19.48
-                  - 80.241.218.68
-                  - tcp-tls:fdns1.dismail.de:853
-                  - https://dns.digitale-gesellschaft.ch/dns-query
+                  - https://dns.cloudflare.com/dns-query
+            bootstrapDns:
+              - tls://1.1.1.1
+              - tls://1.0.0.1
+              - tls://2606:4700:4700::1111
+              - tls://2606:4700:4700::1001
             blocking:
               denylists:
                 ads:
                   - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+                meta:
+                  - https://raw.githubusercontent.com/hagezi/dns-blocklists/refs/heads/main/share/facebook.txt
               clientGroupsBlock:
                 default:
                   - ads
+                  - meta
             ports:
               dns: 53
               http: 4000
+            prometheus:
+              enable: true
