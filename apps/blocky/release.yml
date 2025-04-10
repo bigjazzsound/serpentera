@@ -24,6 +24,7 @@ spec:
       fullnameOverride: blocky
     controllers:
       blocky:
+        replicas: 2
         containers:
           app:
             image:
