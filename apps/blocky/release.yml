@@ -26,6 +26,9 @@ spec:
       blocky:
         replicas: 3
         strategy: RollingUpdate
+        rollingUpdate:
+          unavailable: 2
+          surge: 1
         containers:
           app:
             image:
