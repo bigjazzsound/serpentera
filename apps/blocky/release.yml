@@ -83,5 +83,5 @@ spec:
             prometheus:
               enable: true
             redis:
-              address: redis-primary.blocky
+              address: redis-primary.blocky:6379
               required: true
