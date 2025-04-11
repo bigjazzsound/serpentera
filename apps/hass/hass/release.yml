@@ -24,19 +24,17 @@ spec:
       fullnameOverride: hass
     controllers:
       hass:
-        # pod:
-        #   annotations:
-        #     k8s.v1.cni.cncf.io/networks: |
-        #       [
-        #         {
-        #           "name":"multus-iot",
-        #           "namespace": "multus"
-        #         },
-        #         {
-        #           "name":"multus-dmz",
-        #           "namespace": "multus"
-        #         }
-        #       ]
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [
+                {
+                  "name":"multus-iot"
+                },
+                {
+                  "name":"multus-dmz"
+                }
+              ]
         containers:
           app:
             image:
