@@ -1,0 +1,25 @@
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: multus-dmz
+  namespace: multus
+spec:
+  config: |
+    {
+      "cniVersion": "0.3.0",
+      "type": "macvlan",
+      "master": "enp86s0",
+      "mode": "bridge",
+      "ipam": {
+        "type": "host-local",
+        "subnet": "10.0.4.0/24",
+        "rangeStart": "10.0.4.240",
+        "rangeEnd": "10.0.4.250",
+        "routes": [
+          {
+            "dst": "0.0.0.0/0"
+          }
+        ]
+      }
+    }
