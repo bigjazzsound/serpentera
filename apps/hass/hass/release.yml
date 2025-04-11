@@ -29,10 +29,12 @@ spec:
             k8s.v1.cni.cncf.io/networks: |
               [
                 {
-                  "name":"multus-iot"
+                  "name":"multus-iot",
+                  "namespace": "kube-system"
                 },
                 {
-                  "name":"multus-dmz"
+                  "name":"multus-dmz",
+                  "namespace": "kube-system"
                 }
               ]
         containers:
