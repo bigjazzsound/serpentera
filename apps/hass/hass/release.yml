@@ -83,6 +83,14 @@ spec:
             app:
               - path: /config/configuration.yaml
                 subPath: configuration.yaml
+      db:
+        name: hass-db
+        type: secret
+        advancedMounts:
+          hass:
+            app:
+              - path: /config/db.yml
+                subPath: db_url
 
     configMaps:
       config:
