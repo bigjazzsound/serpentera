@@ -2,6 +2,7 @@ resources:
   - ./bjw-s.yml
   - ./cloudnative-pg.yml
   - ./emqx.yml
+  - ./external-secrets.yml
   - ./immich.yml
   - ./ingress-nginx.yml
   - ./jetstack.yml
