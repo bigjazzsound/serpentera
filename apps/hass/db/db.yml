@@ -1,0 +1,22 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: hass-db
+  namespace: hass
+spec:
+  instances: 1
+  managed:
+    roles:
+      - name: hass
+        login: true
+  bootstrap:
+    initdb:
+      database: hass
+      encoding: utf8
+      owner: hass
+      secret:
+        name: hass-db
+  storage:
+    size: 4Gi
+    storageClass: openebs-hostpath
