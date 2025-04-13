@@ -1,0 +1,32 @@
+---
+apiVersion: generators.external-secrets.io/v1alpha1
+kind: Password
+metadata:
+  name: emqx-dashboard
+  namespace: hass
+spec:
+  length: 32
+  digits: 5
+  symbols: 0
+  noUpper: false
+  allowRepeat: true
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/external-secrets.io/externalsecret_v1beta1.json
+apiVersion: external-secrets.io/v1beta1
+kind: ExternalSecret
+metadata:
+  name: emqx-dashboard
+spec:
+  refreshInterval: 5m
+  target:
+    name: emqx-secret
+    template:
+      data:
+        EMQX_DASHBOARD__DEFAULT_USERNAME: "admin"
+        EMQX_DASHBOARD__DEFAULT_PASSWORD: "{{ .password }}"
+  dataFrom:
+    - sourceRef:
+        generatorRef:
+          apiVersion: generators.external-secrets.io/v1alpha1
+          kind: Password
+          name: emqx-dashboard
