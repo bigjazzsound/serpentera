@@ -16,6 +16,7 @@ apiVersion: external-secrets.io/v1beta1
 kind: ExternalSecret
 metadata:
   name: emqx-dashboard
+  namespace: hass
 spec:
   refreshInterval: 5m
   target:
