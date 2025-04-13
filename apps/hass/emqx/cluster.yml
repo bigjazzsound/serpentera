@@ -6,6 +6,7 @@ metadata:
   name: emqx
   namespace: hass
 spec:
+  image: public.ecr.aws/emqx/emqx:5.8.6
   config:
     data: |
       authentication {
