@@ -40,7 +40,6 @@ spec:
 
     ingress:
       app: &ingress
-        enabled: false
         className: nginx
         hosts:
           - host: abs.cjf.sh
