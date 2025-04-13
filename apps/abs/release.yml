@@ -1,0 +1,75 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: audiobookshelf
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: app-template
+      interval: 5m0s
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      version: 3.7.x
+  install:
+    createNamespace: true
+  interval: 30m0s
+  targetNamespace: audiobookshelf
+  values:
+    global:
+      fullnameOverride: audiobookshelf
+    controllers:
+      abs:
+        type: statefulset
+        containers:
+          app:
+            image:
+              repository: ghcr.io/advplyr/audiobookshelf
+              tag: 2.20.0
+
+    service:
+      app:
+        controller: abs
+        ports:
+          http:
+            port: 80
+
+    ingress:
+      app: &ingress
+        enabled: false
+        className: nginx
+        hosts:
+          - host: abs.cjf.sh
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: mqtt
+        tls:
+          - hosts:
+              - abs.cjf.sh
+
+      tailscale:
+        <<: *ingress
+        className: tailscale
+
+    persistence:
+      config:
+        name: abs
+        type: persistentVolumeClaim
+        storageClass: zfs
+        advancedMounts:
+          abs:
+            app:
+              - path: /config
+                subPath: config
+              - path: /audiobooks
+                subPath: audiobooks
+              - path: /podcasts
+                subPath: podcasts
+              - path: /metadata
+                subPath: metadata
