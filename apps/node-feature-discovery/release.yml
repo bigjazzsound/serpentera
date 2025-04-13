@@ -19,3 +19,8 @@ spec:
     createNamespace: true
   interval: 30m0s
   targetNamespace: node-feature-discovery
+  dependsOn:
+    - name: monitoring
+  values:
+    prometheus:
+      enable: true
