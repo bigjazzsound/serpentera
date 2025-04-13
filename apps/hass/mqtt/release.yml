@@ -56,7 +56,7 @@ spec:
         enabled: false
         className: nginx
         hosts:
-          - host: hass.cjf.sh
+          - host: mqtt.cjf.sh
             paths:
               - path: /
                 service:
@@ -64,7 +64,7 @@ spec:
                   port: mqtt
         tls:
           - hosts:
-              - hass.cjf.sh
+              - mqtt.cjf.sh
 
       tailscale:
         <<: *ingress
@@ -75,7 +75,7 @@ spec:
         name: mqtt-config
         type: configMap
         advancedMounts:
-          hass:
+          mqtt:
             app:
               - path: /mosquitto/config/mosquitto.conf
                 subPath: config
