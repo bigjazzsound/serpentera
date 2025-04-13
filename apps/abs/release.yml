@@ -62,14 +62,8 @@ spec:
         name: abs
         type: persistentVolumeClaim
         storageClass: zfs
-        advancedMounts:
-          abs:
-            app:
-              - path: /config
-                subPath: config
-              - path: /audiobooks
-                subPath: audiobooks
-              - path: /podcasts
-                subPath: podcasts
-              - path: /metadata
-                subPath: metadata
+        globalMounts:
+          - path: /config
+          - path: /audiobooks
+          - path: /podcasts
+          - path: /metadata
