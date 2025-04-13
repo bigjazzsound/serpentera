@@ -8,5 +8,5 @@ resources:
   - piper
   - wakeword
   - whisper
-  - emqx
+  - mqtt
   - hass

@@ -1,0 +1,92 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: hass-mqtt
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: app-template
+      interval: 5m0s
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      version: 3.7.x
+  install:
+    createNamespace: true
+  interval: 30m0s
+  targetNamespace: hass
+  values:
+    global:
+      fullnameOverride: mqtt
+    controllers:
+      mqtt:
+        type: statefulset
+        pod:
+          annotations:
+            k8s.v1.cni.cncf.io/networks: |
+              [
+                {
+                  "name":"multus-iot",
+                  "namespace": "kube-system"
+                },
+                {
+                  "name":"multus-dmz",
+                  "namespace": "kube-system"
+                }
+              ]
+        containers:
+          app:
+            image:
+              repository: docker.io/eclipse-mosquitto
+              tag: 2.0.21
+
+    service:
+      app:
+        controller: mqtt
+        ports:
+          mqtt:
+            port: 1883
+
+    ingress:
+      app: &ingress
+        enabled: false
+        className: nginx
+        hosts:
+          - host: hass.cjf.sh
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: mqtt
+        tls:
+          - hosts:
+              - hass.cjf.sh
+
+      tailscale:
+        <<: *ingress
+        className: tailscale
+
+    persistence:
+      config:
+        name: mqtt-config
+        type: configMap
+        advancedMounts:
+          hass:
+            app:
+              - path: /mosquitto/config/mosquitto.conf
+                subPath: config
+
+    configMaps:
+      config:
+        data:
+          config: |
+            listener 1883
+            # listener 8883
+            allow_anonymous true
+            # persistence true
+            # persistence_location /data/
+            log_dest stdout
