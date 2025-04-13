@@ -59,7 +59,6 @@ spec:
 
     persistence:
       config:
-        name: abs
         type: persistentVolumeClaim
         storageClass: zfs
         globalMounts:
