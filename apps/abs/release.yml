@@ -58,11 +58,22 @@ spec:
         className: tailscale
 
     persistence:
-      config:
+      config: &p
         type: persistentVolumeClaim
         storageClass: zfs
+        accessMode: ReadWriteOnce
+        size: 1Gi
         globalMounts:
           - path: /config
+      audiobooks:
+        <<: *p
+        globalMounts:
           - path: /audiobooks
+      podcasts:
+        <<: *p
+        globalMounts:
           - path: /podcasts
+      metadata:
+        <<: *p
+        globalMounts:
           - path: /metadata
