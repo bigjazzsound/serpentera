@@ -20,4 +20,4 @@ spec:
     auth:
       enabled: false
     global:
-      defaultStorageClass: zfs
+      defaultStorageClass: openebs-hostpath
