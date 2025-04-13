@@ -20,7 +20,7 @@ spec:
   interval: 30m0s
   targetNamespace: node-feature-discovery
   dependsOn:
-    - name: monitoring
+    - name: kube-prometheus-stack
   values:
     prometheus:
       enable: true
