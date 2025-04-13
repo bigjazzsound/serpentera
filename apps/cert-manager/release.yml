@@ -19,6 +19,8 @@ spec:
     createNamespace: true
   interval: 30m0s
   targetNamespace: cert-manager
+  dependsOn:
+    - name: kube-prometheus-stack
   values:
     fullnameOverride: cert-manager
     crds:

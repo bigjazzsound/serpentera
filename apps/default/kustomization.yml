@@ -5,3 +5,5 @@ kind: Kustomization
 resources:
   - ../../repos
   - ../monitoring
+  - ../cert-manager
+  - ../external-secrets
