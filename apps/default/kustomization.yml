@@ -7,7 +7,6 @@ resources:
   - ../openebs
   - ../multus
   - ../metallb
-  - ../metallb-pool
   - ../node-feature-discovery
   - ../ingress-nginx
   - ../monitoring
