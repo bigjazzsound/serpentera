@@ -20,7 +20,7 @@ spec:
   interval: 30m0s
   targetNamespace: ingress-nginx
   dependsOn:
-    - name: metallb
+    - name: metallb-pool
     - name: cert-manager
   values:
     fullnameOverride: ingress-nginx
