@@ -8,7 +8,7 @@ resources:
   - ../multus
   - ../metallb
   - ../node-feature-discovery
-  - ../ingress-nginx
+  # - ../ingress-nginx
   - ../monitoring
   - ../cert-manager
   - ../external-secrets
