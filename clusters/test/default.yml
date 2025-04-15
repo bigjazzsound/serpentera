@@ -20,7 +20,7 @@ spec:
         kind: IPAddressPool
         name: default
       patch: |
-        - op: add
+        - op: replace
           path: /spec
           value:
             addresses:
