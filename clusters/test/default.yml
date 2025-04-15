@@ -15,7 +15,7 @@ spec:
     namespace: flux-system
   timeout: 2m0s
   wait: true
-  patches:
+  patches: []
     - target:
         kind: IPAddressPool
         name: default
