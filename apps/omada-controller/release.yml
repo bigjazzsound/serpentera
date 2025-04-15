@@ -21,6 +21,8 @@ spec:
   interval: 30m0s
   targetNamespace: omada
   values:
+    global:
+      fullnameOverride: omada-controller
     controllers:
       omada:
         containers:
