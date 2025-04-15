@@ -94,6 +94,8 @@ spec:
       data:
         type: persistentVolumeClaim
         storageClass: zfs-dataset
+        accessMode: ReadWriteOnce
+        size: 1Gi
         globalMounts:
           - path: /opt/tplink/EAPController/data
             readOnly: false
