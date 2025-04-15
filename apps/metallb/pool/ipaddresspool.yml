@@ -4,3 +4,5 @@ kind: IPAddressPool
 metadata:
   name: metallb
   namespace: metallb
+spec:
+  addresses: []
