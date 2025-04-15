@@ -13,3 +13,4 @@ resources:
   - ../cert-manager
   - ../external-secrets
   - ../tailscale
+  - ../storageclasses
