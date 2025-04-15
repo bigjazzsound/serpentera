@@ -19,6 +19,7 @@ spec:
     - target:
         kind: IPAddressPool
         name: default
+        namespace: metallb
       patch: |
         - op: replace
           path: /spec
