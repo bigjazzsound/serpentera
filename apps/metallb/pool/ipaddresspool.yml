@@ -5,4 +5,5 @@ metadata:
   name: default
   namespace: metallb
 spec:
-  addresses: []
+  addresses:
+    - 10.0.0.200-10.0.0.250
