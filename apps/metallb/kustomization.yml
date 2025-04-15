@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - ns.yml
   - app/ks.yml
+  - pool/ks.yml
