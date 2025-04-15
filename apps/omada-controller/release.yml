@@ -73,7 +73,7 @@ spec:
             port: 29810
 
     ingress:
-      app:
+      app: &ingress
         className: nginx
         hosts:
           - host: omada.cjf.sh
