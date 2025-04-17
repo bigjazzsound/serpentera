@@ -2,11 +2,11 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: openebs
+  name: default
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./apps/openebs
+  path: ./apps/default
   prune: true
   retryInterval: 1m0s
   sourceRef:
@@ -15,12 +15,3 @@ spec:
     namespace: flux-system
   timeout: 2m0s
   wait: true
-  patches:
-    - target:
-        kind: HelmRelease
-        name: openebs
-      patch: |
-        - op: add
-          path: /spec/values/localpv-provisioner/hostpathClass
-          value:
-            basePath: /var/tank
