@@ -46,7 +46,7 @@ spec:
         controller: blocky
         type: LoadBalancer
         annotations:
-          metallb.universe.tf/loadBalancerIPs: 10.0.0.200
+          metallb.universe.tf/loadBalancerIPs: 10.0.0.250
         ports:
           dns-udp:
             port: 53
