@@ -1,14 +1,13 @@
 resources:
-  - ./bjw-s.yml
-  - ./cloudnative-pg.yml
-  - ./emqx.yml
-  - ./external-secrets.yml
-  - ./immich.yml
-  - ./ingress-nginx.yml
-  - ./jetstack.yml
-  - ./metallb.yml
-  - ./node-feature-discovery.yml
-  - ./openebs.yml
-  - ./prometheus-community.yml
-  - ./tailscale.yml
-  - ./valkey.yml
+  - bjw-s.yml
+  - cloudnative-pg.yml
+  - external-secrets.yml
+  - immich.yml
+  - ingress-nginx.yml
+  - jetstack.yml
+  - metallb.yml
+  - node-feature-discovery.yml
+  - openebs.yml
+  - prometheus-community.yml
+  - tailscale.yml
+  - valkey.yml

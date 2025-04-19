@@ -19,8 +19,6 @@ spec:
     createNamespace: true
   interval: 30m0s
   targetNamespace: node-feature-discovery
-  dependsOn:
-    - name: kube-prometheus-stack
   values:
     prometheus:
       enable: true
