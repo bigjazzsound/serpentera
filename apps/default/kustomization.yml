@@ -6,6 +6,7 @@ resources:
   - ../../repos
   - ../openebs
   - ../multus
+  - ../multus-attachments
   - ../metallb
   - ../node-feature-discovery
   - ../ingress-nginx
