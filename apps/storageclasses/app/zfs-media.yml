@@ -5,6 +5,7 @@ metadata:
   name: zfs-media
 provisioner: zfs.csi.openebs.io
 allowVolumeExpansion: true
+volumeBindingMode: WaitForFirstConsumer
 parameters:
   recordsize: 1M
   thinprovision: "no"
