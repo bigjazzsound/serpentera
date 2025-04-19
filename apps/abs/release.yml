@@ -61,24 +61,29 @@ spec:
       config: &p
         type: persistentVolumeClaim
         storageClass: zfs-dataset
+        accessMode: ReadWriteOnce
+        size: 1Gi
         globalMounts:
           abs:
             app:
               - path: /config
       audiobooks:
         <<: *p
+        size: 10Gi
         globalMounts:
           abs:
             app:
               - path: /audiobooks
       podcasts:
         <<: *p
+        size: 10Gi
         globalMounts:
           abs:
             app:
               - path: /podcasts
       metadata:
         <<: *p
+        size: 1Gi
         globalMounts:
           abs:
             app:
