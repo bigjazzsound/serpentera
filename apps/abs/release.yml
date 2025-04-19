@@ -59,32 +59,27 @@ spec:
 
     persistence:
       config: &p
-        name: abs
         type: persistentVolumeClaim
         storageClass: zfs-dataset
         globalMounts:
           abs:
             app:
               - path: /config
-                subPath: config
       audiobooks:
         <<: *p
         globalMounts:
           abs:
             app:
               - path: /audiobooks
-                subPath: audiobooks
       podcasts:
         <<: *p
         globalMounts:
           abs:
             app:
               - path: /podcasts
-                subPath: podcasts
       metadata:
         <<: *p
         globalMounts:
           abs:
             app:
               - path: /metadata
-                subPath: metadata
