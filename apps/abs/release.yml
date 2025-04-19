@@ -64,27 +64,19 @@ spec:
         accessMode: ReadWriteOnce
         size: 1Gi
         globalMounts:
-          abs:
-            app:
-              - path: /config
+          - path: /config
       audiobooks:
         <<: *p
         size: 10Gi
         globalMounts:
-          abs:
-            app:
-              - path: /audiobooks
+          - path: /audiobooks
       podcasts:
         <<: *p
         size: 10Gi
         globalMounts:
-          abs:
-            app:
-              - path: /podcasts
+          - path: /podcasts
       metadata:
         <<: *p
         size: 1Gi
         globalMounts:
-          abs:
-            app:
-              - path: /metadata
+          - path: /metadata
