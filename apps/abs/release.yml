@@ -48,7 +48,7 @@ spec:
               - path: /
                 service:
                   identifier: app
-                  port: mqtt
+                  port: http
         tls:
           - hosts:
               - abs.cjf.sh
