@@ -62,7 +62,7 @@ spec:
         type: persistentVolumeClaim
         storageClass: zfs-dataset
         accessMode: ReadWriteOnce
-        size: 1Gi
+        size: 32Mi
         globalMounts:
           - path: /config
       audiobooks:
@@ -77,6 +77,5 @@ spec:
           - path: /podcasts
       metadata:
         <<: *p
-        size: 1Gi
         globalMounts:
           - path: /metadata
