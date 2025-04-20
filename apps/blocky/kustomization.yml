@@ -5,3 +5,4 @@ resources:
   - ns.yml
   - redis.yml
   - release.yml
+  - servicemonitor.yml
