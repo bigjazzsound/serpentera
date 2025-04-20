@@ -5,8 +5,10 @@ metadata:
   name: openebs
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: repos
   interval: 5m0s
-  path: ./apps/openebs/app
+  path: ./apps/openebs
   prune: true
   retryInterval: 1m0s
   sourceRef:
