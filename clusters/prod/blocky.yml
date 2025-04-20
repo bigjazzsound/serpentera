@@ -6,7 +6,8 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-  - name: storageclasses
+    - name: storageclasses
+    - name: metallb-pool
   interval: 5m0s
   path: ./apps/blocky
   prune: true
