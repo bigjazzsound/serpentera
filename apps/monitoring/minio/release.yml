@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: minio-tenant
+      chart: tenant
       interval: 5m0s
       reconcileStrategy: ChartVersion
       sourceRef:
