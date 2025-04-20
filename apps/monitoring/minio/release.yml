@@ -33,3 +33,6 @@ spec:
           storageClassName: zfs-dataset
       metrics:
         enabled: true
+      configSecret:
+        name: fielder-auth
+        existingSecret: true

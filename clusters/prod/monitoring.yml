@@ -5,6 +5,10 @@ metadata:
   name: monitoring
   namespace: flux-system
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   dependsOn:
     - name: repos
     - name: minio-operator
