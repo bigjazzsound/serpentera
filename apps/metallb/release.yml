@@ -19,3 +19,11 @@ spec:
     createNamespace: true
   interval: 30m0s
   targetNamespace: metallb
+  values:
+    prometheus:
+      podMonitor:
+        enabled: true
+      serviceMonitor:
+        enabled: true
+      prometheusRule:
+        enabled: true
