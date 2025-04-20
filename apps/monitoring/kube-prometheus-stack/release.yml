@@ -33,3 +33,21 @@ spec:
         ruleSelectorNilUsesHelmValues: false
         scrapeConfigSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
+        storageSpec:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: zfs-dataset
+              resources:
+                requests:
+                  storage: 10Gi
+    alertmanager:
+      alertmanagerSpec:
+        alertmanagerConfiguration:
+          name: alertmanager
+        storage:
+          volumeClaimTemplate:
+            spec:
+              storageClassName: zfs-dataset
+              resources:
+                requests:
+                  storage: 1Gi
