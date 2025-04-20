@@ -39,7 +39,7 @@ spec:
     ingress:
       app: &ingress
         className: nginx
-        hosts: &hosts
+        hosts:
           - host: chat.cjf.sh
             paths:
               - path: /
