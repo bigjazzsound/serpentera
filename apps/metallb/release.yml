@@ -21,6 +21,7 @@ spec:
   targetNamespace: metallb
   values:
     prometheus:
+      namespace: monitoring
       serviceAccount: prometheus-operator
       podMonitor:
         enabled: true
