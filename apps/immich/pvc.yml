@@ -5,7 +5,7 @@ metadata:
   name: immich-library
   namespace: immich
 spec:
-  storageClassName: openebs-hostpath
+  storageClassName: zfs-dataset
   accessModes:
     - ReadWriteOnce
   resources:

@@ -1,38 +1,8 @@
 ---
-apiVersion: v1
-kind: Secret
-metadata:
-  name: immich-postgres
-  namespace: immich
-type: kubernetes.io/basic-auth
-stringData:
-  username: ENC[AES256_GCM,data:RSrkQaYS,iv:KUfZEADe2IFGKlxZvKsB5chdNOu9qbEUyuTi0TCIlDI=,tag:3JXWnvhysJdhXadWxpihqg==,type:str]
-  password: ENC[AES256_GCM,data:maWfhD0GSPdVZSdLUt3pvw==,iv:9XIHpiYOOT52q0lCzxkoi2BdtiB8spjosc6WKj/pa+A=,tag:144Q8b3O1bMHSe322iM+fw==,type:str]
-sops:
-  kms: []
-  gcp_kms: []
-  azure_kv: []
-  hc_vault: []
-  age:
-    - recipient: age1rl3vtd8j4680289tkm2s7jmy25ev83gdwca5hrgprauue506gcuqktqzmp
-      enc: |
-        -----BEGIN AGE ENCRYPTED FILE-----
-        YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSB1VWRPTlA5dCt3SDBRR3B0
-        OUIyUStEZno1R0U3SHhIcGVrREY0emJnZ1c4Clpwa1ZMTmhGdUoyem51N1FKVUZx
-        WDJOWFkza0VyM1R0QXQ2NGhqa3hkbXcKLS0tIGZ6YjZ0d0h1UCtvTnBNclFLZ01R
-        NjY2R1RIbjhReml5ZmlZNlNjZlpra2cKqeUDq7MecHZFbuiYUH+kSug/a6jL70oU
-        ov1vWjFfanrobULFJC5B6jU/1Syxr5p8PG2KCo1OJPCjbKFD1PM/vw==
-        -----END AGE ENCRYPTED FILE-----
-  lastmodified: "2025-04-04T16:54:47Z"
-  mac: ENC[AES256_GCM,data:dIWd461ExpLecCG/nKVFLfXrHGADA8q7zhotMWwBHoMr7HUjmT0r21tYuhypQBjWlePdGzE4g9ZHTkvnsEdX03AHoc4JBv1Wfq4a5+COueszTDutZ/zxuCQCz22UvYST8ZeQvLW+m1SBJ74LY/Y9pIq4iBBH4svWnA9FrYmPmqg=,iv:XJzanZ6PISetD/q2uJgzW4DM5xk4JFVN5cJiGPD2tvk=,tag:u6sKDLmxYg40QrJk6qP9Ng==,type:str]
-  pgp: []
-  encrypted_regex: ^(data|stringData)$
-  version: 3.9.4
----
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
-  name: immich-postgres
+  name: immich-db
   namespace: immich
 spec:
   # At the time of writing, immich is only compatible with pgvecto.rs <0.4. Latest postgres image with that version is 16.5.
@@ -51,11 +21,11 @@ spec:
       database: immich
       owner: immich
       secret:
-        name: immich-postgres
+        name: immich-db
       postInitSQL:
         - CREATE EXTENSION IF NOT EXISTS "vectors";
         - CREATE EXTENSION IF NOT EXISTS "cube" CASCADE;
         - CREATE EXTENSION IF NOT EXISTS "earthdistance" CASCADE;
   storage:
     size: 4Gi
-    storageClass: openebs-hostpath
+    storageClass: zfs-dataset

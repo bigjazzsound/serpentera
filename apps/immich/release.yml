@@ -23,13 +23,13 @@ spec:
         library:
           existingClaim: immich-library
     env:
-      REDIS_HOSTNAME: valkey-primary
-      DB_HOSTNAME: immich-postgres-rw
+      REDIS_HOSTNAME: immich-redis-primary
+      DB_HOSTNAME: immich-db-rw
       DB_USERNAME: immich
       DB_DATABASE_NAME: immich
       DB_PASSWORD:
         secretKeyRef:
-          name: immich-postgres
+          name: immich-db
           key: password
     server:
       service:

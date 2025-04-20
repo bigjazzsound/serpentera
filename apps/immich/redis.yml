@@ -2,7 +2,7 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: valkey
+  name: immich-redis
   namespace: flux-system
 spec:
   chartRef:
@@ -20,4 +20,4 @@ spec:
     auth:
       enabled: false
     global:
-      defaultStorageClass: openebs-hostpath
+      defaultStorageClass: zfs-dataset
