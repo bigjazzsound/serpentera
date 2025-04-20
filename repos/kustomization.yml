@@ -2,6 +2,7 @@ resources:
   - bjw-s.yml
   - cloudnative-pg.yml
   - external-secrets.yml
+  - grafana.yml
   - immich.yml
   - ingress-nginx.yml
   - jetstack.yml
