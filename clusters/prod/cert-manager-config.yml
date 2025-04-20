@@ -5,6 +5,10 @@ metadata:
   name: cert-manager-config
   namespace: flux-system
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   dependsOn:
     - name: cert-manager
     - name: external-secrets
