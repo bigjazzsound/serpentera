@@ -87,7 +87,7 @@ spec:
                   - meta
             ports:
               dns: 53
-              http: 4000
+              http: 80
             prometheus:
               enable: true
             redis:
