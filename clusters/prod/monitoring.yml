@@ -8,7 +8,7 @@ spec:
   dependsOn:
     - name: repos
   interval: 5m0s
-  path: ./apps/monitoring/kube-stack-prometheus
+  path: ./apps/monitoring
   prune: true
   retryInterval: 1m0s
   sourceRef:
