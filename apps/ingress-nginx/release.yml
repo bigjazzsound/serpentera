@@ -26,3 +26,5 @@ spec:
         enabled: true
       ingressClassResource:
         default: true
+      extraArgs:
+        default-ssl-certificate: cert-manager/cjf-sh-tls
