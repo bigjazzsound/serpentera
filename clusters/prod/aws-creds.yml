@@ -5,8 +5,12 @@ metadata:
   name: aws-creds
   namespace: flux-system
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   dependsOn:
-  - name: external-secrets
+    - name: external-secrets
   interval: 5m0s
   path: ./apps/aws-creds
   prune: true
