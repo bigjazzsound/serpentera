@@ -20,7 +20,16 @@ spec:
   interval: 30m0s
   targetNamespace: monitoring
   values:
+    fullnameOverride: prometheus
     alertmanager:
       enabled: false # Use mimir's alertmanager
     grafana:
       enabled: false # Manage grafana using their helm chart
+    prometheus:
+      prometheusSpec:
+        # These values will cause prometheus to scape all monitors/probes/rules in the namespace
+        podMonitorSelectorNilUsesHelmValues: false
+        probeSelectorNilUsesHelmValues: false
+        ruleSelectorNilUsesHelmValues: false
+        scrapeConfigSelectorNilUsesHelmValues: false
+        serviceMonitorSelectorNilUsesHelmValues: false
