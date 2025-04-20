@@ -19,4 +19,4 @@ spec:
         name: hass-db
   storage:
     size: 4Gi
-    storageClass: openebs-hostpath
+    storageClass: zfs-dataset

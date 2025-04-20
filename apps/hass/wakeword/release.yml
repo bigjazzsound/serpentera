@@ -45,8 +45,9 @@ spec:
           - path: /data
             readOnly: false
       custom:
-        type: hostPath
-        hostPath: /srv/custom
-        hostPathType: DirectoryOrCreate
+        type: persistentVolumeClaim
+        storageClass: zfs-dataset
+        accessMode: ReadWriteOnce
+        size: 256Mi
         globalMounts:
           - readOnly: true
