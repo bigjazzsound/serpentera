@@ -20,7 +20,7 @@ spec:
   interval: 30m0s
   targetNamespace: blocky
   dependsOn:
-    - name: blocky-reds
+    - name: blocky-redis
   values:
     global:
       fullnameOverride: blocky
