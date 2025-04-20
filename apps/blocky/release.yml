@@ -19,6 +19,8 @@ spec:
     createNamespace: true
   interval: 30m0s
   targetNamespace: blocky
+  dependsOn:
+    - name: blocky-reds
   values:
     global:
       fullnameOverride: blocky
