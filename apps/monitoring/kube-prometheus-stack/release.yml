@@ -22,7 +22,7 @@ spec:
   values:
     fullnameOverride: prometheus
     alertmanager:
-      enabled: false # Use mimir's alertmanager
+      enabled: true
     grafana:
       enabled: false # Manage grafana using their helm chart
     prometheus:
