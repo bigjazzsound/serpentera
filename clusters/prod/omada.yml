@@ -10,7 +10,7 @@ spec:
     - name: ingress-nginx
     - name: tailscale
   interval: 5m0s
-  path: ./apps/omada
+  path: ./apps/omada-controller
   prune: true
   retryInterval: 1m0s
   sourceRef:
