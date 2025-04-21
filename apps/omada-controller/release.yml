@@ -66,21 +66,21 @@ spec:
         type: LoadBalancer
         ports:
           port-adopt-v1:
-            port: *port-adopt-v1
+            port: *port_adopt_v1
           port-app-discovery:
-            port: *port-app-discovery
+            port: *port_app_discovery
           port-discovery:
-            port: *port-discovery
+            port: *port_discovery
           port-manager-v1:
-            port: *port-manager-v1
+            port: *port_manager_v1
           port-manager-v2:
-            port: *port-manager-v2
+            port: *port_manager_v2
           port-transfer-v2:
-            port: *port-transfer-v2
+            port: *port_transfer_v2
           port-rtty:
-            port: *port-rtty
+            port: *port_rtty
           port-upgrade-v1:
-            port: *port-upgrade-v1
+            port: *port_upgrade_v1
 
     ingress:
       app: &ingress
