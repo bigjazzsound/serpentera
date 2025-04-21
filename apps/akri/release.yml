@@ -23,3 +23,5 @@ spec:
     udev:
       discovery:
         enabled: true
+    prometheus:
+      enabled: true
