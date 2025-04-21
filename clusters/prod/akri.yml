@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   dependsOn:
-    - name: kube-prometheus-stack
+    - name: monitoring
   interval: 5m0s
   path: ./apps/akri
   prune: true
