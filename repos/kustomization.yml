@@ -1,4 +1,5 @@
 resources:
+  - akri.yml
   - bjw-s.yml
   - cloudnative-pg.yml
   - external-secrets.yml
