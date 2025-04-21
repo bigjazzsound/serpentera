@@ -65,22 +65,22 @@ spec:
         controller: omada
         type: LoadBalancer
         ports:
-          PORT_ADOPT_V1:
-            port: *port_adopt_v1
-          PORT_APP_DISCOVERY:
-            port: *port_app_discovery
-          PORT_DISCOVERY:
-            port: *port_discovery
-          PORT_MANAGER_V1:
-            port: *port_manager_v1
-          PORT_MANAGER_V2:
-            port: *port_manager_v2
-          PORT_TRANSFER_V2:
-            port: *port_transfer_v2
-          PORT_RTTY:
-            port: *port_rtty
-          PORT_UPGRADE_V1:
-            port: *port_upgrade_v1
+          port-adopt-v1:
+            port: *port-adopt-v1
+          port-app-discovery:
+            port: *port-app-discovery
+          port-discovery:
+            port: *port-discovery
+          port-manager-v1:
+            port: *port-manager-v1
+          port-manager-v2:
+            port: *port-manager-v2
+          port-transfer-v2:
+            port: *port-transfer-v2
+          port-rtty:
+            port: *port-rtty
+          port-upgrade-v1:
+            port: *port-upgrade-v1
 
     ingress:
       app: &ingress
