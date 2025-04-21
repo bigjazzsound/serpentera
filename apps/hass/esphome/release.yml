@@ -59,6 +59,10 @@ spec:
           - hosts:
               - esphome.cjf.sh
 
+      tailscale:
+        <<: *ingress
+        className: tailscale
+
     persistence:
       cache:
         type: emptyDir
