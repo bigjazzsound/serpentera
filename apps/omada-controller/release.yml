@@ -31,16 +31,20 @@ spec:
               repository: docker.io/mbentley/omada-controller
               tag: "5.15"
             env:
-              PUID: 508
-              PGID: 508
-              MANAGE_HTTP_PORT: 8088
-              PORTAL_HTTP_PORT: 8089
-              PORT_APP_DISCOVERY: 27001
-              PORT_ADOPT_V1: 29812
-              PORT_UPGRADE_V1: 29813
-              PORT_MANAGER_V1: 29811
-              PORT_MANAGER_V2: 29814
-              PORT_DISCOVERY: 29810
+              PGID: "508"
+              PUID: "508"
+              MANAGE_HTTP_PORT: &manage_http_port 8088
+              MANAGE_HTTPS_PORT: &manage_https_port 8043
+              PORTAL_HTTP_PORT: &portal_http_port 8088
+              PORTAL_HTTPS_PORT: &portal_https_port 8843
+              PORT_ADOPT_V1: &port_adopt_v1 29812
+              PORT_APP_DISCOVERY: &port_app_discovery 27001
+              PORT_DISCOVERY: &port_discovery 29810
+              PORT_MANAGER_V1: &port_manager_v1 29811
+              PORT_MANAGER_V2: &port_manager_v2 29814
+              PORT_TRANSFER_V2: &port_transfer_v2 29815
+              PORT_RTTY: &port_rtty 29816
+              PORT_UPGRADE_V1: &port_upgrade_v1 29813
               SHOW_SERVER_LOGS: true
               SHOW_MONGODB_LOGS: false
               TZ: America/New_York
@@ -50,29 +54,33 @@ spec:
         controller: omada
         ports:
           manage-http:
-            port: 8088
-          portal-http:
-            port: 8089
+            port: *manage_http_port
           manage-https:
-            port: 8043
+            port: *manage_https_port
+          portal-http:
+            port: *portal_http_port
           portal-https:
-            port: 8843
+            port: *portal_https_port
       service:
         controller: omada
         type: LoadBalancer
         ports:
-          app-discovery:
-            port: 27001
-          adopt-v1:
-            port: 29812
-          upgrade-v1:
-            port: 29813
-          manager-v1:
-            port: 29811
-          manager-v2:
-            port: 29814
-          discovery:
-            port: 29810
+          PORT_ADOPT_V1:
+            port: *port_adopt_v1
+          PORT_APP_DISCOVERY:
+            port: *port_app_discovery
+          PORT_DISCOVERY:
+            port: *port_discovery
+          PORT_MANAGER_V1:
+            port: *port_manager_v1
+          PORT_MANAGER_V2:
+            port: *port_manager_v2
+          PORT_TRANSFER_V2:
+            port: *port_transfer_v2
+          PORT_RTTY:
+            port: *port_rtty
+          PORT_UPGRADE_V1:
+            port: *port_upgrade_v1
 
     ingress:
       app: &ingress
