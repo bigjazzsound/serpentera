@@ -39,3 +39,6 @@ spec:
                   number: 80
             path: /
             pathType: Prefix
+  tls:
+    - hosts:
+        - grafana.cjf.sh
