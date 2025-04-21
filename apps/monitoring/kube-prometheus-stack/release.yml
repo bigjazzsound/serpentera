@@ -21,8 +21,6 @@ spec:
   targetNamespace: monitoring
   values:
     fullnameOverride: prometheus
-    alertmanager:
-      enabled: true
     grafana:
       enabled: false # Manage grafana using their helm chart
     prometheus:
