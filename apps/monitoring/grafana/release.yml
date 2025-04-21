@@ -64,5 +64,7 @@ spec:
           datasource: *ds
         blocky:
           url: https://raw.githubusercontent.com/0xERR0R/blocky/refs/heads/main/docs/blocky-grafana.json
+        blocky-query:
+          url: https://raw.githubusercontent.com/0xERR0R/blocky/refs/heads/main/docs/blocky-query-grafana.json
     persistence:
       enabled: true
