@@ -1,0 +1,72 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qbittorrent
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: app-template
+      interval: 5m0s
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: bjw-s
+        namespace: flux-system
+      version: 3.7.x
+  install:
+    createNamespace: true
+  interval: 30m0s
+  targetNamespace: qbittorrent
+  values:
+    global:
+      fullnameOverride: qbittorrent
+    controllers:
+      torrents:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/linuxserver/qbittorrent
+              tag: 5.0.4
+            env:
+              WEBUI_PORT: 8080
+
+    service:
+      app:
+        controller: app
+        ports:
+          http:
+            port: 8080
+
+    ingress:
+      app: &ingress
+        className: nginx
+        hosts:
+          - host: torrents.cjf.sh
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - torrents.cjf.sh
+
+      tailscale:
+        <<: *ingress
+        className: tailscale
+
+    persistence:
+      config: &p
+        type: persistentVolumeClaim
+        storageClass: zfs-dataset
+        accessMode: ReadWriteOnce
+        size: 32Mi
+        globalMounts:
+          - path: /config
+      media:
+        <<: *p
+        size: 10Gi
+        globalMounts:
+          - path: /downloads
