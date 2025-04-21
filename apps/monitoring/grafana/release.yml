@@ -62,5 +62,7 @@ spec:
         flux2:
           gnetId: 16714
           datasource: *ds
+        blocky:
+          url: https://raw.githubusercontent.com/0xERR0R/blocky/refs/heads/main/docs/blocky-grafana.json
     persistence:
       enabled: true
