@@ -46,7 +46,7 @@ spec:
             port: 6052
 
     ingress:
-      app: &ingress
+      esphome-app: &ingress
         className: nginx
         hosts:
           - host: esphome.cjf.sh
@@ -59,7 +59,7 @@ spec:
           - hosts:
               - esphome.cjf.sh
 
-      tailscale:
+      esphome-tailscale:
         <<: *ingress
         className: tailscale
 
