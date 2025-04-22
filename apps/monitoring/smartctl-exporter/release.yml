@@ -5,6 +5,8 @@ metadata:
   name: prometheus-smartctl-exporter
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: kube-prometheus-stack
   chart:
     spec:
       chart: prometheus-smartctl-exporter
