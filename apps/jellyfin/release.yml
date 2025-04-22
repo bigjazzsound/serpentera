@@ -21,7 +21,7 @@ spec:
   targetNamespace: jellyfin
   values:
     global:
-      fullnameOverride: media
+      fullnameOverride: jellyfin
     controllers:
       jellyfin:
         containers:
