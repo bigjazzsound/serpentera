@@ -6,5 +6,4 @@ resources:
   - ns.yml
   - kube-prometheus-stack
   - grafana
-  - promtail
   - loki-stack
