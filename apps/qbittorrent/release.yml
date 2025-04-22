@@ -23,7 +23,7 @@ spec:
     global:
       fullnameOverride: qbittorrent
     controllers:
-      torrents:
+      qbittorrent:
         containers:
           app:
             image:
