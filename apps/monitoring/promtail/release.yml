@@ -25,3 +25,6 @@ spec:
     fullnameOverride: promtail
     serviceMonitor:
       enabled: true
+    config:
+      clients:
+        - url: http://monitoring-loki-stack/loki/api/v1/push
