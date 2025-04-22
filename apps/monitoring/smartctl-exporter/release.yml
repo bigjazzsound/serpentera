@@ -14,7 +14,7 @@ spec:
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: prometheus-smartctl-exporter
+        name: prometheus-community
         namespace: flux-system
       version: 0.13.x
   install:
