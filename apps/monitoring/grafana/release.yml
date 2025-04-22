@@ -38,7 +38,7 @@ spec:
               prometheusType: Prometheus
           - name: Loki
             type: loki
-            url: http://monitoring-loki-stack
+            url: http://monitoring-loki-stack:3100
             jsonData:
               maxLines: 1000
     dashboardProviders:
