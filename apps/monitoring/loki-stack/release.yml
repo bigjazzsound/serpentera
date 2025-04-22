@@ -5,6 +5,8 @@ metadata:
   name: loki-stack
   namespace: flux-system
 spec:
+  dependsOn:
+    - name: promtail
   chart:
     spec:
       chart: loki-stack
