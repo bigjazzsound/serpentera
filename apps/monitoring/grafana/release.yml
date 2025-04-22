@@ -36,6 +36,11 @@ spec:
               httpMethod: POST
               manageAlerts: true
               prometheusType: Prometheus
+          - name: Loki
+            type: loki
+            url: monitoring-loki-stack
+            jsonData:
+              maxLines: 1000
     dashboardProviders:
       dashboardproviders.yaml:
         apiVersion: 1
