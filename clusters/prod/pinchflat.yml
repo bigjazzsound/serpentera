@@ -1,0 +1,21 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: pinchflat
+  namespace: flux-system
+spec:
+  dependsOn:
+  - name: ingress-nginx
+  - name: storageclasses
+  - name: tailscale
+  interval: 5m0s
+  path: ./apps/pinchflat
+  prune: true
+  retryInterval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  timeout: 2m0s
+  wait: true
