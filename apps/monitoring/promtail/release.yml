@@ -12,9 +12,9 @@ spec:
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: promtail
+        name: grafana
         namespace: flux-system
-      version: 8.10.x
+      version: 6.16.x
   install:
     createNamespace: true
   interval: 30m0s
