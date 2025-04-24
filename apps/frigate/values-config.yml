@@ -1,0 +1,39 @@
+---
+record:
+  enabled: true
+  retain:
+    days: 7
+    mode: motion
+  alerts:
+    retain:
+      days: 30
+  detections:
+    retain:
+      days: 30
+snapshots:
+  enabled: true
+  retain:
+    default: 30
+cameras:
+  doorbell:
+    ffmpeg:
+      inputs:
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.6.3
+          roles:
+            - detect
+    detect:
+      enabled: true
+      width: 1920
+      height: 2560
+      fps: 20
+  cat-cam:
+    ffmpeg:
+      inputs:
+        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.6.2
+          roles:
+            - detect
+    detect:
+      enabled: true
+      width: 2560
+      height: 1920
+      fps: 20

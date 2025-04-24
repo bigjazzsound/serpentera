@@ -1,6 +1,7 @@
 resources:
   - akri.yml
   - bjw-s.yml
+  - blakeshome.yml
   - cloudnative-pg.yml
   - external-secrets.yml
   - grafana.yml
