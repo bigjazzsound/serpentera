@@ -27,6 +27,9 @@ spec:
             image:
               repository: ghcr.io/blakeblackshear/frigate
               tag: stable
+            envFrom:
+              secretRef:
+                name: frigate-secret
 
     service:
       app:
