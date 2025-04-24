@@ -9,6 +9,6 @@ configMapGenerator:
   - name: frigate-values
     namespace: flux-system
     files:
-      - values.yaml=values-config.yml
+      - config.yml=values-config.yml
 configurations:
   - kustomizeconfig.yml
