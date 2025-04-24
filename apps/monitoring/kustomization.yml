@@ -8,3 +8,4 @@ resources:
   - grafana
   - loki-stack
   - smartctl-exporter
+  - flux
