@@ -88,6 +88,9 @@ spec:
                   - ads
                   - fakenews
                   - social
+            conditional:
+              mapping:
+                cjf.sh: 10.0.0.70
             ports:
               dns: 53
               http: 80
