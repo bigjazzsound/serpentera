@@ -79,12 +79,15 @@ spec:
               denylists:
                 ads:
                   - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
-                meta:
-                  - https://raw.githubusercontent.com/hagezi/dns-blocklists/refs/heads/main/share/facebook.txt
+                fakenews:
+                  - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-only/hosts
+                social:
+                  - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/social-only/hosts
               clientGroupsBlock:
                 default:
                   - ads
-                  - meta
+                  - fakenews
+                  - social
             ports:
               dns: 53
               http: 80
