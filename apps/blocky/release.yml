@@ -83,6 +83,10 @@ spec:
                   - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-only/hosts
                 social:
                   - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/social-only/hosts
+              allowLists:
+                - |
+                  reddit.com
+                  old.reddit.com
               clientGroupsBlock:
                 default:
                   - ads
