@@ -86,8 +86,7 @@ spec:
               whiteLists:
                 social:
                   - |
-                    reddit.com
-                    old.reddit.com
+                    .*.reddit.com
               clientGroupsBlock:
                 default:
                   - ads
