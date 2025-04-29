@@ -87,6 +87,7 @@ spec:
                 social:
                   - |
                     /.*.reddit.com/
+                    /.*.redditstatic.com/
               clientGroupsBlock:
                 default:
                   - ads
