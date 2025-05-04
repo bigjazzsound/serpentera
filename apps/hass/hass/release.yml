@@ -80,38 +80,39 @@ spec:
         type: persistentVolumeClaim
         storageClass: zfs-dataset
         accessMode: ReadWriteOnce
-        size: 1Gi
+        size: 32Mi
         globalMounts:
           - path: /config
-    #   config:
-    #     name: hass-config
-    #     type: configMap
-    #     advancedMounts:
-    #       hass:
-    #         app:
-    #           - path: /config/configuration.yaml
-    #             subPath: configuration.yaml
-    #   db:
-    #     name: hass-db
-    #     type: secret
-    #     advancedMounts:
-    #       hass:
-    #         app:
-    #           - path: /config/db.yml
-    #             subPath: db_url
-    #
-    # configMaps:
-    #   config:
-    #     data:
-    #       configuration.yaml: |
-    #         default_config:
-    #
-    #         http:
-    #           use_x_forwarded_for:
-    #             true
-    #           trusted_proxies:
-    #             - 0.0.0.0/0
-    #
-    #         ffmpeg:
-    #
-    #         recorder: !include db.yml
+
+      config-file:
+        name: hass-config
+        type: configMap
+        advancedMounts:
+          hass:
+            app:
+              - path: /config/configuration.yaml
+                subPath: configuration.yaml
+      db:
+        name: hass-db
+        type: secret
+        advancedMounts:
+          hass:
+            app:
+              - path: /config/db.yml
+                subPath: db_url
+
+    configMaps:
+      config:
+        data:
+          configuration.yaml: |
+            default_config:
+
+            http:
+              use_x_forwarded_for:
+                true
+              trusted_proxies:
+                - 0.0.0.0/0
+
+            ffmpeg:
+
+            recorder: !include db.yml
