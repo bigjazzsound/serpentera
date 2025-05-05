@@ -7,7 +7,7 @@ resources:
   - release.yml
 configMapGenerator:
   - name: frigate-config
-    namespace: flux-system
+    namespace: frigate
     files:
       - config.yml=values-config.yml
 configurations:
