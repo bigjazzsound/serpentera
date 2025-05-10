@@ -81,20 +81,13 @@ spec:
                   - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
                 fakenews:
                   - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-only/hosts
-                social:
-                  - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/social-only/hosts
-              whiteLists:
-                social:
-                  - |
-                    /.*.reddit.com/
-                    /.*.redditstatic.com/
-                    /.*.redditmedia.com/
-                    /.*.redd.it/
+                meta:
+                  - https://raw.githubusercontent.com/jmdugan/blocklists/refs/heads/master/corporations/facebook/all
               clientGroupsBlock:
                 default:
                   - ads
                   - fakenews
-                  - social
+                  - meta
             conditional:
               mapping:
                 cjf.sh: 10.0.0.70
