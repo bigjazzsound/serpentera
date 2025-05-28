@@ -38,3 +38,8 @@ spec:
       enabled: true
       zfsNode:
         kubeletDir: /var/lib/k0s/kubelet/
+    mayastor:
+      csi:
+        node:
+          initContainers:
+            enabled: false
