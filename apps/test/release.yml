@@ -42,6 +42,3 @@ spec:
         tls:
           - hosts:
               - chat.cjf.sh
-      tailscale:
-        <<: *ingress
-        className: tailscale
