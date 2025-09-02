@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: values
+data:
+  values.yml: |
+    controllers:
+      chat:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/cinnyapp/cinny
+              tag: v3.2.0
+            probes:
+              liveness:
+                enabled: false
+              readiness:
+                enabled: false
+              startup:
+                enabled: false
+    service:
+      app:
+        controller: chat
+        type: LoadBalancer
+        ports:
+          http:
+            port: 80
+    ingress:
+      app:
+        className: nginx
+        hosts:
+          - host: "chat.cjf.sh"
+            paths:
+              - path: /
+                service:
+                  identifier: app
+                  port: http
+        tls:
+          - hosts:
+              - chat.cjf.sh

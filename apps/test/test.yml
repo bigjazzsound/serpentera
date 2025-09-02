@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: chat
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cinny
+  namespace: chat
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: app-template
+  install:
+    createNamespace: true
+  interval: 30m0s
+  targetNamespace: cinny
+  values:
+    controllers:
+      chat:
+        containers:
+          app:
+            image:
+              repository: ghcr.io/cinnyapp/cinny
+              tag: v4.10.0
+    global:
+      fullnameOverride: cinny
+    ingress:
+      app:
+        className: nginx
+        hosts:
+        - host: chat.cjf.sh
+          paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+        tls:
+        - hosts:
+          - chat.cjf.sh
+      tailscale:
+        className: tailscale
+        hosts:
+        - host: chat.cjf.sh
+          paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+        tls:
+        - hosts:
+          - chat.cjf.sh
+    service:
+      app:
+        controller: chat
+        ports:
+          http:
+            port: 80
+        type: LoadBalancer
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: app-template
+  namespace: chat
+spec:
+  interval: 5m
+  layerSelector:
+    mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
+    operation: copy
+  ref:
+    tag: 4.2.0
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
