@@ -4,4 +4,5 @@ kind: Kustomization
 components:
   - ../../components/app
 resources:
+  - repo.yml
   - release.yml
