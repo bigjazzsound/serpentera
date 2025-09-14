@@ -6,7 +6,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./apps/test
+  path: ./apps/cinny
   prune: true
   retryInterval: 1m0s
   sourceRef:
