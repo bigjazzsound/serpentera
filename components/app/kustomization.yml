@@ -6,4 +6,3 @@ resources:
   - ns.yml
   - configs
   - controllers
-  - repo.yml
