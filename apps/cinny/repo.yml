@@ -3,7 +3,6 @@ apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
   name: cinny
-  namespace: cinny
 spec:
   interval: 10m0s
   provider: generic
