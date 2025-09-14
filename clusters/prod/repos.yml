@@ -5,6 +5,10 @@ metadata:
   name: repos
   namespace: flux-system
 spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
   interval: 5m0s
   path: ./repos
   prune: true

@@ -3,18 +3,11 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: cinny
-  namespace: flux-system
+  namespace: cinny
 spec:
-  chart:
-    spec:
-      chart: app-template
-      interval: 5m0s
-      reconcileStrategy: ChartVersion
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
-      version: 3.7.x
+  chartRef:
+    kind: OCIRepository
+    name: cinny
   install:
     createNamespace: true
   interval: 30m0s
@@ -28,7 +21,7 @@ spec:
           app:
             image:
               repository: ghcr.io/cinnyapp/cinny
-              tag: v4.6.0
+              tag: v4.10.0
     service:
       app:
         controller: chat
@@ -49,6 +42,3 @@ spec:
         tls:
           - hosts:
               - chat.cjf.sh
-      tailscale:
-        <<: *ingress
-        className: tailscale
