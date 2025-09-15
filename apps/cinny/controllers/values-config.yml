@@ -9,19 +9,19 @@ controllers:
           tag: v4.10.0
 global:
   fullnameOverride: cinny
-ingress:
-  app:
-    className: nginx
-    hosts:
-      - host: chat.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - chat.cjf.sh
+# ingress:
+#   app:
+#     className: nginx
+#     hosts:
+#       - host: chat.cjf.sh
+#         paths:
+#           - path: /
+#             service:
+#               identifier: app
+#               port: http
+#     tls:
+#       - hosts:
+#           - chat.cjf.sh
 service:
   app:
     controller: chat
