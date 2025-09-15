@@ -5,5 +5,4 @@ namespace: cinny
 components:
   - ../../components/app
 resources:
-  - repo.yml
-  - release.yml
+  - app/kustomization.yml
