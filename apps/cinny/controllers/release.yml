@@ -1,0 +1,18 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: cinny
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: cinny
+    namespace: cinny
+  install:
+    createNamespace: true
+  interval: 1m0s
+  targetNamespace: cinny
+  valuesFrom:
+  - kind: ConfigMap
+    name: cinny-config-values
