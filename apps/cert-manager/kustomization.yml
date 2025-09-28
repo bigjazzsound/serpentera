@@ -5,4 +5,4 @@ resources:
   - ns.yml
   - repo.yml
   - controllers
-  - configs
+  # - configs
