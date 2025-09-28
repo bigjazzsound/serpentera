@@ -5,7 +5,7 @@ kind: Kustomization
 resources:
   - ns.yml
   - kube-prometheus-stack
-  - grafana
-  - loki-stack
-  - smartctl-exporter
-  - flux
+  # - grafana
+  # - loki-stack
+  # - smartctl-exporter
+  # - flux
