@@ -9,4 +9,4 @@ spec:
   provider: generic
   ref:
     tag: v1.18.2
-  url: oci://quay.io/jetstack/charts/cert-manage
+  url: oci://quay.io/jetstack/charts/cert-manager
