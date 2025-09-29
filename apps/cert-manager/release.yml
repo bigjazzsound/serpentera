@@ -5,10 +5,14 @@ metadata:
   name: cert-manager
   namespace: flux-system
 spec:
-  chartRef:
-    kind: OCIRepository
-    name: cert-manager
-    namespace: flux-system
+  chart:
+    spec:
+      chart: cert-manager
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: cert-manager
+      version: 1.18.x
   install:
     createNamespace: true
   interval: 1m0s
