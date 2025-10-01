@@ -8,38 +8,15 @@ spec:
   chart:
     spec:
       chart: openebs
-      interval: 5m0s
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
         name: openebs
-        namespace: flux-system
       version: 4.2.x
   install:
     createNamespace: true
-  interval: 30m0s
+  interval: 1m0s
   targetNamespace: openebs
-  values:
-    fullnameOverride: openebs
-    engines:
-      replicated:
-        mayastor:
-          enabled: false
-      local:
-        lvm:
-          enabled: false
-        zfs:
-          enabled: true
-    localpv-provisioner:
-      hostpathClass:
-        isDefaultClass: true
-        reclaimPolicy: Retain
-    zfs-localpv:
-      enabled: true
-      zfsNode:
-        kubeletDir: /var/lib/k0s/kubelet/
-    mayastor:
-      csi:
-        node:
-          initContainers:
-            enabled: false
+  valuesFrom:
+  - kind: ConfigMap
+    name: openebs-config-values
