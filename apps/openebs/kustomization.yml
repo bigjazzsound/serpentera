@@ -4,11 +4,11 @@ kind: Kustomization
 resources:
   - ns.yml
   - repo.yml
-  - release.yml
-configMapGenerator:
-  - name: openebs-config-values
-    namespace: flux-system
-    files:
-      - values.yaml=values-config.yml
-configurations:
-  - kustomizeconfig.yml
+  # - release.yml
+# configMapGenerator:
+#   - name: openebs-config-values
+#     namespace: flux-system
+#     files:
+#       - values.yaml=values-config.yml
+# configurations:
+#   - kustomizeconfig.yml
