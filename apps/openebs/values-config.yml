@@ -23,3 +23,7 @@ mayastor:
     node:
       initContainers:
         enabled: false
+loki:
+  enabled: false
+alloy:
+  enabled: false
