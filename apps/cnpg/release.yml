@@ -7,11 +7,11 @@ metadata:
 spec:
   chart:
     spec:
-      chart: cnpg
+      chart: cloudnative-pg
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: cloudnative-pg
+        name: cnpg
       version: 0.26.x
   install:
     createNamespace: true
