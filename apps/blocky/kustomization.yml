@@ -6,6 +6,11 @@ resources:
   - repo.yml
   - release.yml
   - redis.yml
-  - kustomizeconfig.yml
-  - values-config.yml
   - servicemonitor.yml
+configMapGenerator:
+  - name: blocky-config-values
+    namespace: flux-system
+    files:
+      - values.yaml=values-config.yml
+configurations:
+  - kustomizeconfig.yml
