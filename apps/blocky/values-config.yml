@@ -35,7 +35,7 @@ service:
         port: 53
 persistence:
   config:
-    name: blocky-config
+    name: blocky
     type: configMap
     advancedMounts:
       blocky:
@@ -43,7 +43,7 @@ persistence:
           - path: /app/config.yml
             subPath: config.yml
 configMaps:
-  blocky-config:
+  config:
     data:
       config.yml: |
         upstreams:
