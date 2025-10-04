@@ -37,7 +37,6 @@ persistence:
   config:
     name: blocky
     type: configMap
-    identifier: config
     advancedMounts:
       blocky:
         app:
