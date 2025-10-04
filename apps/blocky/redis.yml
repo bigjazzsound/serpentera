@@ -5,10 +5,14 @@ metadata:
   name: blocky-redis
   namespace: flux-system
 spec:
-  chartRef:
-    kind: OCIRepository
-    name: valkey
-    namespace: flux-system
+  chart:
+    spec:
+      chart: valkey
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: valkey
+      version: 0.7.x
   install:
     createNamespace: true
   interval: 30m0s
