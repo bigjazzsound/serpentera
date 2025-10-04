@@ -8,23 +8,15 @@ spec:
   chart:
     spec:
       chart: ingress-nginx
-      interval: 5m0s
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
         name: ingress-nginx
-        namespace: flux-system
-      version: 4.12.x
+      version: 4.13.3
   install:
     createNamespace: true
-  interval: 30m0s
+  interval: 1m0s
   targetNamespace: ingress-nginx
-  values:
-    fullnameOverride: ingress-nginx
-    controller:
-      metrics:
-        enabled: true
-      ingressClassResource:
-        default: true
-      extraArgs:
-        default-ssl-certificate: cert-manager/cjf-sh-tls
+  valuesFrom:
+  - kind: ConfigMap
+    name: ingress-nginx-config-values
