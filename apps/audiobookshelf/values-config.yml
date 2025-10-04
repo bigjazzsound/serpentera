@@ -1,0 +1,61 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: audiobookshelf
+controllers:
+  abs:
+    type: statefulset
+    containers:
+      app:
+        image:
+          repository: ghcr.io/advplyr/audiobookshelf
+          tag: 2.20.0
+
+service:
+  app:
+    controller: abs
+    ports:
+      http:
+        port: 80
+
+ingress:
+  app: &ingress
+    enabled: true
+    className: nginx
+    hosts:
+      - &ingress
+        host: abs.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+      - <<: *ingress
+        host: audiobookshelf.cjf.sh
+    tls:
+      - hosts:
+          - abs.cjf.sh
+          - audiobookshelf.cjf.sh
+
+persistence:
+  config: &p
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 32Mi
+    globalMounts:
+      - path: /config
+  audiobooks:
+    <<: *p
+    size: 10Gi
+    globalMounts:
+      - path: /audiobooks
+  podcasts:
+    <<: *p
+    size: 10Gi
+    globalMounts:
+      - path: /podcasts
+  metadata:
+    <<: *p
+    globalMounts:
+      - path: /metadata
