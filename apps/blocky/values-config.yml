@@ -43,7 +43,7 @@ persistence:
           - path: /app/config.yml
             subPath: config.yml
 configMaps:
-  config:
+  blocky-config:
     data:
       config.yml: |
         upstreams:
