@@ -12,7 +12,7 @@ spec:
   install:
     createNamespace: true
   interval: 1m0s
-  targetNamespace: kube-prometheus-stack
+  targetNamespace: prometheus
   valuesFrom:
   - kind: ConfigMap
     name: kube-prometheus-stack-config-values

@@ -3,9 +3,11 @@
 fullnameOverride: prometheus
 grafana:
   enabled: false # Manage grafana using their helm chart
+prometheusOperator:
+  fullnameOverride: prometheus
 prometheus:
   prometheusSpec:
-    # These values will cause prometheus to scape all monitors/probes/rules in the namespace
+    # These values will cause prometheus to scrape all monitors/probes/rules in any namespace
     podMonitorSelectorNilUsesHelmValues: false
     probeSelectorNilUsesHelmValues: false
     ruleSelectorNilUsesHelmValues: false
