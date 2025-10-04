@@ -2,7 +2,7 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: ingress-nginx
+  name: metallb-pool
   namespace: flux-system
 spec:
   decryption:
@@ -10,11 +10,9 @@ spec:
     secretRef:
       name: sops-age
   dependsOn:
-    - name: kube-prometheus-stack
-    - name: certs
-    - name: metallb-pool
+  - name: metallb
   interval: 5m0s
-  path: ./apps/ingress-nginx
+  path: ./apps/metallb-pool
   prune: true
   retryInterval: 1m0s
   sourceRef:
