@@ -8,17 +8,15 @@ spec:
   chart:
     spec:
       chart: external-secrets
-      interval: 5m0s
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
         name: external-secrets
-        namespace: flux-system
-      version: 0.14.x
+      version: 0.20.x
   install:
     createNamespace: true
-  interval: 30m0s
+  interval: 1m0s
   targetNamespace: external-secrets
-  values:
-    serviceMonitor:
-      enabled: true
+  valuesFrom:
+  - kind: ConfigMap
+    name: external-secrets-config-values
