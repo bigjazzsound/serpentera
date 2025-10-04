@@ -79,7 +79,7 @@ configMaps:
         prometheus:
           enable: true
         redis:
-          address: redis-primary.blocky:6379
+          address: redis.blocky:6379
           required: true
         log:
           level: info
