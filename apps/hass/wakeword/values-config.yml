@@ -9,8 +9,6 @@ controllers:
         image:
           repository: docker.io/rhasspy/wyoming-openwakeword
           tag: 1.10.0
-        args:
-          - --preload-model ok_nabu
 service:
   app:
     controller: wakeword
