@@ -10,5 +10,7 @@ udev:
         - >-
           ATTRS{idProduct}=="ea60",
           ATTRS{idVendor}=="10c4"
+  discovery:
+    enabled: true
 prometheus:
   enabled: true
