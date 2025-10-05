@@ -48,7 +48,7 @@ ingress:
 
 persistence:
   config:
-    name: mqtt-config
+    name: mqtt
     type: configMap
     advancedMounts:
       mqtt:
