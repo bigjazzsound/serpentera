@@ -71,6 +71,6 @@ configMaps:
         listener 1883
         # listener 8883
         allow_anonymous true
-        # persistence true
-        # persistence_location /data/
+        persistence true
+        persistence_location /data/
         log_dest stdout
