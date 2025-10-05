@@ -12,7 +12,7 @@ spec:
   install:
     createNamespace: true
   interval: 1m0s
-  targetNamespace: wakeword
+  targetNamespace: hass
   valuesFrom:
   - kind: ConfigMap
     name: wakeword-config-values
