@@ -8,6 +8,6 @@ resources:
   - piper
   - wakeword
   - whisper
-  - mqtt
-  - hass
-  - esphome
+  # - mqtt
+  # - hass
+  # - esphome
