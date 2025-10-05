@@ -1,19 +1,6 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 udev:
-  configuration:
-    enabled: true
-    discoveryDetails:
-      groupRecursive: true
-      udevRules:
-        # Sonoff Zigbee dongle
-        # - >-
-        #   ATTR{idProduct}=="ea60",
-        #   ATTR{idVendor}=="10c4"
-        # Bluetooh
-        - >-
-          ATTR{idProduct}=="0033",
-          ATTR{idVendor}=="8087"
   discovery:
     enabled: true
 prometheus:

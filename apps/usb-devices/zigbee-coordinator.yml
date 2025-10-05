@@ -1,0 +1,14 @@
+---
+apiVersion: akri.sh/v0
+kind: Configuration
+metadata:
+  name: zigbee-coordinator
+  namespace: akri
+spec:
+  capacity: 1
+  discoveryHandler:
+    discoveryDetails: |
+      groupRecursive: true
+      udevRules:
+        - ATTR{idProduct}=="ea60", ATTR{idVendor}=="10c4"
+    name: udev
