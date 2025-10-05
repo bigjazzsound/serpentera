@@ -8,8 +8,8 @@ udev:
       udevRules:
         # Sonoff Zigbee dongle
         - >-
-          ATTRS{idProduct}=="ea60",
-          ATTRS{idVendor}=="10c4"
+          ATTR{idProduct}=="ea60",
+          ATTR{idVendor}=="10c4"
   discovery:
     enabled: true
 prometheus:
