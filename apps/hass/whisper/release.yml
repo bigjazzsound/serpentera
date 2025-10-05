@@ -5,44 +5,14 @@ metadata:
   name: whisper
   namespace: flux-system
 spec:
-  chart:
-    spec:
-      chart: app-template
-      interval: 5m0s
-      reconcileStrategy: ChartVersion
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
-      version: 3.7.x
+  chartRef:
+    kind: OCIRepository
+    name: whisper
+    namespace: flux-system
   install:
     createNamespace: true
-  interval: 30m0s
-  targetNamespace: hass
-  values:
-    global:
-      fullnameOverride: whisper
-    controllers:
-      whisper:
-        containers:
-          app:
-            image:
-              repository: docker.io/rhasspy/wyoming-whisper
-              tag: "2.4.0"
-            args:
-              - --model
-              - tiny-int8
-              - --language
-              - en
-    service:
-      app:
-        controller: whisper
-        ports:
-          http:
-            port: 10300
-    persistence:
-      data:
-        type: emptyDir
-        globalMounts:
-          - path: /data
-            readOnly: false
+  interval: 1m0s
+  targetNamespace: whisper
+  valuesFrom:
+  - kind: ConfigMap
+    name: whisper-config-values

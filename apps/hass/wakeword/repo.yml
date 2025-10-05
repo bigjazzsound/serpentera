@@ -2,7 +2,7 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: OCIRepository
 metadata:
-  name: cinny
+  name: wakeword
   namespace: flux-system
 spec:
   interval: 10m0s

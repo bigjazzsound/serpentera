@@ -5,49 +5,14 @@ metadata:
   name: wakeword
   namespace: flux-system
 spec:
-  chart:
-    spec:
-      chart: app-template
-      interval: 5m0s
-      reconcileStrategy: ChartVersion
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
-      version: 3.7.x
+  chartRef:
+    kind: OCIRepository
+    name: wakeword
+    namespace: flux-system
   install:
     createNamespace: true
-  interval: 30m0s
-  targetNamespace: hass
-  values:
-    global:
-      fullnameOverride: wakeword
-    controllers:
-      wakeword:
-        containers:
-          app:
-            image:
-              repository: docker.io/rhasspy/wyoming-openwakeword
-              tag: "1.10.0"
-            args:
-              - --custom-model-dir
-              - /custom
-    service:
-      app:
-        controller: wakeword
-        ports:
-          http:
-            port: 10400
-    persistence:
-      data:
-        type: emptyDir
-        globalMounts:
-          - path: /data
-            readOnly: false
-      custom:
-        type: persistentVolumeClaim
-        storageClass: zfs-dataset
-        accessMode: ReadWriteOnce
-        size: 256Mi
-        globalMounts:
-          - readOnly: true
+  interval: 1m0s
+  targetNamespace: wakeword
+  valuesFrom:
+  - kind: ConfigMap
+    name: wakeword-config-values

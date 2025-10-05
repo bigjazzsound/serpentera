@@ -1,0 +1,34 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: whisper
+controllers:
+  whisper:
+    containers:
+      app:
+        image:
+          repository: docker.io/linuxserver/faster-whisper
+          tag: 2.5.0
+        env:
+          - name: PUID
+            value: 1000
+          - name: PGID
+            value: 1000
+          - name: TZ
+            value: Etc/UTC
+          - name: WHISPER_MODEL
+            value: tiny-int8
+          - name: WHISPER_LANG
+            value: en
+service:
+  app:
+    controller: whisper
+    ports:
+      http:
+        port: 10300
+persistence:
+  data:
+    type: emptyDir
+    globalMounts:
+      - path: /config
+        readOnly: false

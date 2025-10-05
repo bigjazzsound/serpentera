@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: piper
+controllers:
+  piper:
+    containers:
+      app:
+        image:
+          repository: lscr.io/linuxserver/piper:latest
+          tag: 1.6.3
+        env:
+          - name: PUID
+            value: 1000
+          - name: PGID
+            value: 1000
+          - name: TZ
+            value: Etc/UTC
+          - name: PIPER_VOICE
+            value: en_US-lessac-medium
+service:
+  app:
+    controller: piper
+    ports:
+      http:
+        port: 10200
+persistence:
+  data:
+    type: emptyDir
+    globalMounts:
+      - path: /config
+        readOnly: false
