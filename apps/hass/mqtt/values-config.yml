@@ -54,7 +54,7 @@ persistence:
       mqtt:
         app:
           - path: /mosquitto/config/mosquitto.conf
-            subPath: config
+            subPath: config.yml
   data:
     type: persistentVolumeClaim
     storageClass: zfs-dataset
@@ -67,7 +67,7 @@ persistence:
 configMaps:
   config:
     data:
-      config: |
+      config.yml: |
         listener 1883
         allow_anonymous true
         persistence true
