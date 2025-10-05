@@ -8,25 +8,15 @@ spec:
   chart:
     spec:
       chart: akri
-      interval: 5m0s
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
         name: akri
-        namespace: flux-system
       version: 0.13.x
   install:
     createNamespace: true
-  interval: 30m0s
+  interval: 1m0s
   targetNamespace: akri
-  values:
-    udev:
-      discovery:
-        enabled: true
-      udevrules:
-        # Sonoff Zigbee dongle
-        - >-
-          KERNEL=="ttyUSB0",
-          DRIVERS=="cp210x"
-    prometheus:
-      enabled: true
+  valuesFrom:
+  - kind: ConfigMap
+    name: akri-config-values
