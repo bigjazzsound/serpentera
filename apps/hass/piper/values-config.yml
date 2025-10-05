@@ -7,7 +7,7 @@ controllers:
     containers:
       app:
         image:
-          repository: docker.io/linuxserver/piper:latest
+          repository: docker.io/linuxserver/piper
           tag: 1.6.3
         env:
           - name: PUID
