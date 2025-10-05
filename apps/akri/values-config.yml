@@ -7,9 +7,13 @@ udev:
       groupRecursive: true
       udevRules:
         # Sonoff Zigbee dongle
+        # - >-
+        #   ATTR{idProduct}=="ea60",
+        #   ATTR{idVendor}=="10c4"
+        # Bluetooh
         - >-
-          ATTR{idProduct}=="ea60",
-          ATTR{idVendor}=="10c4"
+          ATTR{idProduct}=="0033",
+          ATTR{idVendor}=="8087"
   discovery:
     enabled: true
 prometheus:
