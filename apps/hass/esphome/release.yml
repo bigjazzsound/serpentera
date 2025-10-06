@@ -5,68 +5,14 @@ metadata:
   name: esphome
   namespace: flux-system
 spec:
-  chart:
-    spec:
-      chart: app-template
-      interval: 5m0s
-      reconcileStrategy: ChartVersion
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
-      version: 3.7.x
+  chartRef:
+    kind: OCIRepository
+    name: esphome
+    namespace: flux-system
   install:
     createNamespace: true
-  interval: 30m0s
+  interval: 1m0s
   targetNamespace: hass
-  values:
-    controllers:
-      esphome:
-        pod:
-          annotations:
-            k8s.v1.cni.cncf.io/networks: |
-              [
-                {
-                  "name":"multus-iot",
-                  "namespace": "kube-system"
-                }
-              ]
-
-        containers:
-          app:
-            image:
-              repository: ghcr.io/esphome/esphome
-              tag: 2025.3.3
-
-    service:
-      app:
-        controller: esphome
-        ports:
-          http:
-            port: 6052
-
-    ingress:
-      app: &ingress
-        className: nginx
-        hosts:
-          - host: esphome.cjf.sh
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - esphome.cjf.sh
-
-      tailscale:
-        <<: *ingress
-        className: tailscale
-
-    persistence:
-      cache:
-        type: emptyDir
-        advancedMounts:
-          esphome:
-            app:
-              - path: /cache
+  valuesFrom:
+    - kind: ConfigMap
+      name: esphome-config-values

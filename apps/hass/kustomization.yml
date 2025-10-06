@@ -9,5 +9,6 @@ resources:
   - wakeword
   - whisper
   - mqtt
+  # - zigbee2mqtt
   # - hass
-  # - esphome
+  - esphome
