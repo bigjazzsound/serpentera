@@ -51,7 +51,7 @@ persistence:
 
   secrets:
     type: secret
-    name: esphome-secret
+    name: esphome
     globalMounts:
       - path: /config/secrets.yaml
         subPath: secrets.yaml
