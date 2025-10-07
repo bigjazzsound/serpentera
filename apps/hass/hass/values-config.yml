@@ -54,7 +54,7 @@ ingress:
 persistence:
   config:
     type: persistentVolumeClaim
-    storageClass: zfs-dataset
+    storageClass: openebs-hostpath
     accessMode: ReadWriteOnce
     size: 1Gi
     globalMounts:
