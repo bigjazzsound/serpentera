@@ -69,7 +69,7 @@ persistence:
       - path: /config/backups
 
   config-file:
-    name: config
+    name: hass
     type: configMap
     advancedMounts:
       hass:
