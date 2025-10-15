@@ -10,5 +10,5 @@ resources:
   - whisper
   - mqtt
   # - zigbee2mqtt
-  - hass
+  # - hass
   - esphome
