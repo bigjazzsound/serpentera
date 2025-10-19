@@ -68,75 +68,83 @@ persistence:
     globalMounts:
       - path: /config/backups
 
-  config-file:
-    name: hass
-    type: configMap
-    advancedMounts:
-      hass:
-        app:
-          - path: /config/configuration.yaml
-            subPath: configuration.yaml
+  # config-file:
+  #   name: hass
+  #   type: configMap
+  #   advancedMounts:
+  #     hass:
+  #       app:
+  #         - path: /config/configuration.yaml
+  #           subPath: configuration.yaml
+  #
+  # automation-manual:
+  #   <<: *v
+  #   globalMounts:
+  #     - path: /config/automations/manual
+  #
+  # automation-ui:
+  #   <<: *v
+  #   globalMounts:
+  #     - path: /config/automations/ui
+  #
+  # script:
+  #   <<: *v
+  #   globalMounts:
+  #     - path: /config/script
+  #
+  # scene-manual:
+  #   <<: *v
+  #   globalMounts:
+  #     - path: /config/scenes/manual
+  #
+  # scene-ui:
+  #   <<: *v
+  #   globalMounts:
+  #     - path: /config/scenes/ui
+  #
+  # sensor:
+  #   <<: *v
+  #   globalMounts:
+  #     - path: /config/sensors
+  #
+  # template:
+  #   <<: *v
+  #   globalMounts:
+  #     - path: /config/templates
+  #
+  # schedule:
+  #   <<: *v
+  #   globalMounts:
+  #     - path: /config/schedules
 
-  automation-manual:
-    <<: *v
-    globalMounts:
-      - path: /config/automations/manual
-
-  automation-ui:
-    <<: *v
-    globalMounts:
-      - path: /config/automations/ui
-
-  script:
-    <<: *v
-    globalMounts:
-      - path: /config/script
-
-  scene-manual:
-    <<: *v
-    globalMounts:
-      - path: /config/scenes/manual
-
-  scene-ui:
-    <<: *v
-    globalMounts:
-      - path: /config/scenes/ui
-
-  sensor:
-    <<: *v
-    globalMounts:
-      - path: /config/sensors
-
-  template:
-    <<: *v
-    globalMounts:
-      - path: /config/templates
-
-  schedule:
-    <<: *v
-    globalMounts:
-      - path: /config/schedules
-
-configMaps:
-  config:
-    data:
-      configuration.yaml: |
-        default_config:
-        ffmpeg:
-
-        prometheus:
-          namespace: hass
-
-        http:
-          use_x_forwarded_for: true
-          trusted_proxies:
-            - 0.0.0.0/0
-
-        automation manual: !include_dir_list automations/manual
-        automation ui: !include_dir_list automations/ui
-        script: !include_dir_list scripts/
-        scene manual: !include_dir_list scenes/manual
-        scene ui: !include_dir_merge_list scenes/ui
-        sensor: !include_dir_merge_list sensors/
-        template: !include_dir_merge_list templates/
-        schedule: !include_dir_merge_named schedules/
+  # db:
+  #   name: hass-db
+  #   type: secret
+  #   advancedMounts:
+  #     hass:
+  #       app:
+  #         - path: /config/db.yml
+  #           subPath: db_url
+# configMaps:
+#   config:
+#     data:
+#       configuration.yaml: |
+#         default_config:
+#         ffmpeg:
+#
+#         prometheus:
+#           namespace: hass
+#
+#         http:
+#           use_x_forwarded_for: true
+#           trusted_proxies:
+#             - 0.0.0.0/0
+#
+#         automation manual: !include_dir_list automations/manual
+#         automation ui: !include_dir_list automations/ui
+#         script: !include_dir_list scripts/
+#         scene manual: !include_dir_list scenes/manual
+#         scene ui: !include_dir_merge_list scenes/ui
+#         sensor: !include_dir_merge_list sensors/
+#         template: !include_dir_merge_list templates/
+#         schedule: !include_dir_merge_named schedules/
