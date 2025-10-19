@@ -56,7 +56,7 @@ persistence:
     type: persistentVolumeClaim
     storageClass: zfs-dataset
     accessMode: ReadWriteOnce
-    size: 32Mi
+    size: 1Gi
     globalMounts:
       - path: /config
 
