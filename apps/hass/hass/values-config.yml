@@ -133,9 +133,9 @@ configMaps:
             - 0.0.0.0/0
 
         automation manual: !include_dir_list automations/manual
-        automation ui: !include automations/ui
-        script: !include scripts/
-        scene manual: !include scenes/manual
+        automation ui: !include_dir_list automations/ui
+        script: !include_dir_list scripts/
+        scene manual: !include_dir_list scenes/manual
         scene ui: !include_dir_merge_list scenes/ui
         sensor: !include_dir_merge_list sensors/
         template: !include_dir_merge_list templates/
