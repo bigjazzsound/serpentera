@@ -40,6 +40,8 @@ service:
 ingress:
   app: &ingress
     className: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
     hosts:
       - host: hass.cjf.sh
         paths:
