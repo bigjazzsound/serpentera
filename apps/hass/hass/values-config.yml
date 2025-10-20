@@ -29,6 +29,13 @@ controllers:
               - NET_ADMIN
               - NET_RAW
               - NET_BROADCAST
+        probes:
+          liveness:
+            enabled: false
+          readiness:
+            enabled: false
+          startup:
+            enabled: false
 
 service:
   app:
