@@ -61,11 +61,8 @@ ingress:
           - hass.cjf.sh
 
 persistence:
-  config: &v
-    type: persistentVolumeClaim
-    storageClass: zfs-dataset
-    accessMode: ReadWriteOnce
-    size: 1Gi
+  config:
+    existingClaim: "{{ .Release.Name }}"
     globalMounts:
       - path: /config
 
