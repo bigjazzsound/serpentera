@@ -15,7 +15,13 @@ spec:
           "master": "enp86s0.400",
           "mode": "bridge",
           "ipam": {
-            "type": "dhcp"
+            "type": "dhcp",
+            "request": [
+              {
+                "skipDefault": true,
+                "option": "subnet-mask"
+              }
+            ]
           }
         }
       ]
