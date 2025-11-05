@@ -7,17 +7,7 @@ controllers:
     type: statefulset
     pod:
       annotations:
-        k8s.v1.cni.cncf.io/networks: |
-          [
-            {
-              "name":"multus-iot",
-              "namespace": "kube-system"
-            },
-            {
-              "name":"multus-dmz",
-              "namespace": "kube-system"
-            }
-          ]
+        k8s.v1.cni.cncf.io/networks: kube-system/multus-iot,kube-system/multus-dmz
     containers:
       app:
         image:
