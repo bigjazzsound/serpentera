@@ -15,21 +15,7 @@ spec:
           "master": "enp86s0.500",
           "mode": "bridge",
           "ipam": {
-            "type": "host-local",
-            "ranges": [
-              [
-                {
-                  "subnet": "10.0.5.0/24",
-                  "rangeStart": "10.0.5.240",
-                  "rangeEnd": "10.0.5.250"
-                }
-              ]
-            ],
-            "routes": [
-              {
-                "dst": "10.0.5.0/24", "gw": "10.0.5.1"
-              }
-            ]
+            "type": "dhcp"
           }
         }
       ]
