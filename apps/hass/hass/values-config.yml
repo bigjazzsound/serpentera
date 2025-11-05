@@ -9,18 +9,16 @@ controllers:
       annotations:
         k8s.v1.cni.cncf.io/networks: |
           [
-          {
-            "name":"multus-dmz",
-            "namespace": "kube-system",
-            "ips": ["10.0.4.240/24"],
-            "mac": "3e:59:e4:f7:43:08"
-          },
-          {
-            "name":"multus-iot",
-            "namespace": "kube-system",
-            "ips": ["10.0.5.240/24"],
-            "mac": "3e:59:e4:f7:43:09"
-          }
+            {
+              "name":"multus-dmz",
+              "namespace": "kube-system",
+              "ips": ["10.0.4.240/24"]
+            },
+            {
+              "name":"multus-iot",
+              "namespace": "kube-system",
+              "ips": ["10.0.5.240/24"]
+            }
           ]
     containers:
       app:
