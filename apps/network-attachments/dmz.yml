@@ -10,23 +10,27 @@ spec:
       "cniVersion": "1.1.0",
       "name": "mutlus-dmz",
       "plugins": [
-        "type": "macvlan",
-        "master": "enp86s0",
-        "mode": "bridge",
-        "ipam": {
-          "type": "host-local",
-          "ranges": [
-            [
+        {
+          "type": "macvlan",
+          "master": "enp86s0",
+          "mode": "bridge",
+          "ipam": {
+            "type": "host-local",
+            "ranges": [
+              [
+                {
+                  "subnet": "10.0.4.0/24",
+                  "rangeStart": "10.0.4.240",
+                  "rangeEnd": "10.0.4.250"
+                }
+              ]
+            ],
+            "routes": [
               {
-                "subnet": "10.0.4.0/24",
-                "rangeStart": "10.0.4.240",
-                "rangeEnd": "10.0.4.250",
-              },
+                "dst": "10.0.4.0/24"
+              }
             ]
-          ]
-          "routes": [
-            { "dst": "10.0.4.0/24" }
-          ]
-        ]
-      }
+          }
+        }
+      ]
     }
