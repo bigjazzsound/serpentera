@@ -5,9 +5,9 @@ global:
 controllers:
   hass:
     type: statefulset
-    # pod:
-    #   annotations:
-    #     k8s.v1.cni.cncf.io/networks: kube-system/multus-iot,kube-system/multus-dmz
+    pod:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: kube-system/multus-iot,kube-system/multus-dmz
     containers:
       app:
         image:
