@@ -6,13 +6,7 @@ controllers:
   esphome:
     pod:
       annotations:
-        k8s.v1.cni.cncf.io/networks: |
-          [
-            {
-              "name":"multus-iot",
-              "namespace": "kube-system"
-            }
-          ]
+        k8s.v1.cni.cncf.io/networks: kube-system/multus-iot
 
     containers:
       app:
