@@ -14,6 +14,7 @@ ingress:
     - host: media.cjf.sh
       paths:
         - path: /
+          pathType: ImplementationSpecific
   tls:
     - hosts:
         - media.cjf.sh
