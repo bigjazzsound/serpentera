@@ -7,70 +7,17 @@ metadata:
 spec:
   chart:
     spec:
-      chart: app-template
-      interval: 5m0s
+      chart: jellyfin
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
-        name: bjw-s
+        name: jellyfin
         namespace: flux-system
-      version: 3.7.x
+      version: 2.5.0
   install:
     createNamespace: true
-  interval: 30m0s
+  interval: 1m0s
   targetNamespace: jellyfin
-  values:
-    global:
-      fullnameOverride: jellyfin
-    controllers:
-      jellyfin:
-        containers:
-          app:
-            image:
-              repository: docker.io/jellyfin/jellyfin
-              tag: 10.10.7
-
-    service:
-      app:
-        controller: jellyfin
-        ports:
-          http:
-            port: 8096
-
-    ingress:
-      app: &ingress
-        className: nginx
-        hosts:
-          - host: media.cjf.sh
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - media.cjf.sh
-
-      tailscale:
-        <<: *ingress
-        className: tailscale
-
-    persistence:
-      config: &p
-        type: persistentVolumeClaim
-        storageClass: zfs-dataset
-        accessMode: ReadWriteOnce
-        size: 32Mi
-        globalMounts:
-          - path: /config
-      media:
-        <<: *p
-        storageClass: zfs-media
-        size: 100Gi
-        globalMounts:
-          - path: /media
-      cache:
-        type: emptyDir
-        globalMounts:
-          - path: /cache
-            readOnly: false
+  valuesFrom:
+    - kind: ConfigMap
+      name: jellyfin-config-values
