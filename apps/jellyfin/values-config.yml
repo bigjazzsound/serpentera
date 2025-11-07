@@ -7,6 +7,11 @@ image:
   tag: "10.11.2"
   pullPolicy: IfNotPresent
 
+securityContext:
+  sysctls:
+    - name: fs.file-max
+      value: "65535"
+
 ingress:
   enabled: true
   className: nginx
