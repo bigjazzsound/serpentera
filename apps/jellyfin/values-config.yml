@@ -52,3 +52,8 @@ metrics:
   enabled: true
   serviceMonitor:
     enabled: true
+
+initContainers:
+  - name: check-ulimits
+    image: docker.io/busybox:latest
+    command: ["sh", "-c", "ulimit -a"]
