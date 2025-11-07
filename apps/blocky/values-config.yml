@@ -33,6 +33,21 @@ service:
         protocol: UDP
       dns-tcp:
         port: 53
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: "doh.cjf.sh"
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - doh.cjf.sh
+
 persistence:
   config:
     name: blocky
