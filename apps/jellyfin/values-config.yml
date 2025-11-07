@@ -1,0 +1,48 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+fullnameOverride: jellyfin
+
+image:
+  repository: docker.io/jellyfin/jellyfin
+  tag: "10.11.2"
+  pullPolicy: IfNotPresent
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: media.cjf.sh
+      paths:
+        - path: /
+  tls:
+    - hosts:
+        - media.cjf.sh
+
+livenessProbe:
+  initialDelaySeconds: 10
+  tcpSocket:
+    port: http
+
+readinessProbe:
+  initialDelaySeconds: 10
+  tcpSocket:
+    port: http
+
+persistence:
+  config:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    storageClass: zfs-dataset
+  media:
+    enabled: true
+    type: pvc
+    accessMode: ReadWriteOnce
+    # TODO: make bigger
+    size: 25Gi
+    storageClass: zfs-dataset
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true
