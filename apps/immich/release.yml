@@ -14,29 +14,33 @@ spec:
   interval: 30m0s
   targetNamespace: immich
   values:
-    image:
-      tag: v2.2.3
+    controllers:
+      main:
+        containers:
+          main:
+            image:
+              tag: v2.2.3
+            env:
+              REDIS_HOSTNAME: immich-redis
+              DB_HOSTNAME: immich-db-rw
+              DB_USERNAME: immich
+              DB_DATABASE_NAME: immich
+              DB_PASSWORD:
+                secretKeyRef:
+                  name: immich-db
+                  key: password
     immich:
       metrics:
         enabled: true
       persistence:
         library:
           existingClaim: immich-library
-    env:
-      REDIS_HOSTNAME: immich-redis
-      DB_HOSTNAME: immich-db-rw
-      DB_USERNAME: immich
-      DB_DATABASE_NAME: immich
-      DB_PASSWORD:
-        secretKeyRef:
-          name: immich-db
-          key: password
     server:
       service:
         main:
           type: LoadBalancer
       ingress:
-        main: &ingress
+        main:
           enabled: true
           annotations:
             # proxy-body-size is set to 0 to remove the body limit on file uploads
