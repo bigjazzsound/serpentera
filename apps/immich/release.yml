@@ -15,7 +15,7 @@ spec:
   targetNamespace: immich
   values:
     image:
-      tag: v1.131.3
+      tag: v2.2.3
     immich:
       metrics:
         enabled: true
@@ -23,7 +23,7 @@ spec:
         library:
           existingClaim: immich-library
     env:
-      REDIS_HOSTNAME: immich-redis-primary
+      REDIS_HOSTNAME: immich-redis
       DB_HOSTNAME: immich-db-rw
       DB_USERNAME: immich
       DB_DATABASE_NAME: immich
@@ -49,6 +49,3 @@ spec:
           tls:
             - hosts:
                 - pics.cjf.sh
-        tailscale:
-          <<: *ingress
-          ingressClassName: tailscale
