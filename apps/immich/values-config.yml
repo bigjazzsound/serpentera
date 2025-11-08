@@ -1,6 +1,4 @@
 ---
-fullnameOverride: immich
-
 controllers:
   main:
     containers:
