@@ -9,3 +9,10 @@ resources:
   - pvc.yml
   - redis.yml
   - release.yml
+configMapGenerator:
+  - name: immich-config-values
+    namespace: flux-system
+    files:
+      - values.yaml=values-config.yml
+configurations:
+  - kustomizeconfig.yml
