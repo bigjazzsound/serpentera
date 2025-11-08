@@ -8,5 +8,5 @@ spec:
   interval: 24h0m0s
   provider: generic
   ref:
-    tag: 0.9.2
+    tag: 0.10.1
   url: oci://ghcr.io/immich-app/immich-charts/immich
