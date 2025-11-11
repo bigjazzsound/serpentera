@@ -9,7 +9,7 @@ spec:
     {
       "cniVersion": "0.3.0",
       "type": "macvlan",
-      "master": "enp86s0",
+      "master": "eno1",
       "mode": "bridge",
       "ipam": {
         "type": "host-local",
@@ -34,7 +34,7 @@ spec:
     {
       "cniVersion": "0.3.0",
       "type": "macvlan",
-      "master": "enp86s0",
+      "master": "eno1",
       "mode": "bridge",
       "ipam": {
         "type": "host-local",
