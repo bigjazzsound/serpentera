@@ -10,5 +10,5 @@ spec:
     discoveryDetails: |
       groupRecursive: true
       udevRules:
-        - ATTR{idProduct}=="ea60", ATTR{idVendor}=="10c4"
+        - ATTRS{product}=="Sonoff Zigbee 3.0 USB Dongle Plus"
     name: udev
