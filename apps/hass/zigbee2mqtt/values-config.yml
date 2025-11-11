@@ -32,6 +32,7 @@ controllers:
                 key: mqtt_password
           ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: false
           ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyUSB0
+          ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: ember
 
 service:
   app:
