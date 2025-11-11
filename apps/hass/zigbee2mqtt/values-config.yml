@@ -11,9 +11,9 @@ controllers:
           tag: 2.6.2
         resources:
           limits:
-            akri.sh/zigbee-coordinator: "1"
+            akri.sh/zigbee-coordinator-ca74a4: "1"
           requests:
-            akri.sh/zigbee-coordinator: "1"
+            akri.sh/zigbee-coordinator-ca74a4: "1"
         env:
           ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_ENABLED: true
           ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_LEGACY_ACTION_SENSOR: true
