@@ -9,11 +9,10 @@ controllers:
         image:
           repository: docker.io/koenkk/zigbee2mqtt
           tag: 2.6.2
-        resources:
-          limits:
-            akri.sh/zigbee-coordinator-ca74a4: "1"
-          requests:
-            akri.sh/zigbee-coordinator-ca74a4: "1"
+        securityContext:
+          privileged: true
+          capabilities:
+            add: ["SYS_ADMIN"]
         env:
           ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_ENABLED: true
           ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_LEGACY_ACTION_SENSOR: true
