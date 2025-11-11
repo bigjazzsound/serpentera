@@ -13,6 +13,26 @@ controllers:
           privileged: true
           capabilities:
             add: ["SYS_ADMIN"]
+        env:
+          ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_ENABLED: true
+          ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_LEGACY_ACTION_SENSOR: true
+          ZIGBEE2MQTT_CONFIG_FRONTEND_ENABLED: true
+          ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://mqtt:1883
+          ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
+          ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: zigbee2mqtt
+          ZIGBEE2MQTT_CONFIG_MQTT_USER:
+            valueFrom:
+              secretKeyRef:
+                name: zigbee2mqtt
+                key: mqtt_user
+          ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD:
+            valueFrom:
+              secretKeyRef:
+                name: zigbee2mqtt
+                key: mqtt_password
+          ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: false
+          ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyUSB0
+          ZIGBEE2MQTT_CONFIG_SERIAL_ADAPTER: zstack
 
 service:
   app:
@@ -36,7 +56,10 @@ ingress:
           - zigbee.cjf.sh
 
 persistence:
-  config:
-    existingClaim: "{{ .Release.Name }}"
+  config: &p
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 512Mi
     globalMounts:
       - path: /app/data
