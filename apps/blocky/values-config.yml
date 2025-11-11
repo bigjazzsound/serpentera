@@ -81,19 +81,9 @@ configMaps:
               - ads
               - fakenews
               - meta
-        conditional:
+        customDNS:
           mapping:
-            audiobookshelf.cjf.sh: 10.0.0.200
-            abs.cjf.sh: 10.0.0.200
-            doh.cjf.sh: 10.0.0.200
-            chat.cjf.sh: 10.0.0.200
-            esphome.cjf.sh: 10.0.0.200
-            hass.cjf.sh: 10.0.0.200
-            pics.cjf.sh: 10.0.0.200
-            media.cjf.sh: 10.0.0.200
-            recipes.cjf.sh: 10.0.0.200
-            omada.cjf.sh: 10.0.0.200
-            todo.cjf.sh: 10.0.0.200
+            cjf.sh: 10.0.0.200
         caching:
           minTime: 1m
           maxTime: 5m
