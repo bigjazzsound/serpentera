@@ -83,7 +83,7 @@ configMaps:
               - meta
         conditional:
           mapping:
-            cjf.sh: 10.0.0.70
+            cjf.sh: 10.0.0.200
         caching:
           minTime: 1m
           maxTime: 5m
