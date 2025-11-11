@@ -5,7 +5,7 @@ metadata:
   name: zigbee-coordinator
   namespace: akri
 spec:
-  capacity: 2
+  capacity: 5
   discoveryHandler:
     discoveryDetails: |
       groupRecursive: true
