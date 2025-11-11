@@ -1,0 +1,64 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: zigbee2mqtt
+controllers:
+  zigbee2mqtt:
+    containers:
+      app:
+        image:
+          repository: docker.io/koenkk/zigbee2mqtt
+          tag: 2.6.2
+        resources:
+          limits:
+            akri.sh/zigbee-coordinator: "1"
+          requests:
+            akri.sh/zigbee-coordinator: "1"
+        env:
+          ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_ENABLED: true
+          ZIGBEE2MQTT_CONFIG_HOMEASSISTANT_LEGACY_ACTION_SENSOR: true
+          ZIGBEE2MQTT_CONFIG_MQTT_SERVER: mqtt://mqtt:1883
+          ZIGBEE2MQTT_CONFIG_ADVANCED_LOG_OUTPUT: '["console"]'
+          ZIGBEE2MQTT_CONFIG_MQTT_BASE_TOPIC: zigbee2mqtt
+          ZIGBEE2MQTT_CONFIG_MQTT_USER:
+            valueFrom:
+              secretKeyRef:
+                name: zigbee2mqtt
+                key: mqtt_user
+          ZIGBEE2MQTT_CONFIG_MQTT_PASSWORD:
+            valueFrom:
+              secretKeyRef:
+                name: zigbee2mqtt
+                key: mqtt_password
+          ZIGBEE2MQTT_CONFIG_PERMIT_JOIN: false
+          ZIGBEE2MQTT_CONFIG_SERIAL_PORT: /dev/ttyUSB0
+
+service:
+  app:
+    controller: zigbee2mqtt
+    ports:
+      http:
+        port: 8080
+
+ingress:
+  app: &ingress
+    className: nginx
+    hosts:
+      - host: zigbee.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - zigbee.cjf.sh
+
+persistence:
+  config: &p
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 512Mi
+    globalMounts:
+      - path: /app/data
