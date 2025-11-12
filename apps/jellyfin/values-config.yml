@@ -37,10 +37,8 @@ persistence:
     storageClass: zfs-dataset
   media:
     enabled: true
-    type: pvc
-    accessMode: ReadWriteOnce
-    size: 14Ti
-    storageClass: zfs-media
+    type: hostPath
+    hostPath: /var/tank/media
 
 metrics:
   enabled: true
