@@ -38,24 +38,23 @@ ingress:
           - audiobookshelf.cjf.sh
 
 persistence:
-  config: &p
-    type: persistentVolumeClaim
-    storageClass: zfs-dataset
-    accessMode: ReadWriteOnce
-    size: 32Mi
+  config:
+    type: hostPath
+    hostPath: /var/tank/audiobookshelf/config
     globalMounts:
       - path: /config
   audiobooks:
-    <<: *p
-    size: 10Gi
+    type: hostPath
+    hostPath: /var/tank/audiobookshelf/audiobooks
     globalMounts:
       - path: /audiobooks
   podcasts:
-    <<: *p
-    size: 10Gi
+    type: hostPath
+    hostPath: /var/tank/audiobookshelf/podcasts
     globalMounts:
       - path: /podcasts
   metadata:
-    <<: *p
+    type: hostPath
+    hostPath: /var/tank/audiobookshelf/metadata
     globalMounts:
       - path: /metadata
