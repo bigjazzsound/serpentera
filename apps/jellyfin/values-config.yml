@@ -39,8 +39,7 @@ persistence:
     enabled: true
     type: pvc
     accessMode: ReadWriteOnce
-    # TODO: make bigger
-    size: 25Gi
+    size: 900Gi
     storageClass: zfs-dataset
 
 metrics:
