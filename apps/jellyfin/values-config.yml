@@ -39,7 +39,7 @@ persistence:
     enabled: true
     type: pvc
     accessMode: ReadWriteOnce
-    size: 900Gi
+    size: 14Ti
     storageClass: zfs-media
 
 metrics:
