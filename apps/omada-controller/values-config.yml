@@ -72,6 +72,9 @@ service:
 ingress:
   app:
     className: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/ssl-verify: "false"
     hosts:
       - host: omada.cjf.sh
         paths:
