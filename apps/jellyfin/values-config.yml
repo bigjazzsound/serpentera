@@ -40,7 +40,7 @@ persistence:
     type: pvc
     accessMode: ReadWriteOnce
     size: 900Gi
-    storageClass: zfs-dataset
+    storageClass: zfs-media
 
 metrics:
   enabled: true
