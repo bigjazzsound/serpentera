@@ -84,6 +84,9 @@ configMaps:
         customDNS:
           mapping:
             cjf.sh: 10.0.0.200
+        conditional:
+          mapping:
+            cjf.lan: coredns-omada.coredns-omada.svc.cluster.local
         caching:
           minTime: 1m
           maxTime: 5m
