@@ -78,7 +78,7 @@ ingress:
           - path: /
             service:
               identifier: app
-              port: manage-http
+              port: manage-https
     tls:
       - hosts:
           - omada.cjf.sh
