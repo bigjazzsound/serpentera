@@ -6,6 +6,9 @@ global:
 
 controllers:
   omada:
+    pod:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: kube-system/multus-lan
     containers:
       app:
         image:
