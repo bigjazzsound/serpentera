@@ -86,7 +86,7 @@ configMaps:
             cjf.sh: 10.0.0.200
         conditional:
           mapping:
-            cjf.lan: coredns-omada.coredns-omada
+            cjf.lan: 10.103.16.40
         caching:
           minTime: 1m
           maxTime: 5m
