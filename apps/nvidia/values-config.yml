@@ -1,5 +1,8 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+driver:
+  enabled: false
+
 toolkit:
   env:
     - name: CONTAINERD_CONFIG
