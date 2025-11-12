@@ -35,6 +35,7 @@ controllers:
             secretKeyRef:
               name: coredns-omada
               key: site
+          OMADA_DISABLE_HTTPS_VERIFICATION: true
         probes:
           liveness:
             enabled: true
