@@ -5,7 +5,7 @@ resources:
   - ns.yml
   - repo.yml
   - secrets.yml
-  # - release.yml
+  - release.yml
 configMapGenerator:
   - name: tududi-config-values
     namespace: flux-system

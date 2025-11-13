@@ -12,18 +12,15 @@ controllers:
           repository: docker.io/chrisvel/tududi
           tag: "0.86"
         env:
-          TUDUDI_USER_EMAIL:
-            secretKeyRef:
-              name: coredns-omada
-              key: username
+          TUDUDI_USER_EMAIL: tududi@cjf.sh
           TUDUDI_USER_PASSWORD:
             secretKeyRef:
-              name: coredns-omada
-              key: username
+              name: tududi-password
+              key: password
           TUDUDI_SESSION_SECRET:
             secretKeyRef:
-              name: coredns-omada
-              key: username
+              name: tududi-session
+              key: password
 
 service:
   app:
