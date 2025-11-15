@@ -20,6 +20,7 @@ spec:
         login: true
         passwordSecret:
           name: immich-db
+
   bootstrap:
     initdb:
       database: immich
@@ -30,6 +31,7 @@ spec:
         # Commands based on: https://immich.app/docs/administration/postgres-standalone/#without-superuser-permission
         - CREATE EXTENSION vchord CASCADE;
         - CREATE EXTENSION earthdistance CASCADE;
+
   storage:
     size: 4Gi
     storageClass: zfs-dataset
