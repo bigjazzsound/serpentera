@@ -14,6 +14,13 @@ controllers:
             secretKeyRef:
               name: immich-db
               key: password
+        resources:
+          limits:
+            nvidia.com/gpu: "1"
+
+defaultPodOptions:
+  runtimeClassName: nvidia
+
 immich:
   metrics:
     enabled: true
