@@ -29,6 +29,12 @@ readinessProbe:
   tcpSocket:
     port: http
 
+runtimeClassName: nvidia
+
+resources:
+  limits:
+    nvidia.com/gpu: "1"
+
 persistence:
   config:
     enabled: true
