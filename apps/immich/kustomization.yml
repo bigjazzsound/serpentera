@@ -8,7 +8,7 @@ resources:
   - pg-cluster.yml
   - pvc.yml
   - redis.yml
-  # - release.yml
+  - release.yml
 configMapGenerator:
   - name: immich-config-values
     namespace: flux-system
