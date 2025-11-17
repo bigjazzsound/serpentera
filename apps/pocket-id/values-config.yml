@@ -4,8 +4,6 @@ fullnameOverride: pocket-id
 
 config:
   publicAppUrl: https://auth.cjf.sh
-  puid: "1000"
-  guid: "1000"
 
 securityContext:
   capabilities:
