@@ -24,3 +24,6 @@ datasources:
       - name: Alertmanager
         type: alertmanager
         url: http://prometheus-alertmanager.monitoring:9093
+        jsonData:
+          implementation: promethues
+          handleGrafanaManagedAlerts: true
