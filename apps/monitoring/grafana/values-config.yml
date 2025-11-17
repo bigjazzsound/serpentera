@@ -63,3 +63,6 @@ dashboards:
     blackbox-exporter:
       gnetId: 13659
       datasource: *ds
+    blocky:
+      gnetId: 13768
+      datasource: *ds
