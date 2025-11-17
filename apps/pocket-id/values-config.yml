@@ -3,7 +3,7 @@
 fullnameOverride: pocket-id
 
 config:
-  publicAppUrl:
+  publicAppUrl: auth.cjf.sh
   puid: "1000"
   guid: "1000"
 
