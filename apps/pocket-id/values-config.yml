@@ -5,6 +5,11 @@ fullnameOverride: pocket-id
 config:
   publicAppUrl: https://auth.cjf.sh
 
+image:
+  repository: ghcr.io/pocket-id/pocket-id
+  pullPolicy: IfNotPresent
+  tag: "v1"
+
 securityContext:
   capabilities:
     drop:
