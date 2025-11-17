@@ -1,0 +1,47 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+fullnameOverride: pocket-id
+
+config:
+  puid: "1000"
+  guid: "1000"
+
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: pocket-id.cjf.sh
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: auth.cjf.sh
+      paths:
+        - path: /
+          pathType: Prefix
+    - host: id.cjf.sh
+      paths:
+        - path: /
+          pathType: Prefix
+
+  tls:
+    - hosts:
+        - pocket-id.cjf.sh
+    - hosts:
+        - auth.cjf.sh
+    - hosts:
+        - id.cjf.sh
+
+persistence:
+  enabled: true
+  storageClass: zfs-dataset
+  accessMode: ReadWriteOnce
+  size: 5Gi
