@@ -27,3 +27,39 @@ datasources:
         jsonData:
           implementation: prometheus
           handleGrafanaManagedAlerts: true
+
+sidecar:
+  dashboards:
+    enabled: true
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: "default"
+        orgId: 1
+        folder: ""
+        type: file
+        disableDeletion: false
+        editable: true
+        updateIntervalSeconds: 600
+        allowUpdates: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+          foldersFromFilesStructure: true
+
+dashboards:
+  default:
+    coredns:
+      gnetId: 14981
+      datasource: &ds Prometheus
+    node-exporter-full:
+      gnetId: 1860
+      revision: 41
+      datasource: *ds
+    flux2:
+      gnetId: 16714
+      datasource: *ds
+    blackbox-exporter:
+      gnetId: 13659
+      datasource: *ds
