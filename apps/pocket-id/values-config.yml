@@ -12,11 +12,12 @@ controllers:
           repository: ghcr.io/pocket-id/pocket-id
           tag: "v1.15.0"
         env:
-          APP_URL: https://auth.cjf.sh
+          APP_URL: http://pocket-id.pocket-id
           PGID: "1000"
           PUID: "1000"
           LOG_JSON: "true"
           TRUST_PROXY: "true"
+          ANALYTICS_DISABLED: "true"
 
 service:
   app:
