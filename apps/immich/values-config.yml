@@ -10,13 +10,15 @@ controllers:
           DB_HOSTNAME: immich-db-rw
           DB_DATABASE_NAME: immich
           DB_USERNAME:
-            secretKeyRef:
-              name: immich-db
-              key: username
+            valueFrom:
+              secretKeyRef:
+                name: immich-db
+                key: username
           DB_PASSWORD:
-            secretKeyRef:
-              name: immich-db
-              key: password
+            valueFrom:
+              secretKeyRef:
+                name: immich-db
+                key: password
         resources:
           limits:
             nvidia.com/gpu: "1"
