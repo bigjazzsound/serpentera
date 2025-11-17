@@ -18,5 +18,5 @@ datasources.yaml:
   datasources:
     - name: Prometheus
       type: prometheus
-      url: http://prometheus-prometheus.monitoring
+      url: http://prometheus-prometheus.monitoring:9090
       isDefault: true
