@@ -46,5 +46,5 @@ persistence:
     accessMode: ReadWriteOnce
     size: 5Gi
     globalMounts:
-      - path: /app
+      - path: /app/data
         readOnly: false
