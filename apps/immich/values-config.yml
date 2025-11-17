@@ -8,8 +8,11 @@ controllers:
         env:
           REDIS_HOSTNAME: immich-redis
           DB_HOSTNAME: immich-db-rw
-          DB_USERNAME: immich
           DB_DATABASE_NAME: immich
+          DB_USERNAME:
+            secretKeyRef:
+              name: immich-db
+              key: username
           DB_PASSWORD:
             secretKeyRef:
               name: immich-db
