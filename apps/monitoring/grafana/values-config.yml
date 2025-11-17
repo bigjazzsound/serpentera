@@ -68,4 +68,6 @@ dashboards:
       datasource: *ds
     cert-manager:
       gnetId: 20842
-      datasource: prometheus
+      datasource:
+        - name: DS_PROMETHEUS
+          value: *ds
