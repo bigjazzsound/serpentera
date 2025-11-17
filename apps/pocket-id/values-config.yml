@@ -35,9 +35,9 @@ ingress:
             service:
               identifier: app
               port: http
-  tls:
-    - hosts:
-        - auth.cjf.sh
+    tls:
+      - hosts:
+          - auth.cjf.sh
 
 persistence:
   app:
