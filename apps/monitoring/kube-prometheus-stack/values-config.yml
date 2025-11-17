@@ -7,10 +7,6 @@ grafana:
 
 prometheus:
   prometheusSpec:
-    remoteWrite:
-      - url: http://mimir-nginx.monitoring.svc.cluster.local/api/v1/push # Store metrics in mimir
-        headers:
-          X-Scope-OrgID: "1"
     scrapeTimeout: 30s
     # These values will cause prometheus to scape all monitors/probes/rules in the namespace
     podMonitorSelectorNilUsesHelmValues: false

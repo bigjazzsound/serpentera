@@ -2,19 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: ingress-nginx
+  name: monitoring
   namespace: flux-system
 spec:
   decryption:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: monitoring
-    - name: certs
-    - name: metallb-pool
   interval: 5m0s
-  path: ./apps/ingress-nginx
+  path: ./apps/monitoring
   prune: true
   retryInterval: 1m0s
   sourceRef:

@@ -10,7 +10,7 @@ spec:
     secretRef:
       name: sops-age
   dependsOn:
-  - name: kube-prometheus-stack
+    - name: monitoring
   interval: 5m0s
   path: ./apps/valkey
   prune: true
