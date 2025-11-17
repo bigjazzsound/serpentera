@@ -1,6 +1,18 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
-migStrategy: single
+config:
+  default: "default"
+  map:
+    default: |- # blank CM
+    rtx-4060: |-
+      version: v1
+      sharing:
+        timeSlicing:
+          renameByDefault: false
+          failRequestsGreaterThanOne: true
+          resources:
+            - name: nvidia.com/gpu
+              replicas: 10
 
 gfd:
   enabled: true
