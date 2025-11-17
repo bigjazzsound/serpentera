@@ -3,6 +3,7 @@
 fullnameOverride: pocket-id
 
 config:
+  publicAppUrl:
   puid: "1000"
   guid: "1000"
 
@@ -19,26 +20,14 @@ ingress:
   enabled: true
   className: nginx
   hosts:
-    - host: pocket-id.cjf.sh
-      paths:
-        - path: /
-          pathType: Prefix
     - host: auth.cjf.sh
-      paths:
-        - path: /
-          pathType: Prefix
-    - host: id.cjf.sh
       paths:
         - path: /
           pathType: Prefix
 
   tls:
     - hosts:
-        - pocket-id.cjf.sh
-    - hosts:
         - auth.cjf.sh
-    - hosts:
-        - id.cjf.sh
 
 persistence:
   enabled: true
