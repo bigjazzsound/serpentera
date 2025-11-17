@@ -13,10 +13,11 @@ ingress:
         - monitor.cjf.sh
         - monitoring.cjf.sh
 
-datasources.yaml:
-  apiVersion: 1
-  datasources:
-    - name: Prometheus
-      type: prometheus
-      url: http://prometheus-prometheus.monitoring:9090
-      isDefault: true
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-prometheus.monitoring:9090
+        isDefault: true
