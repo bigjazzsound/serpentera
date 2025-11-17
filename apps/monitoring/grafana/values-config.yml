@@ -1,0 +1,22 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - grafana.cjf.sh
+    - monitor.cjf.sh
+    - monitoring.cjf.sh
+  tls:
+    - hosts:
+        - grafana.cjf.sh
+        - monitor.cjf.sh
+        - monitoring.cjf.sh
+
+datasources.yaml:
+  apiVersion: 1
+  datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-prometheus.monitoring
+      isDefault: true
