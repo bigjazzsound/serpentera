@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+fullnameOverride: prometheus
+
+grafana:
+  enabled: false # Manage grafana using their helm chart
+
+prometheus:
+  prometheusSpec:
+    remoteWrite:
+      - url: http://mimir-nginx.monitoring.svc.cluster.local/api/v1/push # Store metrics in mimir
+        headers:
+          X-Scope-OrgID: "1"
+    scrapeTimeout: 30s
+    # These values will cause prometheus to scape all monitors/probes/rules in the namespace
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    ruleSelectorNilUsesHelmValues: false
+    scrapeConfigSelectorNilUsesHelmValues: false
+    serviceMonitorSelectorNilUsesHelmValues: false

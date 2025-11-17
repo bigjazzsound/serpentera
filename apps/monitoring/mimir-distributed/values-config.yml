@@ -1,0 +1,33 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+mimir:
+  structuredConfig:
+    limits:
+      compactor_blocks_retention_period: 720h0m0s # One month data retention
+      # The rules created by the prometheus chart require a higher limit than the default
+      ruler_max_rules_per_rule_group: 30
+    common:
+      storage:
+        backend: s3
+        s3:
+          endpoint: s3.us-gov-west-1.amazonaws.com
+          bucket_name: ${env}-mimir-backend-storage
+          region: us-gov-west-1
+    blocks_storage:
+      storage_prefix: blocks
+    alertmanager_storage:
+      storage_prefix: alertmanager
+    ruler_storage:
+      storage_prefix: ruler
+minio:
+  enabled: false
+metaMonitoring:
+  dashboards:
+    enable: true
+  serviceMonitor:
+    enabled: true
+  prometheusRule:
+    enabled: true
+    mimirAlerts: true
+    mimirRules: true
+    namespace: monitoring
