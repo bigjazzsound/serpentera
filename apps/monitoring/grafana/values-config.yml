@@ -67,5 +67,5 @@ dashboards:
       gnetId: 13768
       datasource: *ds
     cert-manager:
-      gnetId: 22908
-      datasource: prometheus
+      gnetId: 20842
+      datasource: *ds
