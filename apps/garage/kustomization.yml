@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ns.yml
   - repo.yml
-  # - release.yml
+  - release.yml
 configMapGenerator:
   - name: garage-config-values
     namespace: flux-system
