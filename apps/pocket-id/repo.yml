@@ -8,5 +8,5 @@ spec:
   interval: 10m0s
   provider: generic
   ref:
-    tag: 1.15.0
-  url: oci://ghcr.io/hobbit44/pocket-id-helm/pocket-id
+    tag: 4.2.0
+  url: oci://ghcr.io/bjw-s-labs/helm/app-template
