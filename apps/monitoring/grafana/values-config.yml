@@ -66,3 +66,6 @@ dashboards:
     blocky:
       gnetId: 13768
       datasource: *ds
+    cert-manager:
+      gnetId: 22908
+      datasource: *ds
