@@ -10,7 +10,7 @@ config:
           failRequestsGreaterThanOne: true
           resources:
             - name: nvidia.com/gpu
-              replicas: 10
+              replicas: 8
 
 gfd:
   enabled: true
