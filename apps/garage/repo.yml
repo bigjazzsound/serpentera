@@ -10,4 +10,4 @@ spec:
   ref:
     tag: "v2.1.0"
   sparseCheckout:
-    - script/helm
+    - script/helm/garage

@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: garage
+      chart: script/helm/garage
       sourceRef:
         kind: GitRepository
         name: garage
