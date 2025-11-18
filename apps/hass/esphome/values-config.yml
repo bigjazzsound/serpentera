@@ -50,7 +50,6 @@ persistence:
     name: esphome
     globalMounts:
       - path: /config/secrets.yaml
-        subPath: secrets.yaml
 
   cache:
     type: emptyDir
