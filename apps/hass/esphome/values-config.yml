@@ -22,7 +22,7 @@ service:
         port: 6052
 
 ingress:
-  app: &ingress
+  app:
     className: nginx
     hosts:
       - host: esphome.cjf.sh
@@ -50,7 +50,6 @@ persistence:
     name: esphome
     globalMounts:
       - path: /config/secrets.yaml
-        subPath: secrets.yaml
 
   cache:
     type: emptyDir
