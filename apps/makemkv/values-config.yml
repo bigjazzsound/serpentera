@@ -10,6 +10,13 @@ controllers:
         image:
           repository: docker.io/jlesage/makemkv
           tag: v25.10.1
+        env:
+          DARK_MODE: 1
+          AUTO_DISC_RIPPER: "1"
+          AUTO_DISC_RIPPER_EJECT: "1"
+          AUTO_DISC_RIPPER_FORCE_UNIQUE_OUTPUT_DIR: "1"
+          AUTO_DISC_RIPPER_INTERVAL: "60"
+          AUTO_DISC_RIPPER_MIN_TITLE_LENGTH: "480" # 8 minutes since shows split into 2 are usually this length
         securityContext:
           privileged: true
           capabilities:
@@ -46,10 +53,6 @@ persistence:
       - path: /config
         readOnly: false
   output:
-    type: persistentVolumeClaim
-    storageClass: zfs-dataset
-    accessMode: ReadWriteOnce
-    size: 200Gi
-    globalMounts:
-      - path: /output
-        readOnly: false
+    enabled: true
+    type: hostPath
+    hostPath: /var/tank/makemkv/output
