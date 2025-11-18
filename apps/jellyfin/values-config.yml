@@ -19,6 +19,16 @@ ingress:
     - hosts:
         - media.cjf.sh
 
+securityContext:
+  capabilities:
+    drop:
+      - ALL
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  fsGroupChangePolicy: OnRootMismatch
+
 livenessProbe:
   initialDelaySeconds: 10
   tcpSocket:
