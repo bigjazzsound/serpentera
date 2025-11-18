@@ -56,3 +56,5 @@ persistence:
     enabled: true
     type: hostPath
     hostPath: /var/tank/makemkv/output
+    globalMounts:
+      - path: /output
