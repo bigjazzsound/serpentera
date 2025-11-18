@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: makemkv
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: makemkv
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 1m0s
+  storageNamespace: makemkv
+  targetNamespace: makemkv
+  valuesFrom:
+  - kind: ConfigMap
+    name: makemkv-config-values

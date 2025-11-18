@@ -1,0 +1,55 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: makemkv
+
+controllers:
+  makemkv:
+    containers:
+      app:
+        image:
+          repository: docker.io/jlesage/makemkv
+          tag: v25.10.1
+        securityContext:
+          privileged: true
+          capabilities:
+            add: ["SYS_ADMIN"]
+
+service:
+  app:
+    controller: makemkv
+    ports:
+      http:
+        port: 5800
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: makemkv.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - makemkv.cjf.sh
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    globalMounts:
+      - path: /config
+        readOnly: false
+  output:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 200Gi
+    globalMounts:
+      - path: /output
+        readOnly: false
