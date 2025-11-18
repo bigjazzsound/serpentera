@@ -45,12 +45,12 @@ persistence:
       - path: /config
         readOnly: false
 
-  # secrets:
-  #   type: secret
-  #   name: esphome
-  #   globalMounts:
-  #     - path: /config/secrets.yaml
-  #       subPath: secrets.yaml
+  secrets:
+    type: secret
+    name: esphome
+    globalMounts:
+      - path: /config/secrets.yaml
+        subPath: secrets.yaml
 
   cache:
     type: emptyDir
