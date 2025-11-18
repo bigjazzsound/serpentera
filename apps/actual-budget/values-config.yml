@@ -1,0 +1,43 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: actual-budget
+
+controllers:
+  actual-budget:
+    containers:
+      app:
+        image:
+          repository: ghcr.io/actualbudget/actual
+          tag: 25.11.0
+
+service:
+  app:
+    controller: actual-budget
+    ports:
+      http:
+        port: 5006
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: money.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - money.cjf.sh
+
+persistence:
+  data:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 2Gi
+    globalMounts:
+      - path: /data
+        readOnly: false
