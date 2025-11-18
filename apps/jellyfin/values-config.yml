@@ -19,15 +19,18 @@ ingress:
     - hosts:
         - media.cjf.sh
 
-securityContext:
-  capabilities:
-    drop:
-      - ALL
-  runAsNonRoot: true
+podSecurityContext:
   runAsUser: 1000
   runAsGroup: 1000
   fsGroup: 1000
-  fsGroupChangePolicy: OnRootMismatch
+  fsGroupChangePolicy: "OnRootMismatch"
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
 
 livenessProbe:
   initialDelaySeconds: 10
