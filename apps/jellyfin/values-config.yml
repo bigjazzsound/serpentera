@@ -59,6 +59,14 @@ persistence:
     type: hostPath
     hostPath: /var/tank/media
 
+volumes:
+  - name: temp-data
+    emptyDir: {}
+
+volumeMounts:
+  - name: temp-data
+    mountPath: "/tmp"
+
 metrics:
   enabled: true
   serviceMonitor:
