@@ -13,11 +13,11 @@ env:
   GF_USERS_AUTO_ASSIGN_ORG_ROLE: Admin
 
 envValueFrom:
-  AUTH_GENERIC_OAUTH_CLIENT_ID:
+  GF_AUTH_GENERIC_OAUTH_CLIENT_ID:
     secretKeyRef:
       name: grafana
       key: client_id
-  AUTH_GENERIC_OAUTH_CLIENT_SECRET:
+  GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
     secretKeyRef:
       name: grafana
       key: client_secret
