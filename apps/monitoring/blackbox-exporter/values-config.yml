@@ -1,0 +1,17 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+fullnameOverride: blackbox-exporter
+replicas: 1
+serviceMonitor:
+  enabled: true
+prometheusRule:
+  enabled: true
+  rules:
+    - alert: BlackboxProbeFailed
+      expr: probe_success == 0
+      for: 5m
+      labels:
+        severity: critical
+      annotations:
+        summary: |-
+          The host {{ $labels.target }} is currently unreachable
