@@ -19,7 +19,7 @@ volume:
     - name: data
       type: "persistentVolumeClaim"
       storageClass: "zfs-dataset"
-      maxVolumes: 0
+      maxVolumes: 1
 
 filer:
   data:
