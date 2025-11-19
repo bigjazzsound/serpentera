@@ -4,6 +4,8 @@ kind: Kustomization
 resources:
   - repo.yml
   - release.yml
+  - secrets.sops.yml
+  - scrapeconfig.yml
 configMapGenerator:
   - name: hass-config-values
     namespace: flux-system
