@@ -18,6 +18,7 @@ volume:
   dataDirs:
     - name: data
       type: "persistentVolumeClaim"
+      size: 10Gi
       storageClass: "zfs-dataset"
       maxVolumes: 1
 
