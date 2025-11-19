@@ -1,0 +1,32 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  monitoring:
+    enabled: true
+
+master:
+  data:
+    type: "persistentVolumeClaim"
+    size: 5Gi
+    storageClass: "zfs-dataset"
+  logs:
+    type: "persistentVolumeClaim"
+    size: 5Gi
+    storageClass: "zfs-dataset"
+
+volume:
+  dataDirs:
+    - name: data
+      type: "persistentVolumeClaim"
+      storageClass: "zfs-dataset"
+      maxVolumes: 0
+
+filer:
+  data:
+    type: "hostPath"
+    storageClass: "openebs-hostpath"
+    hostPathPrefix: /var/tank/seedweedfs/storage
+  logs:
+    type: "persistentVolumeClaim"
+    size: "5Gi"
+    storageClass: "zfs-dataset"
