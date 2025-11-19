@@ -7,7 +7,7 @@ metadata:
 spec:
   chart:
     spec:
-      chart: blackbox-exporter
+      chart: prometheus-blackbox-exporter
       reconcileStrategy: ChartVersion
       sourceRef:
         kind: HelmRepository
