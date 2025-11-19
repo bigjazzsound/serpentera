@@ -6,7 +6,7 @@ metadata:
   name: esphome
   namespace: monitoring
 spec:
-  module: http_2xx
+  module: tcp_connect
   prober:
     url: blackbox-exporter.monitoring.svc.cluster.local:9115
   targets:
