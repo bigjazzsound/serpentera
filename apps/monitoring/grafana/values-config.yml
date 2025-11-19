@@ -7,6 +7,7 @@ env:
   GF_AUTH_GENERIC_OAUTH_SCOPES: openid profile email
   GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.cjf.sh/authorize
   GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.cjf.sh/api/oidc/token
+  GF_AUTH_GENERIC_OAUTH_API_URL: https://auth.cjf.sh/api/oidc/userinfo
   GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP: false
   GF_AUTH_SKIP_ORG_ROLE_SYNC: true
   GF_USERS_AUTO_ASSIGN_ORG_ROLE: Admin
