@@ -3,7 +3,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
-  name: wled
+  name: esphome
   namespace: monitoring
 spec:
   module: http_2xx
@@ -12,9 +12,9 @@ spec:
   targets:
     staticConfig:
       static:
-        - wled-fridge.cjf.lan
-        - wled-oven-left.cjf.lan
-        - wled-oven-right.cjf.lan
-        - wled-paige-stars.cjf.lan
-        - wled-stairs.cjf.lan
-        - wled-tv-backlights.cjf.lan
+        - epl-kitchen.cjf.lan:6053
+        - epl-office.cjf.lan:6053
+        - epl-paige-office.cjf.lan:6053
+        - epl-stairs.cjf.lan:6053
+        - esp-bedjet.cjf.lan:6053
+        - esp-office.cjf.lan:6053
