@@ -4,8 +4,9 @@ apiVersion: monitoring.coreos.com/v1
 kind: Probe
 metadata:
   name: lan
+  namespace: monitoring
 spec:
-  module: http
+  module: http_2xx
   prober:
     url: blackbox-exporter.monitoring.svc.cluster.local:9115
   targets:
