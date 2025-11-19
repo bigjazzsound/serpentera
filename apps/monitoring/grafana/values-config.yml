@@ -1,5 +1,26 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+env:
+  GF_SERVER_ROOT_URL: https://monitor.cjf.sh
+  GF_AUTH_GENERIC_OAUTH_ENABLED: true
+  GF_AUTH_GENERIC_OAUTH_NAME: SSO
+  GF_AUTH_GENERIC_OAUTH_SCOPES: openid profile email
+  GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.cjf.sh/authorize
+  GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.cjf.sh/api/oidc/token
+  GF_AUTH_GENERIC_OAUTH_API_URL: https://auth.cjf.sh/api/oidc/userinfo
+  GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP: false
+  GF_USERS_AUTO_ASSIGN_ORG_ROLE: Admin
+
+envValueFrom:
+  AUTH_GENERIC_OAUTH_CLIENT_ID:
+    secretKeyRef:
+      name: grafana
+      key: client_id
+  AUTH_GENERIC_OAUTH_CLIENT_SECRET:
+    secretKeyRef:
+      name: grafana
+      key: client_secret
+
 ingress:
   enabled: true
   ingressClassName: nginx
