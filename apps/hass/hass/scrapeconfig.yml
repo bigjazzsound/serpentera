@@ -12,7 +12,7 @@ spec:
     type: Bearer
     credentials:
       name: hass
-      key: token
+      key: prometheus_token
   staticConfigs:
     - labels:
         job: hass
