@@ -7,6 +7,11 @@ destinations:
   - name: logs
     type: loki
     url: http://loki.monitoring.svc.cluster.local:3100
+    extraHeaders:
+      X-Scope-OrgID: "1"
+
+podLogs:
+  enabled: true
 
 podLogs:
   enabled: true
