@@ -35,6 +35,8 @@ loki:
 
 singleBinary:
   replicas: 1
+  persistence:
+    storageClass: zfs-dataset
 
 # Zero out replica counts of other deployment modes
 backend:
