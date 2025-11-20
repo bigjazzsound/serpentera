@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: k8s-monitoring
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: k8s-monitoring
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: k8s-monitoring
+      version: 3.5.7
+  install:
+    createNamespace: true
+  interval: 1m0s
+  storageNamespace: k8s-monitoring
+  targetNamespace: k8s-monitoring
+  valuesFrom:
+  - kind: ConfigMap
+    name: k8s-monitoring-config-values

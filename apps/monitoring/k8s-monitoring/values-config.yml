@@ -1,0 +1,12 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+cluster:
+  name: mother
+
+destinations:
+  - name: logs
+    type: loki
+    url: http://loki.monitoring.svc.cluster.local:3100
+
+alloy-logs:
+  enabled: true
