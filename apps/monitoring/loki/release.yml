@@ -16,8 +16,7 @@ spec:
   install:
     createNamespace: true
   interval: 1m0s
-  storageNamespace: loki
-  targetNamespace: loki
+  targetNamespace: monitoring
   valuesFrom:
   - kind: ConfigMap
     name: loki-config-values
