@@ -8,5 +8,8 @@ destinations:
     type: loki
     url: http://loki.monitoring.svc.cluster.local:3100
 
+podLogs:
+  enabled: true
+
 alloy-logs:
   enabled: true
