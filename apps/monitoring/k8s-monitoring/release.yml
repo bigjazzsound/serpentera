@@ -18,5 +18,5 @@ spec:
   interval: 1m0s
   targetNamespace: monitoring
   valuesFrom:
-  - kind: ConfigMap
-    name: k8s-monitoring-config-values
+    - kind: ConfigMap
+      name: k8s-monitoring-config-values
