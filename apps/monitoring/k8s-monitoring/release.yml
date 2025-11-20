@@ -16,8 +16,7 @@ spec:
   install:
     createNamespace: true
   interval: 1m0s
-  storageNamespace: k8s-monitoring
-  targetNamespace: k8s-monitoring
+  targetNamespace: monitoring
   valuesFrom:
   - kind: ConfigMap
     name: k8s-monitoring-config-values
