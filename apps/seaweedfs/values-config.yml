@@ -23,6 +23,8 @@ volume:
       maxVolumes: 1
 
 filer:
+  s3:
+    enabled: true
   data:
     type: "hostPath"
     storageClass: "openebs-hostpath"
