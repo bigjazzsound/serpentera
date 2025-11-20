@@ -33,6 +33,7 @@ loki:
     s3:
       endpoint: http://seaweedfs-s3.seaweed:8333
       insecure: true
+      s3ForcePathStyle: true
 
 singleBinary:
   replicas: 1
