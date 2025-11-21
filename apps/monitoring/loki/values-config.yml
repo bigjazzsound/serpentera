@@ -28,6 +28,8 @@ loki:
     type: s3
     bucketNames:
       chunks: chunks
+      ruler: ruler
+      admin: admin
     s3:
       endpoint: http://seaweedfs-s3.seaweedfs.svc.cluster.local:8333/loki
       insecure: true
