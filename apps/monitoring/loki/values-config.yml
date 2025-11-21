@@ -31,10 +31,12 @@ loki:
       ruler: ruler
       admin: admin
     s3:
-      s3: s3://loki
       endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
       insecure: true
       s3ForcePathStyle: true
+    object_store:
+      s3:
+        endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
 
 singleBinary:
   replicas: 1
