@@ -25,6 +25,11 @@ volume:
 filer:
   s3:
     enabled: true
+    enableAuth: true
+    existingConfigSecret: seaweedfs-creds
+    createBuckets:
+      - name: loki
+        anonymousRead: false
   data:
     type: "hostPath"
     storageClass: "openebs-hostpath"
