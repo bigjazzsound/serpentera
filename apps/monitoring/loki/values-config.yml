@@ -27,7 +27,7 @@ loki:
   storage:
     type: s3
     s3:
-      endpoint: http://seaweedfs-s3.seaweedfs.svc.cluster.local:8333
+      endpoint: http://seaweedfs-s3.seaweedfs.svc.cluster.local:8333/loki
       insecure: true
       s3ForcePathStyle: true
 
