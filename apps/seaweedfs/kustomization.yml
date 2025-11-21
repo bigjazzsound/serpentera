@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ns.yml
   - repo.yml
+  - secrets.yml
   - release.yml
 configMapGenerator:
   - name: seaweedfs-config-values
