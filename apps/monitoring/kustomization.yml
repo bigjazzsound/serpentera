@@ -8,5 +8,5 @@ resources:
   - blackbox-exporter
   - grafana
   - loki
-  # - k8s-monitoring
+  - k8s-monitoring
   # - mimir-distributed
