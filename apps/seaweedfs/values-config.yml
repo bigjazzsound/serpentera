@@ -20,7 +20,7 @@ volume:
       type: "persistentVolumeClaim"
       size: 10Gi
       storageClass: "zfs-dataset"
-      maxVolumes: 1
+      maxVolumes: 10
 
 filer:
   s3:
