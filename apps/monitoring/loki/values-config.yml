@@ -5,10 +5,7 @@ fullnameOverride: loki
 
 global:
   extraArgs:
-    - "-config.expand-env=true"
-  extraEnvFrom:
-    - secretRef:
-        name: seaweedfs/seaweedfs-creds
+    - -log.level=debug
 
 loki:
   commonConfig:
