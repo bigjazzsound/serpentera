@@ -38,6 +38,8 @@ loki:
       endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
       insecure: true
       s3ForcePathStyle: true
+      accessKeyId: fake_access_key
+      secretAccessKey: fake_secret_access_key
 
 singleBinary:
   replicas: 1
