@@ -3,6 +3,13 @@
 deploymentMode: SingleBinary
 fullnameOverride: loki
 
+global:
+  extraArgs:
+    - "-config.expand-env=true"
+  extraEnvFrom:
+    - secretRef:
+        name: seaweedfs/seaweedfs-creds
+
 loki:
   commonConfig:
     replication_factor: 1
@@ -34,9 +41,8 @@ loki:
       endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
       insecure: true
       s3ForcePathStyle: true
-    object_store:
-      s3:
-        endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
+      secretAccessKey: "${loki_access_key}"
+      accessKeyId: "${loki_secret_key}"
 
 singleBinary:
   replicas: 1

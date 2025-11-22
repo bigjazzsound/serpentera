@@ -7,6 +7,6 @@ resources:
   - kube-prometheus-stack
   - blackbox-exporter
   - grafana
-  # - loki
+  - loki
   # - k8s-monitoring
   # - mimir-distributed
