@@ -37,7 +37,7 @@ filer:
   data:
     type: "hostPath"
     storageClass: "openebs-hostpath"
-    hostPathPrefix: /var/tank/seedweedfs/storage
+    hostPathPrefix: /var/tank/seaweedfs/storage
   logs:
     type: "persistentVolumeClaim"
     size: "5Gi"
