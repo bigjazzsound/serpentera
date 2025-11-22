@@ -34,15 +34,15 @@ loki:
   storage:
     type: s3
     bucketNames:
-      chunks: chunks
-      ruler: ruler
-      admin: admin
+      chunks: loki-chunks
+      ruler: loki-ruler
+      admin: loki-admin
     s3:
       endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
       insecure: true
       s3ForcePathStyle: true
-      secretAccessKey: "${loki_access_key}"
-      accessKeyId: "${loki_secret_key}"
+      accessKeyId: fake_access_key
+      secretAccessKey: fake_secret_access_key
 
 singleBinary:
   replicas: 1
