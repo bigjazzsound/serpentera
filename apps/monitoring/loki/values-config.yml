@@ -35,11 +35,9 @@ loki:
       ruler: loki-ruler
       admin: loki-admin
     s3:
-      endpoint: http://seaweedfs-s3.seaweedfs.svc.cluster.local:8333
+      s3: s3://seaweedfs-s3.seaweedfs.svc.cluster.local:8333/loki
       insecure: true
       s3ForcePathStyle: true
-      accessKeyId: fake_access_key
-      secretAccessKey: fake_secret_access_key
 
 singleBinary:
   replicas: 1
