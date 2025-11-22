@@ -35,7 +35,7 @@ loki:
       ruler: loki-ruler
       admin: loki-admin
     s3:
-      s3: s3://seaweedfs-s3.seaweedfs.svc.cluster.local:8333/loki
+      endpoint: seaweedfs-s3.seaweedfs.svc.cluster.local:8333
       insecure: true
       s3ForcePathStyle: true
 
