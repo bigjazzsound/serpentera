@@ -6,7 +6,7 @@ cluster:
 destinations:
   - name: logs
     type: loki
-    url: http://loki-gateway.monitoring.svc.cluster.local
+    url: http://loki-gateway.monitoring.svc.cluster.local/loki/api/v1/push
     tenantId: "1"
 
 podLogs:
