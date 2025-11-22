@@ -29,11 +29,11 @@ filer:
     # existingConfigSecret: seaweedfs-creds
     createBuckets:
       - name: loki-admin
-        anonymousRead: false
+        anonymousRead: true
       - name: loki-chunks
-        anonymousRead: false
+        anonymousRead: true
       - name: loki-ruler
-        anonymousRead: false
+        anonymousRead: true
   data:
     type: "hostPath"
     storageClass: "openebs-hostpath"
