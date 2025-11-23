@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: hass
+controllers:
+  hass:
+    type: statefulset
+    pod:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: kube-system/multus-iot,kube-system/multus-dmz
+    containers:
+      app:
+        image:
+          repository: ghcr.io/home-assistant/home-assistant
+          tag: "2025.11"
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+              - NET_RAW
+              - NET_BROADCAST
+        probes:
+          liveness:
+            enabled: false
+          readiness:
+            enabled: false
+          startup:
+            enabled: false
+
+service:
+  app:
+    controller: hass
+    ports:
+      http:
+        port: 8123
+
+ingress:
+  app:
+    className: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    hosts:
+      - host: hass.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - hass.cjf.sh
+
+persistence:
+  config:
+    existingClaim: "{{ .Release.Name }}"
+    globalMounts:
+      - path: /config
+
+  backups:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    globalMounts:
+      - path: /config/backups

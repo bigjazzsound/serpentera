@@ -1,0 +1,13 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - repo.yml
+  - release.yml
+configMapGenerator:
+  - name: k8s-monitoring-config-values
+    namespace: flux-system
+    files:
+      - values.yaml=values-config.yml
+configurations:
+  - kustomizeconfig.yml

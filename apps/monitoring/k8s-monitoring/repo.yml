@@ -1,0 +1,9 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: k8s-monitoring
+  namespace: flux-system
+spec:
+  interval: 24h0m0s
+  url: https://grafana.github.io/helm-charts

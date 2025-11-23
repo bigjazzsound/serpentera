@@ -1,0 +1,60 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: esphome
+controllers:
+  esphome:
+    pod:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: kube-system/multus-iot
+
+    containers:
+      app:
+        image:
+          repository: ghcr.io/esphome/esphome
+          tag: "2025.10"
+
+service:
+  app:
+    controller: esphome
+    ports:
+      http:
+        port: 6052
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: esphome.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - esphome.cjf.sh
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    globalMounts:
+      - path: /config
+        readOnly: false
+
+  secrets:
+    type: secret
+    name: esphome
+    globalMounts:
+      - path: /config/secrets.yaml
+        subPath: secrets.yaml
+
+  cache:
+    type: emptyDir
+    advancedMounts:
+      esphome:
+        app:
+          - path: /cache

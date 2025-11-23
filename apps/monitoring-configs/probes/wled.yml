@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/probe_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: wled
+  namespace: monitoring
+spec:
+  module: http_2xx
+  prober:
+    url: blackbox-exporter.monitoring.svc.cluster.local:9115
+  targets:
+    staticConfig:
+      static:
+        - wled-fridge.cjf.lan
+        - wled-oven-left.cjf.lan
+        - wled-oven-right.cjf.lan
+        - wled-paige-stars.cjf.lan
+        - wled-stairs.cjf.lan
+        - wled-tv-backlights.cjf.lan

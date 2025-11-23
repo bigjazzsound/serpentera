@@ -1,0 +1,20 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/scrapeconfig_v1alpha1.json
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: ScrapeConfig
+metadata:
+  name: hass
+  namespace: hass
+spec:
+  metricsPath: /api/prometheus
+  scrapeInterval: 60s
+  authorization:
+    type: Bearer
+    credentials:
+      name: hass
+      key: prometheus_token
+  staticConfigs:
+    - labels:
+        job: hass
+      targets:
+        - hass.hass:8123

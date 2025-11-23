@@ -1,0 +1,23 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: jellyfin
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: jellyfin
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: jellyfin
+        namespace: flux-system
+      version: 2.5.0
+  install:
+    createNamespace: true
+  interval: 1m0s
+  targetNamespace: jellyfin
+  valuesFrom:
+    - kind: ConfigMap
+      name: jellyfin-config-values

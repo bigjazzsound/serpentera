@@ -1,0 +1,98 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: coredns-omada
+
+controllers:
+  coredns-omada:
+    replicas: 1
+    strategy: RollingUpdate
+    rollingUpdate:
+      unavailable: 2
+      surge: 1
+    containers:
+      app:
+        image:
+          repository: ghcr.io/dougbw/coredns_omada
+          tag: "1.8.1"
+        args:
+          - "-conf"
+          - "/etc/coredns/Corefile"
+        env:
+          OMADA_USERNAME:
+            secretKeyRef:
+              name: coredns-omada
+              key: username
+          OMADA_PASSWORD:
+            secretKeyRef:
+              name: coredns-omada
+              key: password
+          OMADA_URL:
+            secretKeyRef:
+              name: coredns-omada
+              key: url
+          OMADA_SITE:
+            secretKeyRef:
+              name: coredns-omada
+              key: site
+          OMADA_DISABLE_HTTPS_VERIFICATION: true
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /health
+                port: 8080
+              initialDelaySeconds: 10
+              periodSeconds: 20
+              successThreshold: 1
+              failureThreshold: 3
+              timeoutSeconds: 5
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /health
+                port: 8080
+              initialDelaySeconds: 10
+              periodSeconds: 20
+              successThreshold: 1
+              failureThreshold: 3
+              timeoutSeconds: 5
+
+service:
+  dns:
+    controller: coredns-omada
+    ports:
+      dns-udp:
+        port: 53
+        protocol: UDP
+      dns-tcp:
+        port: 53
+
+persistence:
+  config:
+    name: coredns-omada
+    type: configMap
+    advancedMounts:
+      coredns-omada:
+        app:
+          - path: /etc/coredns/Corefile
+            subPath: config.yml
+
+configMaps:
+  config:
+    data:
+      config.yml: |
+        . {
+            health :8080
+
+            omada {
+                controller_url {$OMADA_URL}
+                site {$OMADA_SITE}
+                username {$OMADA_USERNAME}
+                password {$OMADA_PASSWORD}
+            }
+        }

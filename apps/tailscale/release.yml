@@ -1,0 +1,21 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tailscale
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: tailscale-operator
+      interval: 5m0s
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: tailscale
+        namespace: flux-system
+      version: 1.82.x
+  install:
+    createNamespace: true
+  interval: 30m0s
+  targetNamespace: tailscale

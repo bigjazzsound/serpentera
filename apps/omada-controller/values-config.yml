@@ -1,0 +1,102 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+
+global:
+  fullnameOverride: omada-controller
+
+controllers:
+  omada:
+    pod:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: kube-system/multus-lan
+    containers:
+      app:
+        image:
+          repository: docker.io/mbentley/omada-controller
+          tag: "6.0.0.24"
+        env:
+          PGID: "508"
+          PUID: "508"
+          MANAGE_HTTP_PORT: &manage_http_port "8088"
+          MANAGE_HTTPS_PORT: &manage_https_port "8043"
+          PORTAL_HTTP_PORT: &portal_http_port "8088"
+          PORTAL_HTTPS_PORT: &portal_https_port "8843"
+          PORT_ADOPT_V1: &port_adopt_v1 "29812"
+          PORT_APP_DISCOVERY: &port_app_discovery "27001"
+          PORT_DISCOVERY: &port_discovery "29810"
+          PORT_DEVICE_MONITOR: &port_device_monitor "29817"
+          PORT_MANAGER_V1: &port_manager_v1 "29811"
+          PORT_MANAGER_V2: &port_manager_v2 "29814"
+          PORT_TRANSFER_V2: &port_transfer_v2 "29815"
+          PORT_RTTY: &port_rtty "29816"
+          PORT_UPGRADE_V1: &port_upgrade_v1 "29813"
+          SHOW_SERVER_LOGS: true
+          SHOW_MONGODB_LOGS: false
+          TZ: America/New_York
+
+service:
+  app:
+    controller: omada
+    ports:
+      manage-http:
+        port: *manage_http_port
+      manage-https:
+        port: *manage_https_port
+      portal-https:
+        port: *portal_https_port
+  service:
+    controller: omada
+    type: LoadBalancer
+    ports:
+      port-adopt-v1:
+        port: *port_adopt_v1
+      port-app-discovery:
+        port: *port_app_discovery
+      port-discovery:
+        port: *port_discovery
+      port-manager-v1:
+        port: *port_manager_v1
+      port-manager-v2:
+        port: *port_manager_v2
+      port-transfer-v2:
+        port: *port_transfer_v2
+      port-rtty:
+        port: *port_rtty
+      port-upgrade-v1:
+        port: *port_upgrade_v1
+      port-device-monitor:
+        port: *port_device_monitor
+      port-http:
+        port: *portal_http_port
+
+ingress:
+  app:
+    className: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
+      nginx.ingress.kubernetes.io/ssl-verify: "false"
+    hosts:
+      - host: omada.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: manage-https
+    tls:
+      - hosts:
+          - omada.cjf.sh
+
+persistence:
+  data:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    globalMounts:
+      - path: /opt/tplink/EAPController/data
+        readOnly: false
+  logs:
+    type: emptyDir
+    globalMounts:
+      - path: /opt/tplink/EAPController/logs
+        readOnly: false

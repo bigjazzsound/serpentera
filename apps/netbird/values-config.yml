@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+fullnameOverride: netbird
+
+management:
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - host: vpn.cjf.sh
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+    tls:
+      - hosts:
+          - vpn.cjf.sh
+  persistentVolume:
+    storageClass: zfs-dataset

@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: coredns-omada
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: coredns-omada
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 1m0s
+  storageNamespace: coredns-omada
+  targetNamespace: coredns-omada
+  valuesFrom:
+  - kind: ConfigMap
+    name: coredns-omada-config-values

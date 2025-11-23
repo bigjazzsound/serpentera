@@ -1,0 +1,37 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: immich-db
+  namespace: immich
+spec:
+  imageName: ghcr.io/tensorchord/cloudnative-vectorchord:14-0.5.3
+  instances: 1
+  enableSuperuserAccess: true
+
+  postgresql:
+    shared_preload_libraries:
+      - "vchord.so"
+
+  managed:
+    roles:
+      - name: immich
+        superuser: true
+        login: true
+        passwordSecret:
+          name: immich-db
+
+  bootstrap:
+    initdb:
+      database: immich
+      owner: immich
+      secret:
+        name: immich-db
+      postInitApplicationSQL:
+        # Commands based on: https://immich.app/docs/administration/postgres-standalone/#without-superuser-permission
+        - CREATE EXTENSION vchord CASCADE;
+        - CREATE EXTENSION earthdistance CASCADE;
+
+  storage:
+    size: 4Gi
+    storageClass: zfs-dataset

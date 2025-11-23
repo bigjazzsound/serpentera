@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: zigbee2mqtt
+controllers:
+  zigbee2mqtt:
+    containers:
+      app:
+        image:
+          repository: docker.io/koenkk/zigbee2mqtt
+          tag: 2.6.2
+        securityContext:
+          privileged: true
+          capabilities:
+            add: ["SYS_ADMIN"]
+
+service:
+  app:
+    controller: zigbee2mqtt
+    ports:
+      http:
+        port: 8080
+
+ingress:
+  app: &ingress
+    className: nginx
+    hosts:
+      - host: zigbee.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - zigbee.cjf.sh
+
+persistence:
+  config:
+    existingClaim: "{{ .Release.Name }}"
+    globalMounts:
+      - path: /app/data

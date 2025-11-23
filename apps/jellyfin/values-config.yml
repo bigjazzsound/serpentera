@@ -1,0 +1,73 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+fullnameOverride: jellyfin
+
+image:
+  repository: ghcr.io/jellyfin/jellyfin
+  tag: "10.11.2"
+  pullPolicy: IfNotPresent
+
+ingress:
+  enabled: true
+  className: nginx
+  hosts:
+    - host: media.cjf.sh
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls:
+    - hosts:
+        - media.cjf.sh
+
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  fsGroupChangePolicy: "OnRootMismatch"
+
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+livenessProbe:
+  initialDelaySeconds: 10
+  tcpSocket:
+    port: http
+
+readinessProbe:
+  initialDelaySeconds: 10
+  tcpSocket:
+    port: http
+
+runtimeClassName: nvidia
+
+resources:
+  limits:
+    nvidia.com/gpu: "1"
+
+persistence:
+  config:
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    storageClass: zfs-dataset
+  media:
+    enabled: true
+    type: hostPath
+    hostPath: /var/tank/media
+
+volumes:
+  - name: temp-data
+    emptyDir: {}
+
+volumeMounts:
+  - name: temp-data
+    mountPath: "/tmp"
+
+metrics:
+  enabled: true
+  serviceMonitor:
+    enabled: true

@@ -1,0 +1,65 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: mqtt
+controllers:
+  mqtt:
+    type: statefulset
+    pod:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: kube-system/multus-iot,kube-system/multus-dmz
+    containers:
+      app:
+        image:
+          repository: docker.io/eclipse-mosquitto
+          tag: 2.0.22
+
+service:
+  app:
+    controller: mqtt
+    ports:
+      mqtt:
+        port: 1883
+
+ingress:
+  app: &ingress
+    enabled: false
+    className: nginx
+    hosts:
+      - host: mqtt.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: mqtt
+    tls:
+      - hosts:
+          - mqtt.cjf.sh
+
+persistence:
+  config:
+    name: mqtt
+    type: configMap
+    advancedMounts:
+      mqtt:
+        app:
+          - path: /mosquitto/config/mosquitto.conf
+            subPath: config.yml
+  data:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    globalMounts:
+      - path: /mosquitto/data
+        readOnly: false
+
+configMaps:
+  config:
+    data:
+      config.yml: |
+        listener 1883
+        allow_anonymous true
+        persistence true
+        persistence_location /mosquitto/data/
+        log_dest stdout

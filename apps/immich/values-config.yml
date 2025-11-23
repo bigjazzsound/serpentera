@@ -1,0 +1,52 @@
+---
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          tag: v2.2.3
+        env:
+          REDIS_HOSTNAME: immich-redis
+          DB_HOSTNAME: immich-db-rw
+          DB_DATABASE_NAME: immich
+          DB_USERNAME:
+            valueFrom:
+              secretKeyRef:
+                name: immich-db
+                key: username
+          DB_PASSWORD:
+            valueFrom:
+              secretKeyRef:
+                name: immich-db
+                key: password
+        resources:
+          limits:
+            nvidia.com/gpu: "1"
+
+defaultPodOptions:
+  runtimeClassName: nvidia
+
+immich:
+  metrics:
+    enabled: true
+  persistence:
+    library:
+      existingClaim: immich-library
+server:
+  service:
+    main:
+      type: LoadBalancer
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        # proxy-body-size is set to 0 to remove the body limit on file uploads
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
+      ingressClassName: nginx
+      hosts:
+        - host: pics.cjf.sh
+          paths:
+            - path: /
+      tls:
+        - hosts:
+            - pics.cjf.sh

@@ -1,0 +1,18 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: wakeword
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: wakeword
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 1m0s
+  targetNamespace: hass
+  valuesFrom:
+  - kind: ConfigMap
+    name: wakeword-config-values

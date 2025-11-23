@@ -1,0 +1,60 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: makemkv
+
+controllers:
+  makemkv:
+    containers:
+      app:
+        image:
+          repository: docker.io/jlesage/makemkv
+          tag: v25.10.1
+        env:
+          DARK_MODE: 1
+          AUTO_DISC_RIPPER: "1"
+          AUTO_DISC_RIPPER_EJECT: "1"
+          AUTO_DISC_RIPPER_FORCE_UNIQUE_OUTPUT_DIR: "1"
+          AUTO_DISC_RIPPER_INTERVAL: "60"
+          AUTO_DISC_RIPPER_MIN_TITLE_LENGTH: "480" # 8 minutes since shows split into 2 are usually this length
+        securityContext:
+          privileged: true
+          capabilities:
+            add: ["SYS_ADMIN"]
+
+service:
+  app:
+    controller: makemkv
+    ports:
+      http:
+        port: 5800
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: makemkv.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - makemkv.cjf.sh
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    globalMounts:
+      - path: /config
+        readOnly: false
+  output:
+    enabled: true
+    type: hostPath
+    hostPath: /var/tank/makemkv/output
+    globalMounts:
+      - path: /output

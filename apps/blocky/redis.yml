@@ -1,0 +1,27 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: blocky-redis
+  namespace: flux-system
+spec:
+  chart:
+    spec:
+      chart: valkey
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: valkey
+      version: 0.7.x
+  install:
+    createNamespace: true
+  interval: 30m0s
+  targetNamespace: blocky
+  values:
+    fullnameOverride: redis
+    replica:
+      replicaCount: 1
+    auth:
+      enabled: false
+    global:
+      defaultStorageClass: zfs-dataset

@@ -1,0 +1,103 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: blocky
+controllers:
+  blocky:
+    replicas: 3
+    strategy: RollingUpdate
+    rollingUpdate:
+      unavailable: 2
+      surge: 1
+    containers:
+      app:
+        image:
+          repository: ghcr.io/0xerr0r/blocky
+          tag: "v0.27.0"
+service:
+  app:
+    controller: blocky
+    ports:
+      http:
+        port: 80
+      init:
+        port: 3000
+  dns:
+    controller: blocky
+    type: LoadBalancer
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: 10.0.0.250
+    ports:
+      dns-udp:
+        port: 53
+        protocol: UDP
+      dns-tcp:
+        port: 53
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: "doh.cjf.sh"
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - doh.cjf.sh
+
+persistence:
+  config:
+    name: blocky
+    type: configMap
+    advancedMounts:
+      blocky:
+        app:
+          - path: /app/config.yml
+            subPath: config.yml
+configMaps:
+  config:
+    data:
+      config.yml: |
+        upstreams:
+          groups:
+            default:
+              - https://dns.cloudflare.com/dns-query
+        bootstrapDns:
+          - https://1.1.1.1/dns-query
+          - https://1.0.0.1/dns-query
+        blocking:
+          denylists:
+            ads:
+              - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
+            fakenews:
+              - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-only/hosts
+            meta:
+              - https://raw.githubusercontent.com/jmdugan/blocklists/refs/heads/master/corporations/facebook/all
+          clientGroupsBlock:
+            default:
+              - ads
+              - fakenews
+              - meta
+        customDNS:
+          mapping:
+            cjf.sh: 10.0.0.200
+        conditional:
+          mapping:
+            cjf.lan: 10.103.16.40
+        caching:
+          minTime: 1m
+          maxTime: 5m
+        ports:
+          dns: 53
+          http: 80
+        prometheus:
+          enable: true
+        redis:
+          address: redis.blocky:6379
+          required: true
+        log:
+          level: info
+          format: json

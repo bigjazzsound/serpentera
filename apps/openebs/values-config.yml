@@ -1,0 +1,29 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+fullnameOverride: openebs
+engines:
+  replicated:
+    mayastor:
+      enabled: false
+  local:
+    lvm:
+      enabled: false
+    zfs:
+      enabled: true
+localpv-provisioner:
+  hostpathClass:
+    isDefaultClass: true
+    reclaimPolicy: Retain
+zfs-localpv:
+  enabled: true
+  zfsNode:
+    kubeletDir: /var/lib/k0s/kubelet/
+mayastor:
+  csi:
+    node:
+      initContainers:
+        enabled: false
+loki:
+  enabled: false
+alloy:
+  enabled: false

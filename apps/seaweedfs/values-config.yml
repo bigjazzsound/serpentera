@@ -1,0 +1,44 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  monitoring:
+    enabled: true
+
+master:
+  data:
+    type: "persistentVolumeClaim"
+    size: 5Gi
+    storageClass: "zfs-dataset"
+  logs:
+    type: "persistentVolumeClaim"
+    size: 5Gi
+    storageClass: "zfs-dataset"
+
+volume:
+  dataDirs:
+    - name: data
+      type: "persistentVolumeClaim"
+      size: 10Gi
+      storageClass: "zfs-dataset"
+      maxVolumes: 10
+
+filer:
+  s3:
+    enabled: true
+    enableAuth: false
+    # existingConfigSecret: seaweedfs-creds
+    createBuckets:
+      - name: loki-admin
+        anonymousRead: true
+      - name: loki-chunks
+        anonymousRead: true
+      - name: loki-ruler
+        anonymousRead: true
+  data:
+    type: "hostPath"
+    storageClass: "openebs-hostpath"
+    hostPathPrefix: /var/tank/seaweedfs/storage
+  logs:
+    type: "persistentVolumeClaim"
+    size: "5Gi"
+    storageClass: "zfs-dataset"

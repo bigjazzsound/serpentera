@@ -1,0 +1,28 @@
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: multus-dmz
+  namespace: kube-system
+spec:
+  config: |
+    {
+      "cniVersion": "1.1.0",
+      "name": "multus-dmz",
+      "plugins": [
+        {
+          "type": "macvlan",
+          "master": "eno1.400",
+          "mode": "bridge",
+          "ipam": {
+            "type": "dhcp",
+            "request": [
+              {
+                "skipDefault": true,
+                "option": "subnet-mask"
+              }
+            ]
+          }
+        }
+      ]
+    }

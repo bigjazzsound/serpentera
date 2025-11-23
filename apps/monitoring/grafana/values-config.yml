@@ -1,0 +1,102 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+env:
+  GF_SERVER_ROOT_URL: https://monitor.cjf.sh
+  GF_AUTH_GENERIC_OAUTH_ENABLED: true
+  GF_AUTH_GENERIC_OAUTH_NAME: SSO
+  GF_AUTH_GENERIC_OAUTH_SCOPES: openid profile email
+  GF_AUTH_GENERIC_OAUTH_AUTH_URL: https://auth.cjf.sh/authorize
+  GF_AUTH_GENERIC_OAUTH_TOKEN_URL: https://auth.cjf.sh/api/oidc/token
+  GF_AUTH_GENERIC_OAUTH_API_URL: https://auth.cjf.sh/api/oidc/userinfo
+  GF_AUTH_GENERIC_OAUTH_ALLOW_SIGN_UP: true
+  GF_AUTH_SKIP_ORG_ROLE_SYNC: true
+  GF_USERS_AUTO_ASSIGN_ORG_ROLE: Admin
+
+envValueFrom:
+  GF_AUTH_GENERIC_OAUTH_CLIENT_ID:
+    secretKeyRef:
+      name: grafana
+      key: client_id
+  GF_AUTH_GENERIC_OAUTH_CLIENT_SECRET:
+    secretKeyRef:
+      name: grafana
+      key: client_secret
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - grafana.cjf.sh
+    - monitor.cjf.sh
+    - monitoring.cjf.sh
+  tls:
+    - hosts:
+        - grafana.cjf.sh
+        - monitor.cjf.sh
+        - monitoring.cjf.sh
+
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://prometheus-prometheus.monitoring:9090
+        isDefault: true
+      - name: Alertmanager
+        type: alertmanager
+        url: http://prometheus-alertmanager.monitoring:9093
+        jsonData:
+          implementation: prometheus
+          handleGrafanaManagedAlerts: true
+      - name: Loki
+        type: loki
+        url: http://loki-gateway.monitoring.svc.cluster.local
+        jsonData:
+          httpHeaderName1: "X-Scope-OrgID"
+        secureJsonData:
+          httpHeaderValue1: "1"
+
+sidecar:
+  dashboards:
+    enabled: true
+
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: "default"
+        orgId: 1
+        folder: ""
+        type: file
+        disableDeletion: false
+        editable: true
+        updateIntervalSeconds: 600
+        allowUpdates: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+          foldersFromFilesStructure: true
+
+dashboards:
+  default:
+    coredns:
+      gnetId: 14981
+      datasource: &ds Prometheus
+    node-exporter-full:
+      gnetId: 1860
+      revision: 41
+      datasource: *ds
+    flux2:
+      gnetId: 16714
+      datasource: *ds
+    blackbox-exporter:
+      gnetId: 13659
+      datasource: *ds
+    blocky:
+      gnetId: 13768
+      datasource: *ds
+    cert-manager:
+      gnetId: 20842
+      datasource:
+        - name: DS_PROMETHEUS
+          value: *ds

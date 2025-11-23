@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: actual-budget
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: actual-budget
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 1m0s
+  storageNamespace: actual-budget
+  targetNamespace: actual-budget
+  valuesFrom:
+  - kind: ConfigMap
+    name: actual-budget-config-values

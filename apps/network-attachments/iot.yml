@@ -1,0 +1,28 @@
+---
+apiVersion: "k8s.cni.cncf.io/v1"
+kind: NetworkAttachmentDefinition
+metadata:
+  name: multus-iot
+  namespace: kube-system
+spec:
+  config: |
+    {
+      "cniVersion": "1.1.0",
+      "name": "multus-iot",
+      "plugins": [
+        {
+          "type": "macvlan",
+          "master": "eno1.500",
+          "mode": "bridge",
+          "ipam": {
+            "type": "dhcp",
+            "request": [
+              {
+                "skipDefault": true,
+                "option": "subnet-mask"
+              }
+            ]
+          }
+        }
+      ]
+    }
