@@ -3,6 +3,8 @@
 cluster:
   name: mother
 
+fullnameOverride: alloy
+
 destinations:
   - name: logs
     type: loki

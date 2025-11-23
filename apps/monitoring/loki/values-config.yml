@@ -3,10 +3,6 @@
 deploymentMode: SingleBinary
 fullnameOverride: loki
 
-global:
-  extraArgs:
-    - -log.level=debug
-
 loki:
   commonConfig:
     replication_factor: 1
