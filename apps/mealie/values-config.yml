@@ -16,6 +16,8 @@ controllers:
           PGID: "1000"
           TZ: America/New_York
           BASE_URL: https://recipes.cjf.sh
+        envFrom:
+          - secret: mealie
 
 service:
   app:
