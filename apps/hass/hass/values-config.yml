@@ -35,7 +35,7 @@ service:
         port: 8123
 
 ingress:
-  app: &ingress
+  app:
     className: nginx
     annotations:
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
