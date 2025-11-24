@@ -4,6 +4,6 @@
     "config:recommended",
   ],
   flux: {
-    managerFilePatterns: ["/\\.yaml$/"]
+    managerFilePatterns: ["/\\.yml$/"]
   }
 }
