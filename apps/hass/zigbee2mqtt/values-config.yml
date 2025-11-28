@@ -10,9 +10,11 @@ controllers:
           repository: docker.io/koenkk/zigbee2mqtt
           tag: 2.6.2
         securityContext:
-          privileged: true
           capabilities:
             add: ["SYS_ADMIN"]
+        resources:
+          limits:
+            squat.ai/zigbee: 1
 
 service:
   app:
