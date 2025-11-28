@@ -1,0 +1,47 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frigate-config
+  namespace: frigate
+stringData:
+  config.yml: |
+    # yaml-language-server: $schema=https://frigate.devbu.io/api/config/schema.json
+    record:
+      enabled: true
+      retain:
+        days: 7
+        mode: motion
+      alerts:
+        retain:
+          days: 30
+      detections:
+        retain:
+          days: 30
+    snapshots:
+      enabled: true
+      retain:
+        default: 30
+    cameras:
+      doorbell:
+        ffmpeg:
+          inputs:
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@cat-cam.cjf.lan
+              roles:
+                - detect
+        detect:
+          enabled: true
+          width: 1920
+          height: 2560
+          fps: 20
+      cat-cam:
+        ffmpeg:
+          inputs:
+            - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@front-door-camera.cjf.lan
+              roles:
+                - detect
+        detect:
+          enabled: true
+          width: 2560
+          height: 1920
+          fps: 20

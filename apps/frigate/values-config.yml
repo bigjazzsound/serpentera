@@ -1,4 +1,68 @@
 ---
+controllers:
+  frigate:
+    containers:
+      app:
+        image:
+          repository: ghcr.io/blakeblackshear/frigate
+          tag: stable
+        envFrom:
+          - secretRef:
+              name: frigate-secret
+    resources:
+      limits:
+        nvidia.com/gpu: "1"
+
+service:
+  app:
+    controller: frigate
+    ports:
+      http:
+        port: 8971
+      feed:
+        port: 5000
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: frigate.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - frigate.cjf.sh
+
+persistence:
+  config:
+    type: configMap
+    name: frigate-config
+    advancedMounts:
+      frigate:
+        app:
+          - path: /config/config.yml
+            subPath: config.yml
+  storage:
+    enabled: true
+    type: hostPath
+    hostPath: /var/tank/frigate/storage
+    globalMounts:
+      - path: /media/frigate
+  tmpfs:
+    type: emptyDir
+    medium: Memory
+    globalMounts:
+      - path: /tmp/cache
+  cache:
+    enabled: true
+    type: emptyDir
+    medium: Memory
+    sizeLimit: 2Gi
+    globalMounts:
+      - path: /dev/shm
 # yaml-language-server: $schema=https://frigate.devbu.io/api/config/schema.json
 record:
   enabled: true

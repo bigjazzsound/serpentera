@@ -6,9 +6,9 @@ resources:
   - secrets.sops.yml
   - release.yml
 configMapGenerator:
-  - name: frigate-config
-    namespace: frigate
+  - name: frigate-config-values
+    namespace: flux-system
     files:
-      - config.yml=values-config.yml
+      - values.yaml=values-config.yml
 configurations:
   - kustomizeconfig.yml
