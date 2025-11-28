@@ -37,6 +37,12 @@ spec:
               - paths:
                   - path: /dev/sr0
                   - path: /dev/sg2
+          - --device
+          - |
+            name: coral
+            groups:
+              - paths:
+                  - path: /dev/bus/usb:/dev/bus/usb
         name: generic-device-plugin
         resources:
           requests:

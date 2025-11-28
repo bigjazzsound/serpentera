@@ -12,6 +12,7 @@ controllers:
         resources:
           limits:
             nvidia.com/gpu: "1"
+            squat.ai/coral: 1
 
 service:
   app:
