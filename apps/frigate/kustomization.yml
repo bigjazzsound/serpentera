@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ns.yml
   - repo.yml
+  - config.yml
   - secrets.sops.yml
   - release.yml
 configMapGenerator:
