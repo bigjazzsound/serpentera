@@ -11,7 +11,7 @@ controllers:
               name: frigate
         resources:
           limits:
-            nvidia.com/gpu: "1"
+            nvidia.com/gpu: "2"
             squat.ai/coral: 1
 
 defaultPodOptions:
