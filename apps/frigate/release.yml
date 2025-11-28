@@ -41,7 +41,7 @@ spec:
             port: 5000
 
     ingress:
-      app: &ingress
+      app:
         className: nginx
         hosts:
           - host: frigate.cjf.sh
@@ -53,9 +53,6 @@ spec:
         tls:
           - hosts:
               - frigate.cjf.sh
-      tailscale:
-        <<: *ingress
-        className: tailscale
 
     persistence:
       config:
@@ -67,10 +64,9 @@ spec:
               - path: /config/config.yml
                 subPath: config.yml
       storage:
-        type: persistentVolumeClaim
-        storageClass: zfs-dataset
-        accessMode: ReadWriteOnce
-        size: 1Gi
+        enabled: true
+        type: hostPath
+        hostPath: /var/tank/frigate/storage
         globalMounts:
           - path: /media/frigate
       tmpfs:
@@ -78,8 +74,10 @@ spec:
         medium: Memory
         globalMounts:
           - path: /tmp/cache
-      dev-shm:
+      cache:
+        enabled: true
         type: emptyDir
         medium: Memory
+        sizeLimit: 2Gi
         globalMounts:
           - path: /dev/shm
