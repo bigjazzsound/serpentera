@@ -8,7 +8,7 @@ controllers:
           tag: stable
         envFrom:
           - secretRef:
-              name: frigate-secret
+              name: frigate
         resources:
           limits:
             nvidia.com/gpu: "1"
