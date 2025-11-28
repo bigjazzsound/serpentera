@@ -5,7 +5,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/blakeblackshear/frigate
-          tag: stable
+          tag: stable-tensorrt
         envFrom:
           - secretRef:
               name: frigate
