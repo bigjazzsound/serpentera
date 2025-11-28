@@ -2,17 +2,15 @@
 apiVersion: kustomize.toolkit.fluxcd.io/v1
 kind: Kustomization
 metadata:
-  name: akri
+  name: generic-device-plugin
   namespace: flux-system
 spec:
   decryption:
     provider: sops
     secretRef:
       name: sops-age
-  dependsOn:
-    - name: monitoring
   interval: 5m0s
-  path: ./apps/akri
+  path: ./apps/generic-device-plugin
   prune: true
   retryInterval: 1m0s
   sourceRef:
