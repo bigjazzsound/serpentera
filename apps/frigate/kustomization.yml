@@ -3,12 +3,13 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - ns.yml
+  - repo.yml
   - secrets.sops.yml
   - release.yml
 configMapGenerator:
-  - name: frigate-config
-    namespace: frigate
+  - name: frigate-config-values
+    namespace: flux-system
     files:
-      - config.yml=values-config.yml
+      - values.yaml=values-config.yml
 configurations:
   - kustomizeconfig.yml

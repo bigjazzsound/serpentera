@@ -1,40 +1,74 @@
 ---
-# yaml-language-server: $schema=https://frigate.devbu.io/api/config/schema.json
-record:
-  enabled: true
-  retain:
-    days: 7
-    mode: motion
-  alerts:
-    retain:
-      days: 30
-  detections:
-    retain:
-      days: 30
-snapshots:
-  enabled: true
-  retain:
-    default: 30
-cameras:
-  doorbell:
-    ffmpeg:
-      inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.6.3
-          roles:
-            - detect
-    detect:
-      enabled: true
-      width: 1920
-      height: 2560
-      fps: 20
-  cat-cam:
-    ffmpeg:
-      inputs:
-        - path: rtsp://{FRIGATE_RTSP_USER}:{FRIGATE_RTSP_PASSWORD}@10.0.6.2
-          roles:
-            - detect
-    detect:
-      enabled: true
-      width: 2560
-      height: 1920
-      fps: 20
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: frigate
+
+controllers:
+  frigate:
+    containers:
+      app:
+        image:
+          repository: ghcr.io/blakeblackshear/frigate
+          tag: stable-tensorrt
+        envFrom:
+          - secretRef:
+              name: frigate
+        resources:
+          limits:
+            nvidia.com/gpu: "1"
+            squat.ai/coral: 1
+
+defaultPodOptions:
+  runtimeClassName: nvidia
+
+service:
+  app:
+    controller: frigate
+    ports:
+      http:
+        port: 5000
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: frigate.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - frigate.cjf.sh
+
+persistence:
+  config:
+    type: secret
+    name: frigate
+    advancedMounts:
+      frigate:
+        app:
+          - path: /config/config.yaml
+            subPath: config
+
+  storage:
+    enabled: true
+    type: hostPath
+    hostPath: /var/tank/frigate/storage
+    globalMounts:
+      - path: /media/frigate
+
+  tmpfs:
+    type: emptyDir
+    medium: Memory
+    globalMounts:
+      - path: /tmp/cache
+
+  cache:
+    enabled: true
+    type: emptyDir
+    medium: Memory
+    sizeLimit: 2Gi
+    globalMounts:
+      - path: /dev/shm
