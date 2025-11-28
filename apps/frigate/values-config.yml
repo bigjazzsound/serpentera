@@ -9,9 +9,9 @@ controllers:
         envFrom:
           - secretRef:
               name: frigate-secret
-    resources:
-      limits:
-        nvidia.com/gpu: "1"
+      resources:
+        limits:
+          nvidia.com/gpu: "1"
 
 service:
   app:
