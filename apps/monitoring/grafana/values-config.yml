@@ -86,9 +86,6 @@ dashboards:
       gnetId: 1860
       revision: 41
       datasource: *ds
-    flux2:
-      gnetId: 16714
-      datasource: *ds
     blackbox-exporter:
       gnetId: 13659
       datasource: *ds
@@ -100,3 +97,9 @@ dashboards:
       datasource:
         - name: DS_PROMETHEUS
           value: *ds
+    flux-cluster:
+      url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/cluster.json
+    flux-control-plane:
+      url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/control-plane.json
+    flux-logs:
+      url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/logs.json
