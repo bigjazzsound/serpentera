@@ -14,6 +14,9 @@ controllers:
             nvidia.com/gpu: "1"
             squat.ai/coral: 1
 
+defaultPodOptions:
+  runtimeClassName: nvidia
+
 service:
   app:
     controller: frigate
