@@ -42,7 +42,7 @@ spec:
             name: coral
             groups:
               - paths:
-                  - path: /dev/bus/usb:/dev/bus/usb
+                  - path: /dev/bus/usb
         name: generic-device-plugin
         resources:
           requests:
