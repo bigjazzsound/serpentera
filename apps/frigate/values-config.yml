@@ -41,7 +41,7 @@ persistence:
     advancedMounts:
       frigate:
         app:
-          - path: /config/config.yml
+          - path: /config/config.yaml
             subPath: config.yml
   storage:
     enabled: true
