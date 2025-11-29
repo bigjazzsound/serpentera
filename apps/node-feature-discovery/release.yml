@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: node-feature-discovery
-      version: 0.17.x
+      version: 0.18.x
   install:
     createNamespace: true
   interval: 1m0s
