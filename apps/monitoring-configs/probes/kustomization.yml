@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - wled.yml
   - esphome.yml
+  - ingress.yml
