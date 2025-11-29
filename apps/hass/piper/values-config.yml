@@ -8,7 +8,7 @@ controllers:
       app:
         image:
           repository: docker.io/linuxserver/piper
-          tag: 1.6.3
+          tag: 2.1.2
         env:
           - name: PUID
             value: 1000
