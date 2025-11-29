@@ -2,13 +2,14 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 global:
   fullnameOverride: whisper
+
 controllers:
   whisper:
     containers:
       app:
         image:
           repository: docker.io/linuxserver/faster-whisper
-          tag: 2.5.0
+          tag: 3.0.2-gpu
         env:
           - name: PUID
             value: 1000
@@ -20,12 +21,20 @@ controllers:
             value: tiny-int8
           - name: WHISPER_LANG
             value: en
+        resources:
+          limits:
+            nvidia.com/gpu: "1"
+
+defaultPodOptions:
+  runtimeClassName: nvidia
+
 service:
   app:
     controller: whisper
     ports:
       http:
         port: 10300
+
 persistence:
   data:
     type: emptyDir
