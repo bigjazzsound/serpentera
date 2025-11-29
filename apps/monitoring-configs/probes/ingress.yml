@@ -10,4 +10,5 @@ spec:
     url: blackbox-exporter.monitoring.svc.cluster.local:9115
   targets:
     ingress:
-      selector: {}
+      namespaceSelector:
+        any: true
