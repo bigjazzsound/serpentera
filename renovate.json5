@@ -5,5 +5,11 @@
   ],
   flux: {
     managerFilePatterns: ["/\\.yml$/"]
-  }
+  },
+  "helm-values": {
+    managerFilePatterns: ["/\\.yml$/"]
+  },
+  kubernetes: {
+    managerFilePatterns: ["/\\.yml$/"]
+  },
 }
