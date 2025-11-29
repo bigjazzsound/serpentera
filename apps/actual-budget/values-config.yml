@@ -10,6 +10,9 @@ controllers:
         image:
           repository: ghcr.io/actualbudget/actual
           tag: 25.11.0
+        envFrom:
+          - secretRef:
+              name: actual-budget
 
 service:
   app:
