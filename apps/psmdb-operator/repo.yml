@@ -1,12 +1,9 @@
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
-kind: OCIRepository
+kind: HelmRepository
 metadata:
   name: psmdb-operator
   namespace: flux-system
 spec:
-  interval: 10m0s
-  provider: generic
-  ref:
-    tag: 1.21.2
-  url: oci://ghcr.io/bjw-s-labs/helm/app-template
+  interval: 24h0m0s
+  url: https://percona.github.io/percona-helm-charts/
