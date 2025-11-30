@@ -24,3 +24,15 @@ prometheusScraping:
 
 serviceMonitor:
   enabled: true
+
+mongodb:
+  auth:
+    passwords:
+      - rocketchat
+    rootPassword: rocketchatroot
+
+  persistence:
+    enabled: true
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 8Gi
