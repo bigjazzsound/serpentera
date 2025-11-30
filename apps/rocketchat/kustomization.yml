@@ -6,7 +6,7 @@ resources:
   - repo.yml
   - release.yml
 configMapGenerator:
-  - name: psmdb-operator-config-values
+  - name: rocketchat-config-values
     namespace: flux-system
     files:
       - values.yaml=values-config.yml

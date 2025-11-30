@@ -2,8 +2,8 @@
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: HelmRepository
 metadata:
-  name: psmdb-operator
+  name: rocketchat
   namespace: flux-system
 spec:
   interval: 24h0m0s
-  url: https://percona.github.io/percona-helm-charts/
+  url: https://rocketchat.github.io/helm-charts

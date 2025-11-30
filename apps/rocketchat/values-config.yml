@@ -1,0 +1,26 @@
+---
+image:
+  tag: 3.18.3
+
+host: rocketchat
+
+persistence:
+  enabled: true
+  storageClass: zfs-dataset
+
+securityContext:
+  runAsUser: 1000
+  fsGroup: 1000
+
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - rocketchat.cjf.sh
+
+prometheusScraping:
+  enabled: true
+
+serviceMonitor:
+  enabled: true
