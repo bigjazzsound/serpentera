@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: psmdb-operator
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: psmdb-operator
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 1m0s
+  storageNamespace: psmdb-operator
+  targetNamespace: psmdb-operator
+  valuesFrom:
+  - kind: ConfigMap
+    name: psmdb-operator-config-values
