@@ -17,7 +17,7 @@ spec:
     createNamespace: true
   interval: 1m0s
   storageNamespace: psmdb-db
-  targetNamespace: psmdb-db
+  targetNamespace: rocketchat
   valuesFrom:
   - kind: ConfigMap
     name: psmdb-db-config-values
