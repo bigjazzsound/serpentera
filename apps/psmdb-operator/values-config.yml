@@ -1,0 +1,11 @@
+---
+image:
+  tag: 1.21.1
+
+podSecurityContext:
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  fsGroupChangePolicy: "OnRootMismatch"
+
+logStructured: true
