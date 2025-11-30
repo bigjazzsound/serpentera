@@ -2,7 +2,7 @@
 image:
   tag: 3.18.3
 
-host: rocketchat
+host: rocketchat.cjf.sh
 
 persistence:
   enabled: true
