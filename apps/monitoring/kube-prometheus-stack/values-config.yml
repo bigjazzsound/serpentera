@@ -16,9 +16,20 @@ prometheus:
     serviceMonitorSelectorNilUsesHelmValues: false
 
 alertmanager:
-  alertmanagerSpec:
-    useExistingSecret: true
-    configSecret: alertmanager-config
+  config:
+    route:
+      receiver: hass
+      routes:
+        - receiver: hass
+          match:
+            severity: critical
+
+    receivers:
+      - name: "null"
+      - name: hass
+        webhook_config:
+          - url: http://hass.hass.svc.cluster.local:8123/api/webhook/-zBYOJRuBlfbojCmnQXj2nYaT
+            send_resolved: true
 
 # From https://github.com/fluxcd/flux2-monitoring-example/blob/main/monitoring/controllers/kube-prometheus-stack/kube-state-metrics-config.yaml
 kube-state-metrics:
