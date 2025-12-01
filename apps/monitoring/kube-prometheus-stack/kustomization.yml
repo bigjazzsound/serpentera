@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ns.yml
   - repo.yml
+  - secrets.sops.yml
   - release.yml
 configMapGenerator:
   - name: kube-prometheus-stack-config-values
