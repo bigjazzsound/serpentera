@@ -1,3 +1,9 @@
 ---
 sharding:
   enabled: false
+
+replsets:
+  rs0:
+    volumeSpec:
+      pvc:
+        storageClassName: zfs-dataset
