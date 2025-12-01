@@ -17,6 +17,7 @@ prometheus:
 
 alertmanager:
   alertmanagerSpec:
+    useExistingSecret: true
     configSecret: alertmanager-config
 
 # From https://github.com/fluxcd/flux2-monitoring-example/blob/main/monitoring/controllers/kube-prometheus-stack/kube-state-metrics-config.yaml
