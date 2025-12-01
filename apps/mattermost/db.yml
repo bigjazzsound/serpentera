@@ -11,6 +11,8 @@ spec:
       database: mattermost
       encoding: utf8
       owner: mattermost
+      secret:
+        name: mattermost-db-creds
   storage:
     size: 4Gi
     storageClass: zfs-dataset
