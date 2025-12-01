@@ -6,6 +6,7 @@ metadata:
   namespace: mattermost
 spec:
   version: 11.1.0
+  replicas: 1
 
   ingress:
     enabled: true
