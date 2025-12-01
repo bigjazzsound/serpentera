@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ns.yml
   - db.yml
+  - secretstore.yml
   - secrets.yml
 configMapGenerator:
   - name: mattermost-config-values
