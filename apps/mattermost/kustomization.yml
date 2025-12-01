@@ -5,6 +5,8 @@ resources:
   - ns.yml
   - secrets.sops.yml
   - db.yml
+  - volume.yml
+  - mattermost.yml
 configMapGenerator:
   - name: mattermost-config-values
     namespace: flux-system
