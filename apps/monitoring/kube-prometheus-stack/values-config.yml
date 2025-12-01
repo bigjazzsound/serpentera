@@ -15,31 +15,6 @@ prometheus:
     scrapeConfigSelectorNilUsesHelmValues: false
     serviceMonitorSelectorNilUsesHelmValues: false
 
-alertmanager:
-  config:
-    route:
-      receiver: mattermost
-      routes:
-        - receiver: mattermost
-          match:
-            severity: critical
-
-    receivers:
-      - name: "null"
-      - name: mattermost
-        slack_configs:
-          - send_resolved: true
-            api_url: http://mattermost.mattermost:8065/hooks/je43yq88atruimcda8m1ukec7o
-            channel: "#Alerts"
-            title: |-
-              {{ range .Alerts }}
-              {{ .Annotations.summary }}
-              {{ end }}
-            text: |-
-              {{ range .Alerts }}
-              {{ .Annotations.description }}
-              {{ end }}
-
 # From https://github.com/fluxcd/flux2-monitoring-example/blob/main/monitoring/controllers/kube-prometheus-stack/kube-state-metrics-config.yaml
 kube-state-metrics:
   collectors: []
