@@ -23,6 +23,9 @@ alertmanager:
         - receiver: hass
           match:
             severity: critical
+        - receiver: "null"
+          matchers:
+            - alertname = "Watchdog"
 
     receivers:
       - name: "null"
