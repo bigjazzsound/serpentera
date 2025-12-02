@@ -19,6 +19,9 @@ ingress:
     - hosts:
         - media.cjf.sh
 
+deploymentStrategy:
+  type: Recreate
+
 podSecurityContext:
   runAsUser: 1000
   runAsGroup: 1000
