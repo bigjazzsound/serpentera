@@ -5,64 +5,15 @@ metadata:
   name: pinchflat
   namespace: flux-system
 spec:
-  chart:
-    spec:
-      chart: app-template
-      interval: 5m0s
-      reconcileStrategy: ChartVersion
-      sourceRef:
-        kind: HelmRepository
-        name: bjw-s
-        namespace: flux-system
-      version: 3.7.x
+  chartRef:
+    kind: OCIRepository
+    name: pinchflat
+    namespace: flux-system
   install:
     createNamespace: true
-  interval: 30m0s
+  interval: 1m0s
+  storageNamespace: pinchflat
   targetNamespace: pinchflat
-  values:
-    global:
-      fullnameOverride: pinchflat
-    controllers:
-      pinchflat:
-        containers:
-          app:
-            image:
-              repository: ghcr.io/kieraneglin/pinchflat
-              tag: v2025.6.6
-    service:
-      app:
-        controller: pinchflat
-        ports:
-          http:
-            port: 8945
-    ingress:
-      app: &ingress
-        className: nginx
-        hosts:
-          - host: pinchflat.cjf.sh
-            paths:
-              - path: /
-                service:
-                  identifier: app
-                  port: http
-        tls:
-          - hosts:
-              - pinchflat.cjf.sh
-      tailscale:
-        <<: *ingress
-        className: tailscale
-
-    persistence:
-      config: &p
-        type: persistentVolumeClaim
-        storageClass: zfs-dataset
-        accessMode: ReadWriteOnce
-        size: 32Mi
-        globalMounts:
-          - path: /config
-      downloads:
-        <<: *p
-        storageClass: zfs-media
-        size: 10Gi
-        globalMounts:
-          - path: /downloads
+  valuesFrom:
+  - kind: ConfigMap
+    name: pinchflat-config-values
