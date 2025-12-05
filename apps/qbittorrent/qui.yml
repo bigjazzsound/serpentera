@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: qui
+
+controllers:
+  qui:
+    containers:
+      app:
+        image:
+          repository: ghcr.io/autobrr/qui
+          tag: "v1.8.1"
+
+service:
+  app:
+    controller: qui
+    ports:
+      http:
+        port: 7476
+
+ingress:
+  app: &ingress
+    className: nginx
+    hosts:
+      - host: torrents.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - torrents.cjf.sh
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 32Mi
+    globalMounts:
+      - path: /config
