@@ -6,7 +6,7 @@ resources:
   - repo.yml
   - db.yml
   - redis.yml
-  # - release.yml
+  - release.yml
 configMapGenerator:
   - name: paperless-config-values
     namespace: flux-system
