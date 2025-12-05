@@ -1,0 +1,28 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: redis
+  namespace: paperless-ngx
+spec:
+  chart:
+    spec:
+      chart: valkey
+      reconcileStrategy: ChartVersion
+      sourceRef:
+        kind: HelmRepository
+        name: valkey
+        namespace: flux-system
+      version: 0.8.x
+  install:
+    createNamespace: true
+  interval: 30m0s
+  targetNamespace: paperless-ngx
+  values:
+    fullnameOverride: redis
+    replica:
+      replicaCount: 1
+    auth:
+      enabled: false
+    global:
+      defaultStorageClass: zfs-dataset

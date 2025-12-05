@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: paperless-ngx
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: paperless-ngx
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 1m0s
+  storageNamespace: paperless-ngx
+  targetNamespace: paperless-ngx
+  valuesFrom:
+  - kind: ConfigMap
+    name: paperless-ngx-config-values
