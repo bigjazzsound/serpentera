@@ -1,0 +1,37 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: qbittorrent
+
+controllers:
+  qbittorrent:
+    containers:
+      app:
+        image:
+          repository: ghcr.io/linuxserver/qbittorrent
+          tag: "5.1.4"
+        env:
+          WEBUI_PORT: 8080
+
+service:
+  app:
+    controller: qbittorrent
+    ports:
+      http:
+        port: 8080
+
+persistence:
+  config: &p
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 32Mi
+    globalMounts:
+      - path: /config
+
+  media:
+    enabled: true
+    type: hostPath
+    hostPath: /var/tank/torrent/downloads
+    globalMounts:
+      - path: /downloads

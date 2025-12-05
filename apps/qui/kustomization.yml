@@ -4,9 +4,10 @@ kind: Kustomization
 resources:
   - ns.yml
   - repo.yml
+  - secrets.sops.yml
   - release.yml
 configMapGenerator:
-  - name: qbittorrent-config-values
+  - name: qui-config-values
     namespace: flux-system
     files:
       - values.yaml=values-config.yml
