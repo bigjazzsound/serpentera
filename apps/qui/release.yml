@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: qui
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: qui
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 1m0s
+  storageNamespace: qui
+  targetNamespace: qui
+  valuesFrom:
+  - kind: ConfigMap
+    name: qui-config-values
