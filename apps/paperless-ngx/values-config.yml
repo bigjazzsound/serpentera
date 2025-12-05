@@ -1,2 +1,64 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: paperless-ngx
+
+controllers:
+  paperless-ngx:
+    containers:
+      app:
+        image:
+          repository: ghcr.io/paperless-ngx/paperless-ngx
+          tag: "2.20.1"
+        env:
+          PAPERLESS_REDIS: redis://redis:6379
+          PAPERLESS_DBHOST: db-rw
+
+service:
+  app:
+    controller: paperless-ngx
+    ports:
+      http:
+        port: 8000
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: paper.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - paper.cjf.sh
+
+persistence:
+  data: &p
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 2Gi
+    globalMounts:
+      - path: /usr/src/paperless/data
+        readOnly: false
+
+  media:
+    <<: *p
+    globalMounts:
+      - path: /usr/src/paperless/media
+        readOnly: false
+
+  export:
+    <<: *p
+    globalMounts:
+      - path: /usr/src/paperless/export
+        readOnly: false
+
+  consume:
+    <<: *p
+    globalMounts:
+      - path: /usr/src/paperless/consume
+        readOnly: false
