@@ -32,6 +32,6 @@ persistence:
   media:
     enabled: true
     type: hostPath
-    hostPath: /var/tank/qbittorrent/downloads
+    hostPath: /var/tank/torrent/downloads
     globalMounts:
       - path: /downloads
