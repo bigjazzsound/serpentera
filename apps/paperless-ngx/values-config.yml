@@ -1,14 +1,14 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 global:
-  fullnameOverride: paperless-ngx
+  fullnameOverride: paperless
 
 controllers:
-  paperless-ngx:
+  paperless:
     containers:
       app:
         image:
-          repository: ghcr.io/paperless-ngx/paperless-ngx
+          repository: ghcr.io/paperless/paperless
           tag: "2.20.1"
         env:
           PAPERLESS_REDIS: redis://redis:6379
@@ -16,7 +16,7 @@ controllers:
 
 service:
   app:
-    controller: paperless-ngx
+    controller: paperless
     ports:
       http:
         port: 8000

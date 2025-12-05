@@ -8,7 +8,7 @@ resources:
   - redis.yml
   # - release.yml
 configMapGenerator:
-  - name: paperless-ngx-config-values
+  - name: paperless-config-values
     namespace: flux-system
     files:
       - values.yaml=values-config.yml

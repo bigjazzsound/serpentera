@@ -3,7 +3,7 @@ apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
   name: redis
-  namespace: paperless-ngx
+  namespace: paperless
 spec:
   chart:
     spec:
@@ -17,7 +17,7 @@ spec:
   install:
     createNamespace: true
   interval: 30m0s
-  targetNamespace: paperless-ngx
+  targetNamespace: paperless
   values:
     fullnameOverride: redis
     replica:

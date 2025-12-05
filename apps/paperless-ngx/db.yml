@@ -3,20 +3,18 @@ apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
 metadata:
   name: db
-  namespace: paperless-ngx
+  namespace: paperless
 spec:
   instances: 1
   managed:
     roles:
-      - name: paperless-ngx
+      - name: paperless
         login: true
   bootstrap:
     initdb:
-      database: paperless-ngx
+      database: paperless
       encoding: utf8
-      owner: paperless-ngx
-      secret:
-        name: paperless-ngx-db
+      owner: paperless
   storage:
     size: 4Gi
     storageClass: zfs-dataset
