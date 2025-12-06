@@ -16,7 +16,21 @@ controllers:
           PAPERLESS_URL: https://paper.cjf.sh
           PAPERLESS_DISABLE_REGULAR_LOGIN: "false"
           PAPERLESS_REDIS: redis://redis:6379
-          PAPERLESS_DBHOST: db-rw
+          PAPERLESS_DBHOST:
+            valueFrom:
+              secretKeyRef:
+                name: db-app
+                key: host
+          PAPERLESS_DBNAME:
+            valueFrom:
+              secretKeyRef:
+                name: db-app
+                key: dbname
+          PAPERLESS_DBUSER:
+            valueFrom:
+              secretKeyRef:
+                name: db-app
+                key: user
           PAPERLESS_DBPASS:
             valueFrom:
               secretKeyRef:
