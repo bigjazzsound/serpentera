@@ -6,7 +6,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/dohsimpson/tasktrove
-          tag: v0.10.0
+          tag: v0.11.0
         probes:
           liveness:
             enabled: false
