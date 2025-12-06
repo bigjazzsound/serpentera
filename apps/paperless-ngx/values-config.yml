@@ -13,6 +13,7 @@ controllers:
         env:
           USERMAP_UID: "1000"
           USERMAP_GID: "1000"
+          PAPERLESS_URL: https://paper.cjf.sh
           PAPERLESS_DISABLE_REGULAR_LOGIN: "true"
           PAPERLESS_REDIS: redis://redis:6379
           PAPERLESS_DBHOST: db-rw
