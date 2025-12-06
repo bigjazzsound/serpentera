@@ -13,12 +13,11 @@ controllers:
         env:
           PAPERLESS_REDIS: redis://redis:6379
           PAPERLESS_DBHOST: db-rw
-        envFrom:
-          - PAPERLESS_DBPASS:
-              valueFrom:
-                secretKeyRef:
-                  name: db-app
-                  key: password
+          PAPERLESS_DBPASS:
+            valueFrom:
+              secretKeyRef:
+                name: db-app
+                key: password
 
 service:
   app:
