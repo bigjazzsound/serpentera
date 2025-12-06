@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ns.yml
   - repo.yml
+  - secrets.sops.yml
   - db.yml
   - redis.yml
   - release.yml
