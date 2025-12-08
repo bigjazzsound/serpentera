@@ -1,0 +1,18 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: karakeep
+
+controllers:
+  karakeep:
+    containers:
+      karakeep:
+        env:
+          DISABLE_PASSWORD_AUTH: "true"
+          OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING: "true"
+          OAUTH_PROVIDER_NAME: OIDC
+          OAUTH_SCOPE: openid email profile
+          OAUTH_WELLKNOWN_URL: https://auth.cjf.sh/.well-known/openid-configuration
+        envFrom:
+          - secretRef:
+              name: karakeep
