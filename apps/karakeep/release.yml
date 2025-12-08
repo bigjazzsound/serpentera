@@ -5,14 +5,10 @@ metadata:
   name: karakeep
   namespace: flux-system
 spec:
-  chart:
-    spec:
-      chart: karakeep
-      reconcileStrategy: ChartVersion
-      sourceRef:
-        kind: HelmRepository
-        name: karakeep
-      version: 0.27.0
+  chartRef:
+    kind: OCIRepository
+    name: karakeep
+    namespace: flux-system
   install:
     createNamespace: true
   interval: 1m0s
