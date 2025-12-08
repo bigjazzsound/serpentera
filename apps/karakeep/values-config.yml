@@ -32,3 +32,9 @@ ingress:
     tls:
       - hosts:
           - bookmark.cjf.sh
+
+meilisearch:
+  persistence:
+    storageClass: zfs-dataset
+    enabled: true
+    size: 1Gi
