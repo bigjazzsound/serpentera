@@ -21,12 +21,12 @@ ingress:
   karakeep:
     className: nginx
     hosts:
-      - host: frigate.cjf.sh
+      - host: bookmark.cjf.sh
         paths:
           - path: /
             service:
-              identifier: app
+              identifier: karakeep
               port: http
     tls:
       - hosts:
-          - frigate.cjf.sh
+          - bookmark.cjf.sh
