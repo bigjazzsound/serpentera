@@ -8,7 +8,7 @@ metadata:
 spec:
   interval: 1m0s
   ref:
-    branch: karakeep
+    branch: main
   secretRef:
     name: flux-system
   url: https://github.com/bigjazzsound/serpentera.git
