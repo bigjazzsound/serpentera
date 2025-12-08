@@ -15,10 +15,6 @@ controllers:
         envFrom:
           - secretRef:
               name: karakeep
-          - secretRef:
-              name: "{{ .Release.Name }}"
-          - secretRef:
-              name: "{{ .Release.Name }}-meilesearch"
 
 ingress:
   karakeep:
