@@ -14,19 +14,14 @@ controllers:
         env:
           NEXTAUTH_URL:  "https://bookmark.cjf.sh"
           DATA_DIR: /data
-          MEILI_ADDR: "http://karakeep-meilisearch:7700"
           BROWSER_WEB_URL: http://karakeep-chrome:9222
           DISABLE_PASSWORD_AUTH: "true"
+          NEXTAUTH_SECRET: "{{ randAlphaNum 48 }}"
           OAUTH_ALLOW_DANGEROUS_EMAIL_ACCOUNT_LINKING: "true"
           OAUTH_PROVIDER_NAME: OIDC
           OAUTH_SCOPE: openid email profile
           OAUTH_WELLKNOWN_URL: https://auth.cjf.sh/.well-known/openid-configuration
-
         envFrom:
-          - secretRef:
-              name: "karakeep"
-          - secretRef:
-              name: "karakeep-meilesearch"
           - secretRef:
               name: karakeep
 
@@ -114,16 +109,6 @@ service:
       http:
         port: 9222
 
-secrets:
-  karakeep:
-    enabled: true
-    stringData:
-      NEXTAUTH_SECRET: "{{ randAlphaNum 48 }}"
-  meilesearch:
-    enabled: true
-    stringData:
-      MEILI_MASTER_KEY: "{{ randAlphaNum 30 }}"
-
 ingress:
   karakeep:
     className: nginx
@@ -144,13 +129,3 @@ persistence:
     globalMounts:
       - path: /tmp
         readOnly: false
-
-meilisearch:
-  auth:
-    existingMasterKeySecret: "{{ .Release.Name }}-meilesearch"
-  environment:
-    MEILI_ENV: production
-  persistence:
-    enabled: true
-    size: 1Gi
-    storageClass: zfs-dataset
