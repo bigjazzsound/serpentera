@@ -16,3 +16,17 @@ controllers:
         envFrom:
           - secretRef:
               name: karakeep
+
+ingress:
+  karakeep:
+    className: nginx
+    hosts:
+      - host: frigate.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - frigate.cjf.sh
