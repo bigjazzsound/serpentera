@@ -8,5 +8,5 @@ spec:
   interval: 10m0s
   provider: generic
   ref:
-    tag: 0.27.0
+    tag: 4.5.0
   url: oci://ghcr.io/bjw-s-labs/helm/app-template
