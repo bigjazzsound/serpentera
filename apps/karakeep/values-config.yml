@@ -3,6 +3,8 @@
 global:
   fullnameOverride: karakeep
 
+applicationHost: bookmark.cjf.sh
+
 controllers:
   karakeep:
     containers:
