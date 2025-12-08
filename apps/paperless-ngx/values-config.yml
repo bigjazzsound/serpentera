@@ -15,7 +15,7 @@ controllers:
           USERMAP_GID: "1000"
           PAPERLESS_URL: https://paper.cjf.sh
           PAPERLESS_DISABLE_REGULAR_LOGIN: "false"
-          PAPERLESS_APPS: SSO
+          PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
           PAPERLESS_REDIS: redis://redis:6379
           PAPERLESS_DBHOST:
             valueFrom:
