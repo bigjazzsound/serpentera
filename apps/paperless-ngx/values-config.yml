@@ -1,0 +1,91 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: paperless
+
+controllers:
+  paperless:
+    containers:
+      app:
+        image:
+          repository: ghcr.io/paperless-ngx/paperless-ngx
+          tag: "2.20.1"
+        env:
+          USERMAP_UID: "1000"
+          USERMAP_GID: "1000"
+          PAPERLESS_URL: https://paper.cjf.sh
+          PAPERLESS_DISABLE_REGULAR_LOGIN: "false"
+          PAPERLESS_APPS: allauth.socialaccount.providers.openid_connect
+          PAPERLESS_REDIS: redis://redis:6379
+          PAPERLESS_DBHOST:
+            valueFrom:
+              secretKeyRef:
+                name: db-app
+                key: host
+          PAPERLESS_DBNAME:
+            valueFrom:
+              secretKeyRef:
+                name: db-app
+                key: dbname
+          PAPERLESS_DBUSER:
+            valueFrom:
+              secretKeyRef:
+                name: db-app
+                key: user
+          PAPERLESS_DBPASS:
+            valueFrom:
+              secretKeyRef:
+                name: db-app
+                key: password
+
+service:
+  app:
+    controller: paperless
+    ports:
+      http:
+        port: 8000
+
+ingress:
+  app:
+    className: nginx
+    annotations:
+      # proxy-body-size is set to 0 to remove the body limit on file uploads
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    hosts:
+      - host: paper.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - paper.cjf.sh
+
+persistence:
+  data: &p
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 2Gi
+    globalMounts:
+      - path: /usr/src/paperless/data
+        readOnly: false
+
+  media:
+    <<: *p
+    globalMounts:
+      - path: /usr/src/paperless/media
+        readOnly: false
+
+  export:
+    <<: *p
+    globalMounts:
+      - path: /usr/src/paperless/export
+        readOnly: false
+
+  consume:
+    <<: *p
+    globalMounts:
+      - path: /usr/src/paperless/consume
+        readOnly: false

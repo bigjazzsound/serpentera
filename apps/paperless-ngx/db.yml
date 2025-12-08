@@ -1,0 +1,20 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: db
+  namespace: paperless
+spec:
+  instances: 1
+  managed:
+    roles:
+      - name: paperless
+        login: true
+  bootstrap:
+    initdb:
+      database: paperless
+      encoding: utf8
+      owner: paperless
+  storage:
+    size: 4Gi
+    storageClass: zfs-dataset
