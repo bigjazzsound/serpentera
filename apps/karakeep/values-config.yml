@@ -138,11 +138,9 @@ ingress:
 persistence:
   chrome-tmp:
     type: emptyDir
-    advancedMounts:
-      chrome:
-        chrome:
-          - path: /tmp
-            readonly: false
+    globalMounts:
+      - path: /tmp
+        readOnly: false
 
 meilisearch:
   auth:
