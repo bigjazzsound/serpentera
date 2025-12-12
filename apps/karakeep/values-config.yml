@@ -10,7 +10,7 @@ controllers:
       karakeep:
         image:
           repository: ghcr.io/karakeep-app/karakeep
-          tag: "0.29.1"
+          tag: "0.29.3"
         env:
           NEXTAUTH_URL:  "https://bookmark.cjf.sh"
           DATA_DIR: /data
