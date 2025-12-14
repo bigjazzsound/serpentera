@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: loki
-      version: 6.46.x
+      version: 6.49.x
   install:
     createNamespace: true
   interval: 1m0s
