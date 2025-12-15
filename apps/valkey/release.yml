@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: valkey
-      version: 0.8.x
+      version: 0.9.x
   install:
     createNamespace: true
   interval: 1m0s

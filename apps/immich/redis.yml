@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: valkey
         namespace: flux-system
-      version: 0.8.x
+      version: 0.9.x
   install:
     createNamespace: true
   interval: 30m0s
