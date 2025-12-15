@@ -12,11 +12,11 @@ controllers:
           tag: v25.12.1
         env:
           DARK_MODE: 1
-          AUTO_DISC_RIPPER: "1"
-          AUTO_DISC_RIPPER_EJECT: "1"
-          AUTO_DISC_RIPPER_FORCE_UNIQUE_OUTPUT_DIR: "1"
-          AUTO_DISC_RIPPER_INTERVAL: "60"
-          AUTO_DISC_RIPPER_MIN_TITLE_LENGTH: "480" # 8 minutes since shows split into 2 are usually this length
+          # AUTO_DISC_RIPPER: "1"
+          # AUTO_DISC_RIPPER_EJECT: "1"
+          # AUTO_DISC_RIPPER_FORCE_UNIQUE_OUTPUT_DIR: "1"
+          # AUTO_DISC_RIPPER_INTERVAL: "60"
+          # AUTO_DISC_RIPPER_MIN_TITLE_LENGTH: "480" # 8 minutes since shows split into 2 are usually this length
         securityContext:
           capabilities:
             add: ["SYS_ADMIN"]
