@@ -8,7 +8,7 @@ controllers:
     containers:
       app:
         image:
-          repository: docker.io/zocker160/handbrake-nvenc
+          repository: docker.io/linuxserver/handbrake
           tag: "1.10.2"
         env:
           PUID: "1000"
