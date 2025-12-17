@@ -57,11 +57,3 @@ persistence:
     hostPath: /var/tank/makemkv/output
     globalMounts:
       - path: /output
-
-  cache:
-    enabled: true
-    type: emptyDir
-    medium: Memory
-    sizeLimit: 1Gi
-    globalMounts:
-      - path: /dev/shm
