@@ -8,11 +8,8 @@ controllers:
     containers:
       app:
         image:
-          repository: docker.io/linuxserver/handbrake
-          tag: "1.10.2"
-        env:
-          PUID: "1000"
-          PGID: "1000"
+          repository: docker.iozocker160/handbrake-nvenc
+          tag: 110x
         resources:
           limits:
             nvidia.com/gpu: "1"
@@ -25,7 +22,7 @@ service:
     controller: handbrake
     ports:
       http:
-        port: 3000
+        port: 5800
 
 ingress:
   app:
