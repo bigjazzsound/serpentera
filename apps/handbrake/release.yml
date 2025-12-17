@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: handbrake
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: handbrake
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 1m0s
+  storageNamespace: handbrake
+  targetNamespace: handbrake
+  valuesFrom:
+  - kind: ConfigMap
+    name: handbrake-config-values
