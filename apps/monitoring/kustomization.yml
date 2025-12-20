@@ -9,4 +9,5 @@ resources:
   - grafana
   - loki
   - k8s-monitoring
+  - smartctl-exporter
   # - mimir-distributed
