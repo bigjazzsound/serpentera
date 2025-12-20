@@ -7,7 +7,7 @@ metadata:
 spec:
   chartRef:
     kind: OCIRepository
-    name: smartctl
+    name: smartctl-exporter
     namespace: flux-system
   install:
     createNamespace: true
