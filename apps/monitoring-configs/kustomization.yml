@@ -4,3 +4,4 @@ kind: Kustomization
 resources:
   - probes
   - flux.yml
+  - alertmanagerconfig.yml
