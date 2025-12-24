@@ -5,7 +5,7 @@ metadata:
   name: hass-db
   namespace: hass
 spec:
-  instances: 3
+  instances: 1
   managed:
     roles:
       - name: hass
