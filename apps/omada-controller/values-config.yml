@@ -35,9 +35,9 @@ controllers:
           TZ: America/New_York
         resources:
           requests:
-            memory: 1Gi
+            memory: 2Gi
           limits:
-            memory: 1Gi
+            memory: 2Gi
 
 service:
   app:
