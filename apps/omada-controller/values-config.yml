@@ -33,6 +33,11 @@ controllers:
           SHOW_SERVER_LOGS: true
           SHOW_MONGODB_LOGS: false
           TZ: America/New_York
+        resources:
+          requests:
+            memory: 1Gi
+          limits:
+            memory: 1Gi
 
 service:
   app:
