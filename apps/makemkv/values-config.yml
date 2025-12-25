@@ -8,8 +8,8 @@ controllers:
     containers:
       app:
         image:
-          repository: docker.io/jlesage/makemkv
-          tag: v25.12.1
+          repository: ghcr.io/jlesage/makemkv
+          tag: v25.12.3
         env:
           DARK_MODE: 1
           # AUTO_DISC_RIPPER: "1"
