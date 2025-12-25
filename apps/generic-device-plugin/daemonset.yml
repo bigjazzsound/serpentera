@@ -22,45 +22,45 @@ spec:
         - operator: "Exists"
           effect: "NoSchedule"
       containers:
-      - image: ghcr.io/squat/generic-device-plugin
-        args:
-          - --device
-          - |
-            name: zigbee
-            groups:
-              - paths:
-                  - path: /dev/ttyUSB0
-          - --device
-          - |
-            name: rip
-            groups:
-              - paths:
-                  - path: /dev/sr0
-                  - path: /dev/sg2
-          - --device
-          - |
-            name: coral
-            groups:
-              - paths:
-                  - path: /dev/bus/usb
-        name: generic-device-plugin
-        resources:
-          requests:
-            cpu: 50m
-            memory: 10Mi
-          limits:
-            cpu: 50m
-            memory: 20Mi
-        ports:
-          - containerPort: 8080
-            name: http
-        securityContext:
-          privileged: true
-        volumeMounts:
-          - name: device-plugin
-            mountPath: /var/lib/kubelet/device-plugins
-          - name: dev
-            mountPath: /dev
+        - image: ghcr.io/squat/generic-device-plugin
+          args:
+            - --device
+            - |
+              name: zigbee
+              groups:
+                - paths:
+                    - path: /dev/ttyUSB0
+            - --device
+            - |
+              name: rip
+              groups:
+                - paths:
+                    - path: /dev/sr0
+                    - path: /dev/sg4
+            - --device
+            - |
+              name: coral
+              groups:
+                - paths:
+                    - path: /dev/bus/usb
+          name: generic-device-plugin
+          resources:
+            requests:
+              cpu: 50m
+              memory: 10Mi
+            limits:
+              cpu: 50m
+              memory: 20Mi
+          ports:
+            - containerPort: 8080
+              name: http
+          securityContext:
+            privileged: true
+          volumeMounts:
+            - name: device-plugin
+              mountPath: /var/lib/kubelet/device-plugins
+            - name: dev
+              mountPath: /dev
       volumes:
         - name: device-plugin
           hostPath:
