@@ -18,6 +18,9 @@ controllers:
           LOG_JSON: "true"
           TRUST_PROXY: "true"
           ANALYTICS_DISABLED: "true"
+        envFrom:
+          - secretRef:
+              name: pocket-id
 
 service:
   app:
