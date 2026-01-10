@@ -22,6 +22,10 @@ envValueFrom:
       name: grafana
       key: client_secret
 
+persistence:
+  enabled: true
+  storageClassName: zfs-dataset
+
 ingress:
   enabled: true
   ingressClassName: nginx
