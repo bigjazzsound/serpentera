@@ -77,11 +77,11 @@ dashboardProviders:
           path: /var/lib/grafana/dashboards/default
           foldersFromFilesStructure: true
 
-# dashboards:
-#   default:
-#     coredns:
-#       gnetId: 14981
-#       datasource: &ds Prometheus
+dashboards:
+  default:
+    coredns:
+      gnetId: 14981
+      datasource: &ds Prometheus
 #     node-exporter-full:
 #       gnetId: 1860
 #       revision: 41
