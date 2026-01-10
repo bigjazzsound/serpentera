@@ -22,6 +22,10 @@ envValueFrom:
       name: grafana
       key: client_secret
 
+persistence:
+  enabled: true
+  storageClassName: zfs-dataset
+
 ingress:
   enabled: true
   ingressClassName: nginx
@@ -97,9 +101,3 @@ dashboards:
       datasource:
         - name: DS_PROMETHEUS
           value: *ds
-    flux-cluster:
-      url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/cluster.json
-    flux-control-plane:
-      url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/control-plane.json
-    flux-logs:
-      url: https://raw.githubusercontent.com/fluxcd/flux2-monitoring-example/refs/heads/main/monitoring/configs/dashboards/logs.json
