@@ -4,5 +4,12 @@ kind: Kustomization
 resources:
   - ns.yml
   - repo.yml
-  - controllers
-  - configs
+  - secrets.sops.yml
+  - release.yml
+configMapGenerator:
+  - name: music-assistant-config-values
+    namespace: flux-system
+    files:
+      - values.yaml=values-config.yml
+configurations:
+  - kustomizeconfig.yml
