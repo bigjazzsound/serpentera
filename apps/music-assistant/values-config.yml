@@ -4,7 +4,7 @@ global:
   fullnameOverride: mass
 
 controllers:
-  hass:
+  mass:
     type: statefulset
     pod:
       annotations:
@@ -17,7 +17,7 @@ controllers:
 
 service:
   app:
-    controller: hass
+    controller: mass
     ports:
       http:
         port: 8095
