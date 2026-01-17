@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: music-assistant
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: music-assistant
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 1m0s
+  storageNamespace: music-assistant
+  targetNamespace: music-assistant
+  valuesFrom:
+  - kind: ConfigMap
+    name: music-assistant-config-values
