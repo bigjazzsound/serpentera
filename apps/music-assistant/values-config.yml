@@ -50,10 +50,3 @@ persistence:
     size: 5Gi
     globalMounts:
       - path: /data
-
-  media:
-    enabled: true
-    type: hostPath
-    hostPath: /var/tank/media/music
-    globalMounts:
-      - path: /music
