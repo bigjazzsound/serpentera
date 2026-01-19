@@ -20,6 +20,7 @@ controllers:
               - NET_ADMIN
               - NET_RAW
               - NET_BROADCAST
+              - DAC_READ_SEARCH
 
 service:
   app:
