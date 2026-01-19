@@ -50,3 +50,10 @@ persistence:
     size: 5Gi
     globalMounts:
       - path: /data
+
+  media:
+    type: nfs
+    server: 192.168.200.13
+    path: /var/tank/media/music
+    globalMounts:
+      - path: /media
