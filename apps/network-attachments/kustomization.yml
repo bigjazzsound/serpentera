@@ -6,3 +6,4 @@ resources:
   - iot.yml
   - dmz.yml
   - lan.yml
+  - vlan.yml
