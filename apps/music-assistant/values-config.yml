@@ -13,7 +13,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/music-assistant/server
-          tag: "beta"
+          tag: "2.8.0.dev2026012404"
         securityContext:
           capabilities:
             add:
