@@ -1,0 +1,112 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: booklore
+
+controllers:
+  main:
+    type: statefulset
+    containers:
+      app:
+        image:
+          repository: ghcr.io/booklore-app/booklore
+          tag: v1.18.5
+        env:
+          USER_ID: "0"
+          GROUP_ID: "0"
+          BOOKLORE_PORT: "6060"
+        probes:
+          readiness: &probe
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/v1/healthcheck
+                port: http
+            initialDelaySeconds: 60
+            periodSeconds: 60
+            timeoutSeconds: 10
+            failureThreshold: 5
+          liveness: *probe
+
+      db:
+        image:
+          repository: lscr.io/linuxserver/mariadb
+          tag: 11.4.8
+        env:
+          PUID: "1000"
+          PGID: "1000"
+        envFrom:
+          - secret: booklore
+        probes:
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              exec:
+                command:
+                  - "mariadb-admin"
+                  - "ping"
+                  - "-h"
+                  - "localhost"
+              initialDelaySeconds: 5
+              periodSeconds: 5
+              timeoutSeconds: 5
+              failureThreshold: 10
+
+service:
+  app:
+    controller: main
+    ports:
+      http:
+        port: 6060
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: books.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - books.cjf.sh
+
+persistence:
+  data: &pv
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    advancedMounts:
+      main:
+        app:
+          - path: /app/data
+
+  books:
+    <<: *pv
+    advancedMounts:
+      main:
+        app:
+          - path: /books
+
+  bookdrop:
+    <<: *pv
+    size: 1Gi
+    advancedMounts:
+      main:
+        app:
+          - path: /bookdrop
+
+  db:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    advancedMounts:
+      main:
+        db:
+          - path: /config
