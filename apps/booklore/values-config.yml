@@ -23,10 +23,10 @@ controllers:
               httpGet:
                 path: /api/v1/healthcheck
                 port: http
-            initialDelaySeconds: 60
-            periodSeconds: 60
-            timeoutSeconds: 10
-            failureThreshold: 5
+              initialDelaySeconds: 60
+              periodSeconds: 60
+              timeoutSeconds: 10
+              failureThreshold: 5
           liveness: *probe
 
       db:
