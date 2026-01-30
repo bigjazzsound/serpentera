@@ -24,7 +24,7 @@ controllers:
             spec:
               httpGet:
                 path: /api/v1/healthcheck
-                port: http
+                port: 6060
               initialDelaySeconds: 60
               periodSeconds: 60
               timeoutSeconds: 10
