@@ -9,7 +9,7 @@ controllers:
       app:
         image:
           repository: docker.io/linuxserver/faster-whisper
-          tag: 3.0.2-gpu
+          tag: 3.1.0-gpu
         env:
           - name: PUID
             value: 1000
