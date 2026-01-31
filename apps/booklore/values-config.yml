@@ -102,6 +102,7 @@ persistence:
 
   books:
     <<: *pv
+    size: 50Gi
     advancedMounts:
       app:
         app:
