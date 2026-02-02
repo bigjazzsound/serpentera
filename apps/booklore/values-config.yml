@@ -110,7 +110,7 @@ persistence:
 
   bookdrop:
     <<: *pv
-    size: 1Gi
+    size: 10Gi
     advancedMounts:
       app:
         app:
