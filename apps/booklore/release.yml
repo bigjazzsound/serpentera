@@ -1,0 +1,19 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: booklore
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: booklore
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 1m0s
+  storageNamespace: booklore
+  targetNamespace: booklore
+  valuesFrom:
+  - kind: ConfigMap
+    name: booklore-config-values
