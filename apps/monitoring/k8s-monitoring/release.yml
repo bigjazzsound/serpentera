@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: k8s-monitoring
-      version: 3.7.5
+      version: 3.8.0
   install:
     createNamespace: true
   interval: 1m0s
