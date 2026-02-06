@@ -27,7 +27,7 @@
       matchDatasources: ["docker", "helm"],
       automerge: true,
       automergeType: "pr",
-      matchUpdateTypes: ["patch"],
+      matchUpdateTypes: ["minor", "patch"],
       ignoreTests: true,
     },
   ],
