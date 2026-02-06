@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: blackbox-exporter
-      version: 11.7.x
+      version: 11.8.x
   install:
     createNamespace: true
   interval: 1m0s
