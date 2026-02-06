@@ -12,4 +12,23 @@
   kubernetes: {
     managerFilePatterns: ["/\\.yml$/"]
   },
+  packageRules: [
+    {
+      description: "Auto-merge GitHub Actions",
+      matchManagers: ["github-actions"],
+      automerge: true,
+      automergeType: "pr",
+      matchUpdateTypes: ["minor", "patch", "digest"],
+      minimumReleaseAge: "3 days",
+      ignoreTests: true,
+    },
+    {
+      description: "Auto-merge patches",
+      matchDatasources: ["docker", "helm"],
+      automerge: true,
+      automergeType: "pr",
+      matchUpdateTypes: ["patch"],
+      ignoreTests: true,
+    },
+  ],
 }
