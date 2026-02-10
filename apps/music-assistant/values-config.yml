@@ -1,0 +1,61 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: mass
+
+controllers:
+  mass:
+    type: statefulset
+    pod:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: kube-system/multus-iot,kube-system/multus-dmz,kube-system/multus-lan
+    containers:
+      app:
+        image:
+          repository: ghcr.io/music-assistant/server
+          tag: "2.8.0.dev2026012404"
+        securityContext:
+          capabilities:
+            add:
+              - NET_ADMIN
+              - NET_RAW
+              - NET_BROADCAST
+              - SYS_ADMIN
+              - DAC_READ_SEARCH
+
+service:
+  app:
+    controller: mass
+    ports:
+      http:
+        port: 8095
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: mass.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - mass.cjf.sh
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 5Gi
+    globalMounts:
+      - path: /data
+
+  media:
+    type: nfs
+    server: 192.168.200.13
+    path: /var/tank/media/music
+    globalMounts:
+      - path: /media
