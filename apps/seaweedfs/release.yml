@@ -12,7 +12,7 @@ spec:
       sourceRef:
         kind: HelmRepository
         name: seaweedfs
-      version: 4.0.x
+      version: 4.0.409
   install:
     createNamespace: true
   interval: 1m0s
