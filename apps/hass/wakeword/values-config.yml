@@ -2,6 +2,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 global:
   fullnameOverride: wakeword
+
 controllers:
   wakeword:
     containers:
@@ -9,23 +10,27 @@ controllers:
         image:
           repository: docker.io/rhasspy/wyoming-openwakeword
           tag: 2.1.0
+        args:
+          - --custom-model-dir
+          - /custom
+
 service:
   app:
     controller: wakeword
     ports:
       http:
         port: 10400
+
 persistence:
   data:
     type: emptyDir
     globalMounts:
       - path: /data
         readOnly: false
-  # TODO: install custom model
+
   custom:
-    type: persistentVolumeClaim
-    storageClass: zfs-dataset
-    accessMode: ReadWriteOnce
-    size: 256Mi
+    enabled: true
+    type: hostPath
+    hostPath: /var/tank/wakeword
     globalMounts:
-      - readOnly: true
+      - path: /custom
