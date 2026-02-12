@@ -10,5 +10,5 @@ spec:
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
   ref:
-    tag: 81.6.2
+    tag: 81.6.3
   url: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
