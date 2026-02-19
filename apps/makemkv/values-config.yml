@@ -9,7 +9,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/jlesage/makemkv
-          tag: v26.02.1
+          tag: v26.02.2
         env:
           DARK_MODE: 1
           # AUTO_DISC_RIPPER: "1"
