@@ -37,8 +37,6 @@ controllers:
         resources:
           requests:
             memory: 2Gi
-          limits:
-            memory: 2Gi
 
 service:
   app:
