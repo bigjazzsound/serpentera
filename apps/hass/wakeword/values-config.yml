@@ -5,6 +5,9 @@ global:
 
 controllers:
   wakeword:
+    pod:
+      annotations:
+        k8s.v1.cni.cncf.io/networks: kube-system/multus-iot
     containers:
       app:
         image:
