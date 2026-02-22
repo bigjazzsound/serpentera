@@ -9,6 +9,9 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+  - name: ingress-nginx
+  - name: openebs
   interval: 5m0s
   path: ./apps/omada-controller
   prune: true
