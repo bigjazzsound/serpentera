@@ -8,7 +8,7 @@ controllers:
       app:
         image:
           repository: docker.io/koenkk/zigbee2mqtt
-          tag: 2.8.0
+          tag: 2.9.0
         securityContext:
           capabilities:
             add: ["SYS_ADMIN"]
