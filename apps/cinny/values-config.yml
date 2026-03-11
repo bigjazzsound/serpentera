@@ -6,7 +6,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/cinnyapp/cinny
-          tag: v4.10.5
+          tag: v4.11.1
         probes:
           liveness:
             enabled: false
