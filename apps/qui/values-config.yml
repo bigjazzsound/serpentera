@@ -9,7 +9,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/autobrr/qui
-          tag: "v1.14.1"
+          tag: "v1.15.0"
         envFrom:
           - secret: qui
 
