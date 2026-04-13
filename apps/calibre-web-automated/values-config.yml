@@ -1,0 +1,87 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: calibre-web-automated
+
+controllers:
+  calibre-web-automated:
+    containers:
+      app:
+        image:
+          repository: crocodilestick/calibre-web-automated
+          tag: v4.0.6
+        env:
+          PUID: "1000"
+          PGID: "1000"
+          TZ: America/New_York
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: 8083
+              initialDelaySeconds: 120
+              periodSeconds: 30
+              timeoutSeconds: 10
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: 8083
+              initialDelaySeconds: 30
+              periodSeconds: 10
+              timeoutSeconds: 5
+    strategy: Recreate
+
+service:
+  app:
+    controller: calibre-web-automated
+    ports:
+      http:
+        port: 8083
+
+ingress:
+  app:
+    className: nginx
+    annotations:
+      # proxy-body-size is set to 0 to remove the body limit on file uploads
+      nginx.ingress.kubernetes.io/proxy-body-size: "0"
+    hosts:
+      - host: books.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - books.cjf.sh
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    globalMounts:
+      - path: /config
+
+  library:
+    type: persistentVolumeClaim
+    storageClass: zfs-media
+    accessMode: ReadWriteOnce
+    size: 100Gi
+    globalMounts:
+      - path: /calibre-library
+
+  ingest:
+    type: persistentVolumeClaim
+    storageClass: zfs-media
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    globalMounts:
+      - path: /cwa-book-ingest
