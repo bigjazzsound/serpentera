@@ -14,13 +14,6 @@ controllers:
           PUID: "1000"
           PGID: "1000"
           TZ: America/New_York
-        resources:
-          requests:
-            memory: 512Mi
-            cpu: 250m
-          limits:
-            memory: 2Gi
-            cpu: 1000m
         probes:
           liveness:
             enabled: true
