@@ -37,7 +37,7 @@ controllers:
       db:
         image:
           repository: lscr.io/linuxserver/mariadb
-          tag: 11.4.9
+          tag: 11.4.10
         env:
           PUID: "1000"
           PGID: "1000"
