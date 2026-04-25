@@ -35,16 +35,6 @@ securityContext:
     drop:
       - ALL
 
-livenessProbe:
-  initialDelaySeconds: 10
-  tcpSocket:
-    port: http
-
-readinessProbe:
-  initialDelaySeconds: 10
-  tcpSocket:
-    port: http
-
 runtimeClassName: nvidia
 
 resources:
