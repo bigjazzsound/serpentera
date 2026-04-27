@@ -9,7 +9,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/paperless-ngx/paperless-ngx
-          tag: "2.20.14"
+          tag: "2.20.15"
         env:
           USERMAP_UID: "1000"
           USERMAP_GID: "1000"
