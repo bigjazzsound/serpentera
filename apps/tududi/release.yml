@@ -1,0 +1,18 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: tududi
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: tududi
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 1m0s
+  targetNamespace: tududi
+  valuesFrom:
+    - kind: ConfigMap
+      name: tududi-config-values
