@@ -19,5 +19,5 @@ spec:
   storageNamespace: navidrome
   targetNamespace: navidrome
   valuesFrom:
-  - kind: ConfigMap
-    name: navidrome-config-values
+    - kind: ConfigMap
+      name: navidrome-config-values
