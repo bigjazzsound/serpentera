@@ -35,10 +35,13 @@ ingress:
               port: http
       - <<: *ingress
         host: listen.cjf.sh
+      - <<: *ingress
+        host: music.cjf.sh
     tls:
       - hosts:
           - navidrome.cjf.sh
           - listen.cjf.sh
+          - music.cjf.sh
 
 persistence:
   config:
