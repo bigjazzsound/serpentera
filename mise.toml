@@ -1,0 +1,241 @@
+[tools]
+age = "1.3.1"
+flux2 = "2.8.1"
+gh = "2.91.0"
+k0sctl = "0.30.0"
+kubectl = "1.34.1"
+
+[tasks.bootstrap-flux]
+description = "Bootstrap FluxCD on the cluster"
+
+usage = '''
+arg <branch> help="Git branch to use for Flux (default: main)" default="main"
+'''
+
+run = """
+export GITHUB_TOKEN=$(gh auth token)
+
+flux bootstrap github \
+  --token-auth \
+  --owner bigjazzsound \
+  --repository serpentera \
+  --branch ${usage_branch} \
+  --path clusters/prod \
+  --personal
+
+kubectl -n flux-system wait kustomization/flux-system --for=condition=ready --timeout=5m
+
+flux check
+"""
+
+[tasks.flux-sync]
+description = "Sync FluxCD with the Git repository"
+
+run = '''
+flux reconcile source git flux-system
+'''
+
+[tasks.add-repo]
+
+usage = """
+flag "-u --url <url>" help="URL of the Helm repository" default="oci://ghcr.io/bjw-s-labs/helm/app-template"
+flag "-n --name <name>" help="Name of the Helm repository"
+"""
+
+run = """
+flux create source helm ${usage_name} \
+  --url=${usage_url} \
+  --interval=24h \
+  --namespace=flux-system \
+  --export \
+  > apps/${usage_name}/repo.yml
+"""
+
+[tasks.add-ks]
+
+usage = """
+flag "-n --name <name>" help="Name of the Helm repository"
+flag "-d --deps <deps>" help="Comma-separated list of Kustomization dependencies (optional)"
+"""
+
+run = """
+flux create kustomization ${usage_name} \
+  --export \
+  --source=GitRepository/flux-system.flux-system \
+  --path=apps/${usage_name} \
+  --prune=true \
+  --wait=true \
+  --interval=5m \
+  --timeout=5m \
+  --retry-interval=1m \
+  --decryption-provider=sops \
+  --decryption-secret=sops-age \
+  --depends-on=${usage_deps} \
+  > clusters/prod/${usage_name}.yml
+"""
+
+[tasks.add-app]
+usage = """
+arg "<name>" help="Name of the application"
+"""
+
+run = """
+#!/usr/bin/env bash
+
+mkdir -p apps/${usage_name}
+
+cat <<EOF > apps/${usage_name}/kustomization.yml
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ns.yml
+  - repo.yml
+  - secrets.sops.yml
+  - release.yml
+configMapGenerator:
+  - name: ${usage_name}-config-values
+    namespace: flux-system
+    files:
+      - values.yaml=values-config.yml
+configurations:
+  - kustomizeconfig.yml
+EOF
+
+cat <<EOF > apps/${usage_name}/ns.yml
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ${usage_name}
+EOF
+
+cat <<EOF > apps/${usage_name}/kustomizeconfig.yml
+---
+nameReference:
+  - kind: ConfigMap
+    version: v1
+    fieldSpecs:
+      - path: spec/valuesFrom/name
+        kind: HelmRelease
+EOF
+
+cat <<EOF > apps/${usage_name}/values-config.yml
+---
+# yaml-language-server: \\$schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: ${usage_name}
+
+controllers:
+  ${usage_name}:
+    containers:
+      app:
+        image:
+          repository: ghcr.io/foo/${usage_name}
+          tag: ""
+
+service:
+  app:
+    controller: ${usage_name}
+    ports:
+      http:
+        port: ""
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: ${usage_name}.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - ${usage_name}.cjf.sh
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 32Mi
+    globalMounts:
+      - path: /config
+EOF
+
+cat <<EOF > apps/${usage_name}/secrets.sops.yml
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ${usage_name}
+  namespace: ${usage_name}
+stringData:
+  key: value
+EOF
+"""
+
+[tasks.add-helmrelease]
+usage = """
+flag "-n --name <name>" help="Name of the Helm repository"
+flag "-v --version <version>" help="Version of the Helm chart"
+"""
+
+run = """
+flux create helmrelease ${usage_name} \
+  --export \
+  --source=HelmRepository/${usage_name} \
+  --chart=${usage_name} \
+  --chart-version=${usage_version} \
+  --create-target-namespace \
+  --target-namespace=${usage_name} \
+  --values-from=ConfigMap/${usage_name}-config-values \
+  > apps/${usage_name}/release.yml
+"""
+
+[tasks.build-ks]
+usage = """
+arg "<name>" help="Name of the application"
+"""
+
+run = """
+flux build kustomization ${usage_name} \
+  --path apps/${usage_name} \
+  --kustomization-file clusters/prod/${usage_name}.yml \
+  --dry-run
+"""
+
+[tasks.existing-claim]
+usage = """
+flag "-n, --name <name>" help="Name of the application"
+flag "-s, --size <size>" help="Size of the PersistentVolumeClaim (e.g., 10Gi)" default="10Gi"
+flag "-c, --class <class>" help="Storage class of the PersistentVolumeClaim" default="zfs-dataset"
+"""
+
+run = """
+cat <<EOF > apps/${usage_name}/secrets.sops.yml
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: ${usage_name}
+  namespace: ${usage_name}
+spec:
+  storageClassName: ${usage_class}
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: ${usage_size}
+  volumeMode: Filesystem
+EOF
+"""
+
+[tasks.setup-sops]
+run = """
+kubectl create secret generic sops-age \
+  --namespace=flux-system \
+  --from-literal=age.agekey="$(echo SOPS_AGE_KEY)"
+"""
