@@ -22,6 +22,9 @@ service:
       http:
         port: 4533
 
+serviceAccount:
+  navidrome: {}
+
 ingress:
   app:
     className: nginx
