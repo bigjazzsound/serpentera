@@ -1,5 +1,8 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: navidrome
+
 defaultPodOptions:
   nodeSelector:
     kubernetes.io/hostname: serpentera
@@ -18,6 +21,9 @@ service:
     ports:
       http:
         port: 4533
+
+serviceAccount:
+  navidrome: {}
 
 ingress:
   app:
