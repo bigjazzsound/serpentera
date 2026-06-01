@@ -11,10 +11,4 @@ spec:
     url: blackbox-exporter.monitoring.svc.cluster.local:9115
   targets:
     staticConfig:
-      static:
-        - epl-kitchen.cjf.lan:6053
-        - epl-office.cjf.lan:6053
-        - epl-paige-office.cjf.lan:6053
-        - epl-stairs.cjf.lan:6053
-        - esp-bedjet.cjf.lan:6053
-        - esp-office.cjf.lan:6053
+      static: []
