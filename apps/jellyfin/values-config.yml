@@ -45,7 +45,7 @@ persistence:
   config:
     enabled: true
     accessMode: ReadWriteOnce
-    size: 5Gi
+    size: 10Gi
     storageClass: zfs-dataset
   media:
     enabled: true
