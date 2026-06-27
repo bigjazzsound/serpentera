@@ -22,7 +22,7 @@ controllers:
             add: ["SYS_ADMIN"]
         resources:
           limits:
-            squat.ai/rip: 1
+            devic.es/rip: 1
 
 service:
   app:
