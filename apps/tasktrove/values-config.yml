@@ -43,3 +43,6 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /app/data
+
+serviceAccount:
+  tasktrove: {}

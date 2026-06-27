@@ -44,3 +44,6 @@ persistence:
     globalMounts:
       - path: /data
         readOnly: false
+
+serviceAccount:
+  actual-budget: {}

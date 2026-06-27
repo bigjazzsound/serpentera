@@ -58,3 +58,6 @@ persistence:
       esphome:
         app:
           - path: /cache
+
+serviceAccount:
+  esphome: {}

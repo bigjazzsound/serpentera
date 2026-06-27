@@ -63,3 +63,6 @@ persistence:
     size: 5Gi
     globalMounts:
       - path: /config/backups
+
+serviceAccount:
+  hass: {}

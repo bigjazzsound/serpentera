@@ -60,3 +60,6 @@ persistence:
     hostPath: /var/tank/makemkv/output
     globalMounts:
       - path: /output
+
+serviceAccount:
+  makemkv: {}

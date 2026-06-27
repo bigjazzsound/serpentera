@@ -85,3 +85,6 @@ persistence:
     size: 10Gi
     globalMounts:
       - path: /cwa-book-ingest
+
+serviceAccount:
+  calibre-web-automated: {}

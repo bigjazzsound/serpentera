@@ -89,3 +89,6 @@ persistence:
     globalMounts:
       - path: /usr/src/paperless/consume
         readOnly: false
+
+serviceAccount:
+  paperless: {}

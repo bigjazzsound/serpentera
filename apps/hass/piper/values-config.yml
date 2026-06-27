@@ -30,3 +30,6 @@ persistence:
     globalMounts:
       - path: /config
         readOnly: false
+
+serviceAccount:
+  piper: {}

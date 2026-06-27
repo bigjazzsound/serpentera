@@ -35,3 +35,6 @@ persistence:
     hostPath: /var/tank/torrent/downloads
     globalMounts:
       - path: /downloads
+
+serviceAccount:
+  qbittorrent: {}

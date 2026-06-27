@@ -48,3 +48,6 @@ persistence:
     size: 5Gi
     globalMounts:
       - path: /app/data
+
+serviceAccount:
+  mealie: {}

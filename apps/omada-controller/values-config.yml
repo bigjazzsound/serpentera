@@ -104,3 +104,6 @@ persistence:
     globalMounts:
       - path: /opt/tplink/EAPController/logs
         readOnly: false
+
+serviceAccount:
+  omada-controller: {}

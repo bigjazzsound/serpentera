@@ -52,3 +52,6 @@ persistence:
     globalMounts:
       - path: /app/data
         readOnly: false
+
+serviceAccount:
+  pocket-id: {}

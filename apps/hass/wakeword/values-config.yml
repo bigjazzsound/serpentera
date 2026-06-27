@@ -29,3 +29,6 @@ persistence:
     size: 256Mi
     globalMounts:
       - readOnly: true
+
+serviceAccount:
+  wakeword: {}

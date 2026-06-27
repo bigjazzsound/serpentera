@@ -129,3 +129,6 @@ persistence:
     globalMounts:
       - path: /tmp
         readOnly: false
+
+serviceAccount:
+  karakeep: {}

@@ -63,3 +63,6 @@ configMaps:
         persistence true
         persistence_location /mosquitto/data/
         log_dest stdout
+
+serviceAccount:
+  mqtt: {}

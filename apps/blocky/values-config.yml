@@ -101,3 +101,6 @@ configMaps:
         log:
           level: info
           format: json
+
+serviceAccount:
+  blocky: {}

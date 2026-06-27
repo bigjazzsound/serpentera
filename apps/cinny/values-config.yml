@@ -34,3 +34,6 @@ ingress:
     tls:
       - hosts:
           - chat.cjf.sh
+
+serviceAccount:
+  cinny: {}

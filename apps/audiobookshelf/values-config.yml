@@ -63,3 +63,6 @@ persistence:
     hostPath: /var/tank/audiobookshelf/metadata
     globalMounts:
       - path: /metadata
+
+serviceAccount:
+  audiobookshelf: {}

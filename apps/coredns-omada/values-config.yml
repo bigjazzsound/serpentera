@@ -96,3 +96,6 @@ configMaps:
                 password {$OMADA_PASSWORD}
             }
         }
+
+serviceAccount:
+  coredns-omada: {}

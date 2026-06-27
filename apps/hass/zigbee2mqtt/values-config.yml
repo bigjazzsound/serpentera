@@ -42,3 +42,6 @@ persistence:
     existingClaim: "{{ .Release.Name }}"
     globalMounts:
       - path: /app/data
+
+serviceAccount:
+  zigbee2mqtt: {}

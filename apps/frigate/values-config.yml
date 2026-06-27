@@ -72,3 +72,6 @@ persistence:
     sizeLimit: 2Gi
     globalMounts:
       - path: /dev/shm
+
+serviceAccount:
+  frigate: {}
