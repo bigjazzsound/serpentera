@@ -1,6 +1,15 @@
 ---
-# yaml-language-server: $schema=https://json.schemastore.org/kustomization
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
-  - daemonset.yml
+  - ns.yml
+  - repo.yml
+  - secrets.sops.yml
+  - release.yml
+configMapGenerator:
+  - name: generic-device-plugin-config-values
+    namespace: flux-system
+    files:
+      - values.yaml=values-config.yml
+configurations:
+  - kustomizeconfig.yml

@@ -1,0 +1,7 @@
+---
+fullnameOverride: generic-device-plugin
+
+image:
+  repository: squat/generic-device-plugin
+  pullPolicy: IfNotPresent
+  tag: 2cc50b0
