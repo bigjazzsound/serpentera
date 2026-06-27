@@ -5,3 +5,7 @@ image:
   repository: squat/generic-device-plugin
   pullPolicy: IfNotPresent
   tag: 2cc50b0
+
+serviceAccount:
+  create: true
+  name: generic-device-plugin
