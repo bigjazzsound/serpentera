@@ -3,6 +3,10 @@
 global:
   fullnameOverride: pinchflat
 
+defaultPodOptions:
+  nodeSelector:
+    kubernetes.io/hostname: serpentera
+
 serviceAccount:
   pinchflat: {}
 
