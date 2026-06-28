@@ -1,0 +1,51 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: pinchflat
+
+serviceAccount:
+  pinchflat: {}
+
+controllers:
+  pinchflat:
+    containers:
+      app:
+        image:
+          repository: ghcr.io/communitymaintained/pinchflat
+          tag: 1.2.0
+
+service:
+  app:
+    controller: pinchflat
+    ports:
+      http:
+        port: 8945
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: pinchflat.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - pinchflat.cjf.sh
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 32Mi
+    globalMounts:
+      - path: /config
+
+  downloads:
+    type: hostPath
+    hostPath: /var/tank/media/yt
+    globalMounts:
+      - path: /downloads
