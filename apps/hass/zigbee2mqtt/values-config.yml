@@ -14,7 +14,7 @@ controllers:
             add: ["SYS_ADMIN"]
         resources:
           limits:
-            squat.ai/zigbee: 1
+            devic.es/zigbee: 1
 
 service:
   app:
