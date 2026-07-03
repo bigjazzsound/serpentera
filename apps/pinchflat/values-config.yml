@@ -47,6 +47,6 @@ persistence:
   downloads:
     type: nfs
     path: /var/tank/media/yt
-    server: serpentera
+    server: 192.168.200.13
     globalMounts:
       - path: /downloads
