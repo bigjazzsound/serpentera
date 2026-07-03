@@ -66,7 +66,7 @@ persistence:
     type: persistentVolumeClaim
     storageClass: zfs-dataset
     accessMode: ReadWriteOnce
-    size: 1Gi
+    size: 20Gi
     globalMounts:
       - path: /config
 
@@ -79,10 +79,7 @@ persistence:
       - path: /calibre-library
 
   ingest:
-    type: persistentVolumeClaim
-    storageClass: zfs-media
-    accessMode: ReadWriteOnce
-    size: 10Gi
+    type: emptyDir
     globalMounts:
       - path: /cwa-book-ingest
 
