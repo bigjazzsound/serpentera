@@ -45,7 +45,8 @@ persistence:
       - path: /config
 
   downloads:
-    type: hostPath
-    hostPath: /var/tank/media/yt
+    type: nfs
+    path: /var/tank/media/yt
+    server: serpentera
     globalMounts:
       - path: /downloads
