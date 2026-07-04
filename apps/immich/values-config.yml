@@ -3,8 +3,6 @@ controllers:
   main:
     containers:
       main:
-        image:
-          tag: v2.2.3
         env:
           REDIS_HOSTNAME: immich-redis
           DB_HOSTNAME: immich-db-rw
