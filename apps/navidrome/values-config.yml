@@ -13,7 +13,7 @@ controllers:
       app:
         image:
           repository: docker.io/deluan/navidrome
-          tag: 0.63.0
+          tag: 0.63.1
 
 service:
   app:
