@@ -9,7 +9,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/linuxserver/faster-whisper
-          tag: 3.4.1-gpu
+          tag: 3.5.0-gpu
         env:
           - name: PUID
             value: 1000
