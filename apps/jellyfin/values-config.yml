@@ -35,28 +35,30 @@ securityContext:
     drop:
       - ALL
 
-runtimeClassName: nvidia
-
-resources:
-  limits:
-    nvidia.com/gpu: "1"
-
 persistence:
   config:
     enabled: true
     accessMode: ReadWriteOnce
     size: 10Gi
     storageClass: zfs-dataset
+
   media:
-    enabled: true
-    type: hostPath
-    hostPath: /var/tank/media
+    enabled: false
 
 volumes:
+  - name: media
+    nfs:
+      server: 192.168.200.13
+      path: /var/tank/media
+
   - name: temp-data
     emptyDir: {}
 
 volumeMounts:
+  - mountPath: /media
+    name: series
+    readOnly: true
+
   - name: temp-data
     mountPath: "/tmp"
 
