@@ -46,7 +46,7 @@ persistence:
     enabled: false
 
 volumes:
-  - name: media
+  - name: content
     nfs:
       server: 192.168.200.13
       path: /var/tank/media
@@ -55,8 +55,8 @@ volumes:
     emptyDir: {}
 
 volumeMounts:
-  - mountPath: /media
-    name: media
+  - mountPath: /content
+    name: content
     readOnly: true
 
   - name: temp-data
