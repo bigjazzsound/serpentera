@@ -1,0 +1,42 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: intel-device-plugins-operator
+
+controllers:
+  intel-device-plugins-operator:
+    containers:
+      app:
+        image:
+          repository: ghcr.io/foo/intel-device-plugins-operator
+          tag: ""
+
+service:
+  app:
+    controller: intel-device-plugins-operator
+    ports:
+      http:
+        port: ""
+
+ingress:
+  app:
+    className: nginx
+    hosts:
+      - host: intel-device-plugins-operator.cjf.sh
+        paths:
+          - path: /
+            service:
+              identifier: app
+              port: http
+    tls:
+      - hosts:
+          - intel-device-plugins-operator.cjf.sh
+
+persistence:
+  config:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 32Mi
+    globalMounts:
+      - path: /config
