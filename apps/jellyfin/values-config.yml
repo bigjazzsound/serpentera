@@ -42,9 +42,6 @@ persistence:
     size: 10Gi
     storageClass: zfs-dataset
 
-  media:
-    enabled: false
-
 volumes:
   - name: content
     nfs:
