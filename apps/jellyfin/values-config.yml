@@ -48,17 +48,35 @@ persistence:
     size: 32Mi
 
 volumes:
-  - name: content
+  - name: movies
     nfs:
       server: 192.168.200.13
-      path: /var/tank/media
+      path: /var/tank/media/movies
+
+  - name: shows
+    nfs:
+      server: 192.168.200.13
+      path: /var/tank/media/shows
+
+  - name: yt
+    nfs:
+      server: 192.168.200.13
+      path: /var/tank/media/yt
 
   - name: temp-data
     emptyDir: {}
 
 volumeMounts:
-  - mountPath: /content
-    name: content
+  - mountPath: /media/movies
+    name: movies
+    readOnly: true
+
+  - mountPath: /media/shows
+    name: shows
+    readOnly: true
+
+  - mountPath: /media/yt
+    name: yt
     readOnly: true
 
   - name: temp-data
