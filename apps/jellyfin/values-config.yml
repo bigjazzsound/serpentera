@@ -56,7 +56,7 @@ volumes:
 
 volumeMounts:
   - mountPath: /media
-    name: series
+    name: media
     readOnly: true
 
   - name: temp-data
