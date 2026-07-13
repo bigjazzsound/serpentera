@@ -37,6 +37,14 @@ controllers:
               timeoutSeconds: 5
     strategy: Recreate
 
+defaultPodOptions:
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
 service:
   app:
     controller: calibre-web-automated
