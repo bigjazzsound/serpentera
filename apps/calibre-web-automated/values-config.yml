@@ -51,22 +51,26 @@ ingress:
       # proxy-body-size is set to 0 to remove the body limit on file uploads
       nginx.ingress.kubernetes.io/proxy-body-size: "0"
     hosts:
-      - host: books.cjf.sh
+      - &host
+        host: books.cjf.sh
         paths:
           - path: /
             service:
               identifier: app
               port: http
+      - <<: *host
+        host: read.cjf.sh
     tls:
       - hosts:
           - books.cjf.sh
+          - read.cjf.sh
 
 persistence:
   config:
     type: persistentVolumeClaim
     storageClass: zfs-dataset
     accessMode: ReadWriteOnce
-    size: 20Gi
+    size: 1Gi
     globalMounts:
       - path: /config
 
