@@ -15,6 +15,27 @@ controllers:
           PGID: "1000"
           TZ: America/New_York
           NETWORK_SHARE_MODE: "true"
+        probes:
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: 8083
+              initialDelaySeconds: 120
+              periodSeconds: 30
+              timeoutSeconds: 10
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /
+                port: 8083
+              initialDelaySeconds: 30
+              periodSeconds: 10
+              timeoutSeconds: 5
     strategy: Recreate
 
 service:
