@@ -14,6 +14,7 @@ controllers:
           PUID: "1000"
           PGID: "1000"
           TZ: America/New_York
+          NETWORK_SHARE_MODE: "true"
         probes:
           liveness:
             enabled: true
