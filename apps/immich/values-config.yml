@@ -27,6 +27,7 @@ immich:
   persistence:
     library:
       existingClaim: immich-library
+
 server:
   service:
     main:

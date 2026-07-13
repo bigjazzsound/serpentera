@@ -71,10 +71,9 @@ persistence:
       - path: /config
 
   library:
-    type: persistentVolumeClaim
-    storageClass: zfs-media
-    accessMode: ReadWriteOnce
-    size: 100Gi
+    type: nfs
+    path: /var/tank/media/cwa/library
+    server: 192.168.200.13
     globalMounts:
       - path: /calibre-library
 
