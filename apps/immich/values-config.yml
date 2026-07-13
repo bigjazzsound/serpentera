@@ -21,9 +21,6 @@ controllers:
           limits:
             nvidia.com/gpu: "1"
 
-defaultPodOptions:
-  runtimeClassName: nvidia
-
 immich:
   metrics:
     enabled: true
