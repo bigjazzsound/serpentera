@@ -84,7 +84,7 @@ persistence:
 
   library:
     type: nfs
-    path: /var/tank/media/cwa/library
+    path: /var/tank/media/cwa/books
     server: 192.168.200.13
     globalMounts:
       - path: /calibre-library
