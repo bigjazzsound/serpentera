@@ -86,7 +86,7 @@ configMaps:
             cjf.sh: 192.168.200.11
         conditional:
           mapping:
-            cjf.lan: 10.103.16.40
+            cjf.lan: 10.106.126.153
         caching:
           minTime: 1m
           maxTime: 5m
