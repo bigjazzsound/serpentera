@@ -17,9 +17,6 @@ controllers:
               secretKeyRef:
                 name: immich-db
                 key: password
-        resources:
-          limits:
-            nvidia.com/gpu: "1"
 
 immich:
   metrics:
