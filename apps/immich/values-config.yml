@@ -32,6 +32,7 @@ server:
   service:
     main:
       type: LoadBalancer
+
   ingress:
     main:
       enabled: true
