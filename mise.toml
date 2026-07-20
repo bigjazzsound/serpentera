@@ -38,7 +38,7 @@ flux reconcile source git flux-system
 [tasks.add-repo]
 
 usage = """
-flag "-u --url <url>" help="URL of the Helm repository" default="oci://ghcr.io/bjw-s-labs/helm/app-template"
+flag "-u --url <url>" help="URL of the Helm repository" default="oci://ghcr.io/bjw-s-labs/helm"
 flag "-n --name <name>" help="Name of the Helm repository"
 """
 
