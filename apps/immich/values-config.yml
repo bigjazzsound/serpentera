@@ -17,12 +17,6 @@ controllers:
               secretKeyRef:
                 name: immich-db
                 key: password
-        resources:
-          limits:
-            nvidia.com/gpu: "1"
-
-defaultPodOptions:
-  runtimeClassName: nvidia
 
 immich:
   metrics:
@@ -30,10 +24,12 @@ immich:
   persistence:
     library:
       existingClaim: immich-library
+
 server:
   service:
     main:
       type: LoadBalancer
+
   ingress:
     main:
       enabled: true

@@ -10,7 +10,7 @@ spec:
     secretRef:
       name: sops-age
   dependsOn:
-  - name: ingress-nginx
+    - name: ingress-nginx
   interval: 5m0s
   path: ./apps/jellyfin
   prune: true

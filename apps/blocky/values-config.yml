@@ -26,7 +26,7 @@ service:
     controller: blocky
     type: LoadBalancer
     annotations:
-      metallb.universe.tf/loadBalancerIPs: 10.0.0.250,192.168.200.200
+      metallb.universe.tf/loadBalancerIPs: 192.168.200.200
     ports:
       dns-udp:
         port: 53
@@ -83,10 +83,10 @@ configMaps:
               - meta
         customDNS:
           mapping:
-            cjf.sh: 10.0.0.200
+            cjf.sh: 192.168.200.11
         conditional:
           mapping:
-            cjf.lan: 10.103.16.40
+            cjf.lan: 10.106.126.153
         caching:
           minTime: 1m
           maxTime: 5m

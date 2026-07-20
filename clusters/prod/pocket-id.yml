@@ -10,8 +10,8 @@ spec:
     secretRef:
       name: sops-age
   dependsOn:
-  - name: ingress-nginx
-  - name: openebs
+    - name: ingress-nginx
+    - name: openebs
   interval: 5m0s
   path: ./apps/pocket-id
   prune: true
