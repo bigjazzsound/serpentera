@@ -22,8 +22,8 @@ service:
         port: 1883
 
 ingress:
-  app: &ingress
-    enabled: false
+  app:
+    enabled: true
     className: nginx
     hosts:
       - host: mqtt.cjf.sh
