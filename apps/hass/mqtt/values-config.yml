@@ -17,6 +17,7 @@ controllers:
 service:
   app:
     controller: mqtt
+    port: 1883
     type: LoadBalancer
     ports:
       mqtt:
