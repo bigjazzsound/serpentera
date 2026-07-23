@@ -1,5 +1,5 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/refs/heads/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 global:
   fullnameOverride: mqtt
 controllers:
@@ -17,13 +17,14 @@ controllers:
 service:
   app:
     controller: mqtt
+    type: LoadBalancer
     ports:
       mqtt:
         port: 1883
 
 ingress:
   app:
-    enabled: true
+    enabled: false
     className: nginx
     hosts:
       - host: mqtt.cjf.sh
