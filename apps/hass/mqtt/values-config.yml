@@ -18,6 +18,8 @@ service:
   app:
     controller: mqtt
     type: LoadBalancer
+    annotations:
+      metallb.universe.tf/loadBalancerIPs: "192.168.200.15"
     ports:
       mqtt:
         port: 1883
