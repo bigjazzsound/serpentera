@@ -1,5 +1,4 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 config:
   map:
     config: |-
@@ -10,7 +9,7 @@ config:
           failRequestsGreaterThanOne: true
           resources:
             - name: nvidia.com/gpu
-              replicas: 8
+              replicas: 4
 
 gfd:
   enabled: true
