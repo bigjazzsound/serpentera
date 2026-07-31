@@ -35,6 +35,12 @@ securityContext:
     drop:
       - ALL
 
+runtimeClassName: nvidia
+
+resources:
+  limits:
+    nvidia.com/gpu: "1"
+
 persistence:
   config:
     enabled: true
