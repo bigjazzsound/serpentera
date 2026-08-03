@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - zfs-dataset.yml
   - zfs-media.yml
+  - zfs-snapshot.yml
