@@ -13,7 +13,7 @@ spec:
         kind: HelmRepository
         name: nvidia
         namespace: flux-system
-      version: 0.19.x
+      version: 0.20.x
   install:
     createNamespace: true
   interval: 1m0s
