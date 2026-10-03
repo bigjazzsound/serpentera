@@ -2,6 +2,7 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
 global:
   fullnameOverride: blocky
+
 controllers:
   blocky:
     replicas: 3
@@ -14,6 +15,7 @@ controllers:
         image:
           repository: ghcr.io/0xerr0r/blocky
           tag: "v0.35.0"
+
 service:
   app:
     controller: blocky
@@ -57,6 +59,7 @@ persistence:
         app:
           - path: /app/config.yml
             subPath: config.yml
+
 configMaps:
   config:
     data:
@@ -74,6 +77,8 @@ configMaps:
               - https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts
             fakenews:
               - https://raw.githubusercontent.com/StevenBlack/hosts/master/alternates/fakenews-only/hosts
+              - |
+                *.foxnews.com
             meta:
               - https://raw.githubusercontent.com/jmdugan/blocklists/refs/heads/master/corporations/facebook/all
           clientGroupsBlock:
