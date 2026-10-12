@@ -90,6 +90,24 @@ ingress:
       - hosts:
           - omada.cjf.sh
 
+route:
+  app:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - omada.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - group: gateway.envoyproxy.io
+            kind: Backend
+            name: omada
+
 persistence:
   data:
     type: persistentVolumeClaim

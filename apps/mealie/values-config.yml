@@ -40,6 +40,23 @@ ingress:
       - hosts:
           - recipes.cjf.sh
 
+route:
+  app:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - recipes.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
+
 persistence:
   config:
     type: persistentVolumeClaim

@@ -42,6 +42,24 @@ ingress:
           - abs.cjf.sh
           - audiobookshelf.cjf.sh
 
+route:
+  app:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - abs.cjf.sh
+      - audiobookshelf.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
+
 persistence:
   config:
     type: hostPath

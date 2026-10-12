@@ -46,6 +46,25 @@ ingress:
           - listen.cjf.sh
           - music.cjf.sh
 
+route:
+  app:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - navidrome.cjf.sh
+      - listen.cjf.sh
+      - music.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
+
 persistence:
   config:
     type: persistentVolumeClaim

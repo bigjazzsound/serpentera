@@ -50,6 +50,23 @@ ingress:
       - hosts:
           - doh.cjf.sh
 
+route:
+  app:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - doh.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
+
 persistence:
   config:
     name: blocky

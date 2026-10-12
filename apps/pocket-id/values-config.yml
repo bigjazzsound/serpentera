@@ -43,6 +43,23 @@ ingress:
       - hosts:
           - auth.cjf.sh
 
+route:
+  app:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - auth.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
+
 persistence:
   app:
     type: persistentVolumeClaim

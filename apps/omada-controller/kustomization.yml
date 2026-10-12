@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ns.yml
   - repo.yml
+  - backend.yml
   - release.yml
 configMapGenerator:
   - name: omada-controller-config-values
