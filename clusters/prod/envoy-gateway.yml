@@ -14,7 +14,15 @@ spec:
     - name: certs
     - name: metallb-pool
   interval: 5m0s
-  path: ./apps/envoy-gateway
+  # Controller only. This Kustomization installs the Envoy Gateway HelmRelease,
+  # which in turn installs the Gateway API CRDs. The data plane objects in
+  # ../apps/envoy-gateway/gateway depend on those CRDs existing and must be
+  # reconciled separately - see the `gateway` Kustomization. Pointing this at
+  # the apps/envoy-gateway parent directory instead causes a bootstrap deadlock:
+  # Flux dry-runs the whole object set before applying, so GatewayClass fails to
+  # resolve, nothing is applied, and the HelmRelease that installs the CRDs is
+  # never created.
+  path: ./apps/envoy-gateway/controller
   prune: true
   retryInterval: 1m0s
   sourceRef:
