@@ -1,0 +1,32 @@
+---
+# ingress-nginx issued a 308 Permanent Redirect to HTTPS for every plaintext
+# request (its ssl-redirect behaviour). A Gateway with no route attached to the
+# `http` listener returns 404 instead, so this restores that behaviour with a
+# single catch-all route.
+#
+# Uses the core Gateway API RequestRedirect filter. Envoy Gateway's own
+# HTTPRouteFilter extension cannot do redirects - its spec is limited to
+# credentialInjection, directResponse, matches and urlRewrite.
+#
+# 308 (not 301) to match what clients saw before the migration.
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: https-redirect
+  namespace: gateway-system
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: gateway-system
+      sectionName: http
+  hostnames:
+    - "*.cjf.sh"
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 308

@@ -7,5 +7,6 @@ resources:
   - gatewayclass.yml
   - envoyproxy.yml
   - gateway.yml
+  - httproute-https-redirect.yml
   - referencegrant.yml
   - servicemonitor.yml
