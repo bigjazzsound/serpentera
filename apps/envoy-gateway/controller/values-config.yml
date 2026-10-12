@@ -14,3 +14,13 @@ deployment:
 # Envoy Gateway installs the Gateway API CRDs as part of the chart.
 crds:
   enabled: true
+
+config:
+  envoyGateway:
+    extensionApis:
+      # The Backend API is opt-in and defaults to disabled. Without this,
+      # routes whose backendRef is a Backend get a 500 direct response
+      # ("Backend is disabled in Envoy Gateway configuration"). Required by
+      # omada-controller, whose management port 8043 speaks HTTPS with a
+      # self-signed cert that needs insecureSkipVerify.
+      enableBackend: true

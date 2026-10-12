@@ -21,5 +21,9 @@ spec:
               memory: 1Gi
   logging:
     level:
-      default: warn
-      envoy: info
+      # Component keys here become --component-log-level <key>:<level> and MUST
+      # be a logger component registered in the Envoy build (e.g. upstream, hcm,
+      # router, connection). "envoy" is not one of them - Envoy 1.39 throws
+      # MalformedArgvException and exits 1 during argv parsing, before any
+      # config is read, which crash-loops the pod with no useful logs.
+      default: info
