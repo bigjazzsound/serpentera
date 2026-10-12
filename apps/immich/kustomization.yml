@@ -8,6 +8,7 @@ resources:
   - pg-cluster.yml
   - pvc.yml
   - redis.yml
+  - httproute.yml
   - release.yml
 configMapGenerator:
   - name: immich-config-values

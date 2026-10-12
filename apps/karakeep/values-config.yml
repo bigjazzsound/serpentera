@@ -125,6 +125,23 @@ route:
           - identifier: karakeep
             port: http
 
+route:
+  karakeep:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - bookmark.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: karakeep
+            port: http
+
 persistence:
   chrome-tmp:
     type: emptyDir

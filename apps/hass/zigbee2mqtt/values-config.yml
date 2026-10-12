@@ -39,6 +39,23 @@ route:
           - identifier: app
             port: http
 
+route:
+  app:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - zigbee.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
+
 persistence:
   config:
     existingClaim: "{{ .Release.Name }}"
