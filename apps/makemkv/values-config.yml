@@ -30,20 +30,22 @@ service:
     ports:
       http:
         port: 5800
-
-ingress:
+route:
   app:
-    className: nginx
-    hosts:
-      - host: makemkv.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - makemkv.cjf.sh
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - makemkv.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
 
 persistence:
   config:

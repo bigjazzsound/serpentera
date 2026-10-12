@@ -9,6 +9,8 @@ spec:
     provider: sops
     secretRef:
       name: sops-age
+  dependsOn:
+    - name: envoy-gateway
   interval: 5m0s
   path: ./apps/navidrome
   prune: true

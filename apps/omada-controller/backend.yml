@@ -1,0 +1,26 @@
+---
+# Omada's management endpoint (port 8043) speaks HTTPS with a self-signed
+# certificate (CN=localhost, SAN DNS:Omada). This replaced the ingress-nginx
+# annotations `backend-protocol: HTTPS` + `ssl-verify: false`; `insecureSkipVerify`
+# preserves the previous behaviour exactly.
+#
+# The upstream gateway.networking.k8s.io/v1alpha3 BackendTLSPolicy has no
+# insecureSkipVerify field, so an Envoy Gateway Backend resource is used instead.
+#
+# To tighten this later, swap insecureSkipVerify for a `BackendTLSPolicy` with
+# `caCertificateRefs` pointing at /opt/tplink/EAPController/data/keystore/eap.cer
+# and `validation.hostname: Omada`. Note that certificate is self-signed and
+# expires 2028-05-27, so it would need periodic re-extraction.
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/backend_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: Backend
+metadata:
+  name: omada
+  namespace: omada-controller
+spec:
+  endpoints:
+    - fqdn:
+        hostname: omada-controller-app.omada-controller.svc.cluster.local
+        port: 8043
+  tls:
+    insecureSkipVerify: true

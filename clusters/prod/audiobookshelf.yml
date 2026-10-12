@@ -10,7 +10,7 @@ spec:
     secretRef:
       name: sops-age
   dependsOn:
-  - name: ingress-nginx
+  - name: envoy-gateway
   interval: 5m0s
   path: ./apps/audiobookshelf
   prune: true

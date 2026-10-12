@@ -44,27 +44,23 @@ service:
     ports:
       http:
         port: 8083
-
-ingress:
+route:
   app:
-    className: nginx
-    annotations:
-      # proxy-body-size is set to 0 to remove the body limit on file uploads
-      nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    hosts:
-      - &host
-        host: books.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-      - <<: *host
-        host: read.cjf.sh
-    tls:
-      - hosts:
-          - books.cjf.sh
-          - read.cjf.sh
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - books.cjf.sh
+      - read.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
 
 persistence:
   config:

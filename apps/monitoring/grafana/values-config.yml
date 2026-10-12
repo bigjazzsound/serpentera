@@ -25,20 +25,6 @@ envValueFrom:
 persistence:
   enabled: true
   storageClassName: zfs-dataset
-
-ingress:
-  enabled: true
-  ingressClassName: nginx
-  hosts:
-    - grafana.cjf.sh
-    - monitor.cjf.sh
-    - monitoring.cjf.sh
-  tls:
-    - hosts:
-        - grafana.cjf.sh
-        - monitor.cjf.sh
-        - monitoring.cjf.sh
-
 datasources:
   datasources.yaml:
     apiVersion: 1

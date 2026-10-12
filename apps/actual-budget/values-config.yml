@@ -20,20 +20,22 @@ service:
     ports:
       http:
         port: 5006
-
-ingress:
+route:
   app:
-    className: nginx
-    hosts:
-      - host: money.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - money.cjf.sh
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - money.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
 
 persistence:
   data:

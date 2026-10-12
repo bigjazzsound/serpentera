@@ -11,6 +11,7 @@ spec:
       name: sops-age
   dependsOn:
   - name: valkey
+  - name: envoy-gateway
   interval: 5m0s
   path: ./apps/blocky
   prune: true

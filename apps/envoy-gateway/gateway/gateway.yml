@@ -1,0 +1,39 @@
+---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/gateway_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: external
+  namespace: gateway-system
+spec:
+  gatewayClassName: eg
+  infrastructure:
+    # LocalParametersReference: the EnvoyProxy must live in this Gateway's
+    # namespace, so no `namespace` field here.
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: external
+  listeners:
+    # Plain HTTP is kept for ACME http-01 challenges and the HTTP->HTTPS redirect.
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+    # TLS terminates here using the cluster-wide *.cjf.sh wildcard certificate.
+    # Individual HTTPRoutes attach with parentRefs[].sectionName: https.
+    - name: https
+      protocol: HTTPS
+      port: 443
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: cjf-sh-tls
+            namespace: cert-manager
+      allowedRoutes:
+        namespaces:
+          from: All

@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - repo.yml
   - secrets.sops.yml
+  - httproute.yml
   - release.yml
 configMapGenerator:
   - name: grafana-config-values

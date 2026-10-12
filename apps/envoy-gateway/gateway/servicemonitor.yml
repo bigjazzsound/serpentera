@@ -1,0 +1,23 @@
+---
+# prometheus-operator selects ServiceMonitors cluster-wide, so this is picked up
+# without any Prometheus reconfiguration.
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/monitoring.coreos.com/servicemonitor_v1.json
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: envoy-gateway
+  namespace: envoy-gateway-system
+  labels:
+    release: prometheus
+spec:
+  namespaceSelector:
+    matchNames:
+      - envoy-gateway-system
+  selector:
+    matchLabels:
+      # Fixed label set by the Envoy Gateway chart on the `envoy-gateway`
+      # Service (port name `metrics`, 19001). Avoids depending on the Helm
+      # release name via app.kubernetes.io/instance.
+      control-plane: envoy-gateway
+  endpoints:
+    - port: metrics

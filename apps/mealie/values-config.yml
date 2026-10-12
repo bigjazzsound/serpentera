@@ -25,20 +25,22 @@ service:
     ports:
       http:
         port: 9000
-
-ingress:
+route:
   app:
-    className: nginx
-    hosts:
-      - host: recipes.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - recipes.cjf.sh
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - recipes.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
 
 persistence:
   config:

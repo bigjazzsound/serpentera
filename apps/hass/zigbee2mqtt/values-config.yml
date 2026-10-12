@@ -22,20 +22,22 @@ service:
     ports:
       http:
         port: 8080
-
-ingress:
-  app: &ingress
-    className: nginx
-    hosts:
-      - host: zigbee.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - zigbee.cjf.sh
+route:
+  app:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - zigbee.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
 
 persistence:
   config:

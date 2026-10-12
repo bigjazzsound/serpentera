@@ -23,22 +23,6 @@ service:
     ports:
       mqtt:
         port: 1883
-
-ingress:
-  app:
-    enabled: false
-    className: nginx
-    hosts:
-      - host: mqtt.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: mqtt
-    tls:
-      - hosts:
-          - mqtt.cjf.sh
-
 persistence:
   config:
     name: mqtt

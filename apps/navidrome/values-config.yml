@@ -24,27 +24,24 @@ service:
 
 serviceAccount:
   navidrome: {}
-
-ingress:
+route:
   app:
-    className: nginx
-    hosts:
-      - &ingress
-        host: navidrome.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-      - <<: *ingress
-        host: listen.cjf.sh
-      - <<: *ingress
-        host: music.cjf.sh
-    tls:
-      - hosts:
-          - navidrome.cjf.sh
-          - listen.cjf.sh
-          - music.cjf.sh
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - navidrome.cjf.sh
+      - listen.cjf.sh
+      - music.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
 
 persistence:
   config:

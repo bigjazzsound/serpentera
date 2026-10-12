@@ -1,0 +1,28 @@
+---
+# jellyfin uses the upstream jellyfin Helm chart (not bjw-s app-template), so the
+# HTTPRoute is declared here rather than via `route:` in values-config.yml.
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: jellyfin
+  namespace: jellyfin
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+      namespace: gateway-system
+      sectionName: https
+  hostnames:
+    - media.cjf.sh
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - group: ""
+          kind: Service
+          name: jellyfin
+          port: 8096

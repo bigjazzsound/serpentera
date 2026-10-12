@@ -72,23 +72,23 @@ service:
         port: *port_device_monitor
       port-http:
         port: *portal_http_port
-
-ingress:
+route:
   app:
-    className: nginx
-    annotations:
-      nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
-      nginx.ingress.kubernetes.io/ssl-verify: "false"
-    hosts:
-      - host: omada.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: manage-https
-    tls:
-      - hosts:
-          - omada.cjf.sh
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - omada.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - group: gateway.envoyproxy.io
+            kind: Backend
+            name: omada
 
 persistence:
   data:

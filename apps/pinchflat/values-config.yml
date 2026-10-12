@@ -28,20 +28,22 @@ service:
     ports:
       http:
         port: 8945
-
-ingress:
+route:
   app:
-    className: nginx
-    hosts:
-      - host: pinchflat.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - pinchflat.cjf.sh
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - pinchflat.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
 
 persistence:
   config:

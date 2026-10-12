@@ -33,22 +33,22 @@ service:
     ports:
       http:
         port: 8123
-
-ingress:
+route:
   app:
-    className: nginx
-    annotations:
-      nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    hosts:
-      - host: hass.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - hass.cjf.sh
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - hass.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
 
 persistence:
   config:

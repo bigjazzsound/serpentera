@@ -11,6 +11,7 @@ spec:
       name: sops-age
   dependsOn:
     - name: storageclasses
+    - name: envoy-gateway
   interval: 5m0s
   path: ./apps/hass
   prune: true
