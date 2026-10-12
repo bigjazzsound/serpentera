@@ -1,0 +1,32 @@
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: gateway
+  namespace: flux-system
+spec:
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
+  # `envoy-gateway` installs the Gateway API CRDs; without it the GatewayClass
+  # and Gateway in this path cannot be dry-run or applied. `certs` ensures the
+  # *.cjf.sh wildcard Secret referenced by the Gateway exists first (it is
+  # already transitive via envoy-gateway, kept explicit for readability).
+  #
+  # App Kustomizations depend on `envoy-gateway` rather than on this one, so a
+  # slow LoadBalancer IP allocation does not block their reconciliation; Envoy
+  # Gateway attaches routes to the Gateway once it becomes Programmed.
+  dependsOn:
+    - name: envoy-gateway
+    - name: certs
+  interval: 5m0s
+  path: ./apps/envoy-gateway/gateway
+  prune: true
+  retryInterval: 1m0s
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+    namespace: flux-system
+  timeout: 2m0s
+  wait: true
