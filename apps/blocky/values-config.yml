@@ -106,6 +106,7 @@ configMaps:
         customDNS:
           mapping:
             cjf.sh: 192.168.200.11
+            todo.cjf.sh: 192.168.200.16
         conditional:
           mapping:
             cjf.lan: 10.106.126.153
