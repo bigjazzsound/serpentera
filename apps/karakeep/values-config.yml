@@ -108,21 +108,6 @@ service:
     ports:
       http:
         port: 9222
-
-ingress:
-  karakeep:
-    className: nginx
-    hosts:
-      - host: bookmark.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: karakeep
-              port: http
-    tls:
-      - hosts:
-          - bookmark.cjf.sh
-
 route:
   karakeep:
     parentRefs:

@@ -28,21 +28,6 @@ service:
     ports:
       http:
         port: 1411
-
-ingress:
-  app:
-    className: nginx
-    hosts:
-      - host: auth.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - auth.cjf.sh
-
 route:
   app:
     parentRefs:

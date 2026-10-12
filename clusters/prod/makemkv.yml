@@ -10,7 +10,6 @@ spec:
     secretRef:
       name: sops-age
   dependsOn:
-  - name: ingress-nginx
   - name: envoy-gateway
   - name: openebs
   interval: 5m0s

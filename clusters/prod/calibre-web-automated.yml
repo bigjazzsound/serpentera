@@ -16,6 +16,5 @@ spec:
   timeout: 5m0s
   wait: true
   dependsOn:
-    - name: ingress-nginx
     - name: envoy-gateway
     - name: storageclasses

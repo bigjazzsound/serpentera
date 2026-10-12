@@ -6,19 +6,6 @@ image:
   repository: ghcr.io/jellyfin/jellyfin
   tag: "12.2"
   pullPolicy: IfNotPresent
-
-ingress:
-  enabled: true
-  className: nginx
-  hosts:
-    - host: media.cjf.sh
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  tls:
-    - hosts:
-        - media.cjf.sh
-
 deploymentStrategy:
   type: Recreate
 

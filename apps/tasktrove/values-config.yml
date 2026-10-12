@@ -21,20 +21,6 @@ service:
     ports:
       http:
         port: 3000
-ingress:
-  app:
-    className: nginx
-    hosts:
-      - host: "todo.cjf.sh"
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - todo.cjf.sh
-
 route:
   app:
     parentRefs:

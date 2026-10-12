@@ -1,0 +1,80 @@
+---
+# Reverse engineered from the orphaned `stash` Helm release (app-template 5.0.1,
+# installed directly via helm rather than Flux). Values reproduced verbatim from
+# `helm get values stash -n stash`, then modernised:
+#   - chart 5.0.1 -> 5.3.0, matching every other app in this repo
+#   - persistence[].enabled dropped (v5 enables by presence; the key is gone from
+#     the chart schema)
+#   - ingress: -> route: for the Gateway API migration
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+controllers:
+  stash:
+    containers:
+      app:
+        image:
+          repository: docker.io/stashapp/stash
+          tag: v0.31.1
+
+defaultPodOptions:
+  nodeSelector:
+    kubernetes.io/hostname: serpentera
+
+service:
+  app:
+    controller: stash
+    ports:
+      http:
+        port: 9999
+    type: LoadBalancer
+
+route:
+  app:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - stash.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
+
+persistence:
+  blobs:
+    type: hostPath
+    hostPath: /var/tank/stash/blobs
+    globalMounts:
+      - path: /blobs
+  cache:
+    type: hostPath
+    hostPath: /var/tank/stash/cache
+    globalMounts:
+      - path: /cache
+  config:
+    type: hostPath
+    hostPath: /var/tank/stash/config
+    globalMounts:
+      - path: /root/.stash
+  data:
+    type: hostPath
+    hostPath: /var/tank/stash/data
+    globalMounts:
+      - path: /data
+  generated:
+    type: hostPath
+    hostPath: /var/tank/stash/generated
+    globalMounts:
+      - path: /generated
+  metadata:
+    type: hostPath
+    hostPath: /var/tank/stash/metadata
+    globalMounts:
+      - path: /metadata
+
+serviceAccount:
+  stash: {}

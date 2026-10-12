@@ -27,21 +27,6 @@ service:
     ports:
       http:
         port: 5000
-
-ingress:
-  app:
-    className: nginx
-    hosts:
-      - host: frigate.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - frigate.cjf.sh
-
 route:
   app:
     parentRefs:

@@ -44,24 +44,6 @@ service:
     ports:
       http:
         port: 8000
-
-ingress:
-  app:
-    className: nginx
-    annotations:
-      # proxy-body-size is set to 0 to remove the body limit on file uploads
-      nginx.ingress.kubernetes.io/proxy-body-size: "0"
-    hosts:
-      - host: paper.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - paper.cjf.sh
-
 route:
   app:
     parentRefs:

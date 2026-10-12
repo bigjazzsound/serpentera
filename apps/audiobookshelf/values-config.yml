@@ -22,26 +22,6 @@ service:
     ports:
       http:
         port: 80
-
-ingress:
-  app: &ingress
-    enabled: true
-    className: nginx
-    hosts:
-      - &ingress
-        host: abs.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-      - <<: *ingress
-        host: audiobookshelf.cjf.sh
-    tls:
-      - hosts:
-          - abs.cjf.sh
-          - audiobookshelf.cjf.sh
-
 route:
   app:
     parentRefs:

@@ -20,21 +20,6 @@ service:
     ports:
       http:
         port: 6052
-
-ingress:
-  app:
-    className: nginx
-    hosts:
-      - host: esphome.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - esphome.cjf.sh
-
 route:
   app:
     parentRefs:

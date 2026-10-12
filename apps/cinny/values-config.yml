@@ -21,20 +21,6 @@ service:
     ports:
       http:
         port: 80
-ingress:
-  app:
-    className: nginx
-    hosts:
-      - host: "chat.cjf.sh"
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - chat.cjf.sh
-
 route:
   app:
     parentRefs:
