@@ -1,0 +1,16 @@
+---
+# Schema is shipped inside the chart (oci://docker.io/envoyproxy/gateway-helm)
+# and validated by Helm at template time.
+deployment:
+  envoyGateway:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 700m
+        memory: 256Mi
+
+# Envoy Gateway installs the Gateway API CRDs as part of the chart.
+crds:
+  enabled: true

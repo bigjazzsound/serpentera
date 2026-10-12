@@ -1,0 +1,19 @@
+---
+# The Gateway lives in gateway-system but terminates TLS with the cluster-wide
+# *.cjf.sh wildcard certificate, which lives in cert-manager.
+# ReferenceGrant objects must live in the *referenced* object's namespace.
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/referencegrant_v1beta1.json
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: ReferenceGrant
+metadata:
+  name: allow-gateway-system-tls
+  namespace: cert-manager
+spec:
+  from:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      namespace: gateway-system
+  to:
+    - group: ""
+      kind: Secret
+      name: cjf-sh-tls
