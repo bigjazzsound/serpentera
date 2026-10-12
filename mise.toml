@@ -54,8 +54,9 @@ flux create source helm ${usage_name} \
 [tasks.add-ks]
 
 usage = """
-flag "-n --name <name>" help="Name of the Helm repository"
-flag "-d --deps <deps>" help="Comma-separated list of Kustomization dependencies (optional)"
+flag "-n --name <name>" help="Name of the application"
+flag "-d --deps <deps>" help="Comma-separated list of extra Kustomization dependencies (optional)"
+flag "-e --env <env>" help="Target cluster environment" default="prod"
 """
 
 run = """
@@ -70,8 +71,8 @@ flux create kustomization ${usage_name} \
   --retry-interval=1m \
   --decryption-provider=sops \
   --decryption-secret=sops-age \
-  --depends-on=${usage_deps} \
-  > clusters/prod/${usage_name}.yml
+  --depends-on=envoy-gateway${usage_deps:+,$usage_deps} \
+  > clusters/${usage_env}/${usage_name}.yml
 """
 
 [tasks.add-app]
@@ -131,6 +132,8 @@ controllers:
     containers:
       app:
         image:
+          # TODO: set the real image and tag. The chart refuses to render
+          # without a tag or digest.
           repository: ghcr.io/foo/${usage_name}
           tag: ""
 
@@ -139,21 +142,26 @@ service:
     controller: ${usage_name}
     ports:
       http:
+        # TODO: set the real listening port. The route below resolves this
+        # named port, so the chart fails to render until it is a real number.
         port: ""
 
-ingress:
+route:
   app:
-    className: nginx
-    hosts:
-      - host: ${usage_name}.cjf.sh
-        paths:
-          - path: /
-            service:
-              identifier: app
-              port: http
-    tls:
-      - hosts:
-          - ${usage_name}.cjf.sh
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - ${usage_name}.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
 
 persistence:
   config:
