@@ -30,5 +30,12 @@
       matchUpdateTypes: ["minor", "patch"],
       ignoreTests: true,
     },
+    {
+      description: "Auto-merge mise tools",
+      matchManagers: ["mise"],
+      automerge: true,
+      automergeType: "pr",
+      ignoreTests: true,
+    },
   ],
 }
