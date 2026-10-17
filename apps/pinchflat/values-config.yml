@@ -11,8 +11,8 @@ controllers:
     containers:
       app:
         image:
-          repository: ghcr.io/communitymaintained/pinchflat
-          tag: 1.4.3
+          repository: ghcr.io/kieraneglin/pinchflat
+          tag: v2025.6.6
 
 defaultPodOptions:
   securityContext:
