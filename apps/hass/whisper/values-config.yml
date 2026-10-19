@@ -21,12 +21,6 @@ controllers:
             value: tiny-int8
           - name: WHISPER_LANG
             value: en
-        resources:
-          limits:
-            nvidia.com/gpu: "1"
-
-defaultPodOptions:
-  runtimeClassName: nvidia
 
 service:
   app:
