@@ -84,14 +84,17 @@ persistence:
     size: 20Gi
     globalMounts:
       - path: /var/lib/silo
+
   transcode:
     type: emptyDir
     globalMounts:
       - path: /tmp/silo-transcode
+
   downloads:
     type: emptyDir
     globalMounts:
       - path: /tmp/silo-download-artifacts
+
   movies:
     type: nfs
     server: 192.168.200.13
@@ -99,6 +102,7 @@ persistence:
     globalMounts:
       - path: /mnt/media/movies
         readOnly: true
+
   shows:
     type: nfs
     server: 192.168.200.13
@@ -106,6 +110,7 @@ persistence:
     globalMounts:
       - path: /mnt/media/shows
         readOnly: true
+
   yt:
     type: nfs
     server: 192.168.200.13
