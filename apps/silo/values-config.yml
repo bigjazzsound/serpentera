@@ -3,6 +3,9 @@
 global:
   fullnameOverride: silo
 
+defaultPodOptions:
+  runtimeClassName: nvidia
+
 controllers:
   silo:
     type: statefulset
@@ -19,6 +22,11 @@ controllers:
           # CNPG disables ALTER SYSTEM; tune through the Cluster spec instead.
           POSTGRES_TUNE: "off"
           SILO_PLUGIN_CACHE_DIR: /var/lib/silo/plugins
+          NVIDIA_VISIBLE_DEVICES: all
+          NVIDIA_DRIVER_CAPABILITIES: compute,utility,video
+        resources:
+          limits:
+            nvidia.com/gpu: 1
         envFrom:
           - secretRef:
               name: silo
