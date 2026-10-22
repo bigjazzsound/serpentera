@@ -33,6 +33,10 @@ persistence:
     enabled: true
     type: emptyDir
     size: 32Mi
+    # The NFS shares are mounted *inside* /media, so /media itself must stay
+    # writable for the runtime to create the mountpoints. The NFS volumes
+    # themselves are still mounted read-only below.
+    readOnly: false
 
 volumes:
   - name: movies
