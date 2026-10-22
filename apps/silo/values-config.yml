@@ -1,0 +1,115 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: silo
+
+controllers:
+  silo:
+    type: statefulset
+    containers:
+      app:
+        image:
+          repository: ghcr.io/silo-server/silo-server
+          # Pre-1.0 with no semver tags; bump build-N by hand.
+          tag: build-1302
+        env:
+          MODE: integrated
+          PORT: "8080"
+          JF_PORT: "8096"
+          # CNPG disables ALTER SYSTEM; tune through the Cluster spec instead.
+          POSTGRES_TUNE: "off"
+          SILO_PLUGIN_CACHE_DIR: /var/lib/silo/plugins
+        envFrom:
+          - secretRef:
+              name: silo
+        probes:
+          # First start runs database migrations before the listener comes up.
+          startup:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/v1/health
+                port: 8080
+              periodSeconds: 10
+              failureThreshold: 180
+          liveness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/v1/health
+                port: 8080
+              periodSeconds: 30
+          readiness:
+            enabled: true
+            custom: true
+            spec:
+              httpGet:
+                path: /api/v1/ready
+                port: 8080
+              periodSeconds: 15
+
+service:
+  app:
+    controller: silo
+    ports:
+      http:
+        port: 8080
+      jellyfin:
+        port: 8096
+
+route:
+  app:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - silo.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
+
+persistence:
+  data:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 20Gi
+    globalMounts:
+      - path: /var/lib/silo
+  transcode:
+    type: emptyDir
+    globalMounts:
+      - path: /tmp/silo-transcode
+  downloads:
+    type: emptyDir
+    globalMounts:
+      - path: /tmp/silo-download-artifacts
+  movies:
+    type: nfs
+    server: 192.168.200.13
+    path: /var/tank/media/movies
+    globalMounts:
+      - path: /mnt/media/movies
+        readOnly: true
+  shows:
+    type: nfs
+    server: 192.168.200.13
+    path: /var/tank/media/shows
+    globalMounts:
+      - path: /mnt/media/shows
+        readOnly: true
+  yt:
+    type: nfs
+    server: 192.168.200.13
+    path: /var/tank/media/yt
+    globalMounts:
+      - path: /mnt/media/yt
+        readOnly: true

@@ -1,0 +1,18 @@
+---
+apiVersion: helm.toolkit.fluxcd.io/v2
+kind: HelmRelease
+metadata:
+  name: silo
+  namespace: flux-system
+spec:
+  chartRef:
+    kind: OCIRepository
+    name: silo
+    namespace: flux-system
+  install:
+    createNamespace: true
+  interval: 30m0s
+  targetNamespace: silo
+  valuesFrom:
+  - kind: ConfigMap
+    name: silo-config-values

@@ -1,0 +1,32 @@
+---
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: silo-db
+  namespace: silo
+spec:
+  # The standard image bundles pgvector, which Silo's migrations require.
+  imageName: ghcr.io/cloudnative-pg/postgresql:18-standard-trixie
+  instances: 1
+
+  managed:
+    roles:
+      - name: silo
+        login: true
+        passwordSecret:
+          name: silo-db
+
+  bootstrap:
+    initdb:
+      database: silo
+      owner: silo
+      secret:
+        name: silo-db
+      # pgvector is not a trusted extension, so create it as the superuser here.
+      # Silo's own CREATE EXTENSION IF NOT EXISTS then becomes a no-op.
+      postInitApplicationSQL:
+        - CREATE EXTENSION IF NOT EXISTS vector;
+
+  storage:
+    size: 10Gi
+    storageClass: zfs-dataset
