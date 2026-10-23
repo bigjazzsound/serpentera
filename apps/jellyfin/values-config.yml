@@ -4,7 +4,7 @@ fullnameOverride: jellyfin
 
 image:
   repository: ghcr.io/jellyfin/jellyfin
-  tag: "12.2"
+  tag: "12.3"
   pullPolicy: IfNotPresent
 deploymentStrategy:
   type: Recreate
