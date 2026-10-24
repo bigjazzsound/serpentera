@@ -4,3 +4,33 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 resources:
   - https://raw.githubusercontent.com/k8snetworkplumbingwg/multus-cni/refs/tags/v4.2.3/deployments/multus-daemonset-thick.yml
+patches:
+  # Upstream ships the daemon with a 50Mi memory limit, which the daemon
+  # exceeds on nodes running ~40 pods: it caches the whole pod list in an
+  # informer and sits at the cgroup ceiling (measured 52,420,608 / 52,428,800
+  # bytes with 688,614 limit hits). Thrashing the limit makes the client-go
+  # rate limiter back up, so GetPod times out and every CNI ADD fails with
+  # "client rate limiter Wait returned an error", leaving pods stuck in
+  # ContainerCreating. The agent on the same node then never registers, which
+  # is the "No agent available" error the apiserver reports.
+  - target:
+      group: apps
+      version: v1
+      kind: DaemonSet
+      name: kube-multus-ds
+    patch: |-
+      apiVersion: apps/v1
+      kind: DaemonSet
+      metadata:
+        name: kube-multus-ds
+        namespace: kube-system
+      spec:
+        template:
+          spec:
+            containers:
+              - name: kube-multus
+                resources:
+                  requests:
+                    memory: "256Mi"
+                  limits:
+                    memory: "256Mi"
