@@ -60,6 +60,11 @@ volumes:
       server: 192.168.200.13
       path: /var/tank/media/yt
 
+  - name: youtube
+    nfs:
+      server: 192.168.200.13
+      path: /var/tank/media/youtube
+
   - name: temp-data
     emptyDir: {}
 
@@ -73,6 +78,10 @@ volumeMounts:
     readOnly: true
 
   - mountPath: /media/yt
+    name: yt
+    readOnly: true
+
+  - mountPath: /media/youtube
     name: yt
     readOnly: true
 
