@@ -1,0 +1,67 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+global:
+  fullnameOverride: ytdl-sub
+
+defaultPodOptions:
+  securityContext:
+    runAsNonRoot: true
+    runAsUser: 1000
+    runAsGroup: 1000
+    fsGroup: 1000
+    fsGroupChangePolicy: OnRootMismatch
+
+controllers:
+  download:
+    type: cronjob
+    cronjob:
+      schedule: "17 4 * * *"
+      timeZone: America/New_York
+      concurrencyPolicy: Forbid
+      backoffLimit: 1
+      successfulJobsHistory: 3
+      failedJobsHistory: 3
+      startingDeadlineSeconds: 3600
+    containers:
+      app:
+        image:
+          repository: ghcr.io/jmbannon/ytdl-sub
+          tag: "2026.08.26.post1"
+        env:
+          TZ: America/New_York
+          # The image sets HOME=/config, which is a read-only ConfigMap here.
+          HOME: /work
+          XDG_CACHE_HOME: /work/.cache
+        # Bypass the LSIO s6 init/cron entrypoint; Kubernetes does the scheduling.
+        command:
+          - /bin/sh
+          - -c
+        args:
+          - ytdl-sub -c /config/config.yaml sub /config/subscriptions.yaml
+        securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+
+persistence:
+  config:
+    type: configMap
+    name: ytdl-sub-config
+    globalMounts:
+      - path: /config
+        readOnly: true
+
+  # Working directory and lock files must be on local disk, not NFS.
+  work:
+    type: emptyDir
+    sizeLimit: 40Gi
+    globalMounts:
+      - path: /work
+
+  downloads:
+    type: nfs
+    server: 192.168.200.13
+    path: /var/tank/media/yt
+    globalMounts:
+      - path: /downloads
