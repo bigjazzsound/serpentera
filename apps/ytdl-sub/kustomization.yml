@@ -1,0 +1,23 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ns.yml
+  - repo.yml
+  - release.yml
+configMapGenerator:
+  - name: ytdl-sub-config-values
+    namespace: flux-system
+    files:
+      - values.yaml=values-config.yml
+  # Mounted by name from values-config.yml, so it must not get a hash suffix.
+  # The CronJob reads it fresh on every run, so no rollout is needed on change.
+  - name: ytdl-sub-config
+    namespace: ytdl-sub
+    files:
+      - config/config.yaml
+      - config/subscriptions.yaml
+    options:
+      disableNameSuffixHash: true
+configurations:
+  - kustomizeconfig.yml
