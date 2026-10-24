@@ -1,0 +1,60 @@
+configuration:
+  umask: "002"
+  working_directory: "/work/.ytdl-sub-working-directory"
+  lock_directory: "/work/lock"
+  persist_logs:
+    logs_directory: "/work/logs"
+    keep_successful_logs: False
+
+presets:
+  tv_show_paths:
+    overrides:
+      tv_show_directory: "/downloads/shows"
+
+  no_shorts_or_livestreams:
+    match_filters:
+      filters:
+        - "original_url!*=/shorts/ & !is_live"
+
+  # Shared base: Jellyfin layout, 2160p, English subs, S01E01-style file names.
+  # Each show adds a *_numbering preset that sets season_number/episode_number
+  # from the video title, so numbering doesn't depend on playlist order.
+  tv_show_base:
+    preset:
+      - "Jellyfin TV Show by Date"
+      - "Max 2160p"
+      - "tv_show_paths"
+      - "no_shorts_or_livestreams"
+
+    overrides:
+      tv_show_genre_default: "YouTube"
+      episode_title: "{title}"
+      season_number_padded: "{ %pad_zero(%int(season_number), 2) }"
+      episode_number_padded: "{ %pad_zero(%int(episode_number), 2) }"
+      episode_file_name: "S{season_number_padded}E{episode_number_padded} - {file_title}"
+
+    subtitles:
+      embed_subtitles: True
+      languages:
+        - "en"
+      allow_auto_generated_subtitles: False
+      subtitles_name: "{episode_file_path}.{lang}.{subtitles_ext}"
+
+  # "BEYBLADE EN Episode 1: The Blade Raider"
+  beyblade_numbering:
+    overrides:
+      season_number: "1"
+      episode_number: '{ %array_at(%regex_search("Episode ([0-9]+)", title), 1) }'
+
+  # "Beast Wars: Transformers | S01 E41 | FULL EPISODE | ..."
+  # The playlist has E41 uploaded twice; both are kept as versions of S01E41.
+  beast_wars_numbering:
+    overrides:
+      season_number: '{ %array_at(%regex_search("S([0-9]+) E([0-9]+)", title), 1) }'
+      episode_number: '{ %array_at(%regex_search("S([0-9]+) E([0-9]+)", title), 2) }'
+
+  # "Warring Factions | Peep Show Season 1 Episode 1"
+  peep_show_numbering:
+    overrides:
+      season_number: '{ %array_at(%regex_search("Season ([0-9]+) Episode ([0-9]+)", title), 1) }'
+      episode_number: '{ %array_at(%regex_search("Season ([0-9]+) Episode ([0-9]+)", title), 2) }'
