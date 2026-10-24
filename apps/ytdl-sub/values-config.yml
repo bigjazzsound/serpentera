@@ -62,6 +62,6 @@ persistence:
   downloads:
     type: nfs
     server: 192.168.200.13
-    path: /var/tank/media/yt
+    path: /var/tank/media/youtube
     globalMounts:
       - path: /downloads
