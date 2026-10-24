@@ -82,7 +82,7 @@ volumeMounts:
     readOnly: true
 
   - mountPath: /media/youtube
-    name: yt
+    name: youtube
     readOnly: true
 
   - name: temp-data
