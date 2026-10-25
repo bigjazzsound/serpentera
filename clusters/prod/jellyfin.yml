@@ -11,6 +11,7 @@ spec:
       name: sops-age
   dependsOn:
     - name: envoy-gateway
+    - name: nvidia
   interval: 5m0s
   path: ./apps/jellyfin
   prune: true

@@ -9,6 +9,12 @@ image:
 deploymentStrategy:
   type: Recreate
 
+runtimeClassName: nvidia
+
+resources:
+  limits:
+    nvidia.com/gpu: "1"
+
 podSecurityContext:
   runAsUser: 1000
   runAsGroup: 1000
