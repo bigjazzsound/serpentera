@@ -10,5 +10,5 @@ spec:
   layerSelector:
     mediaType: application/vnd.cncf.helm.chart.content.v1.tar+gzip
   ref:
-    tag: v1.9.2
+    tag: 1.9.3
   url: oci://docker.io/envoyproxy/gateway-helm
