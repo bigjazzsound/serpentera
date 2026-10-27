@@ -40,6 +40,10 @@ presets:
       allow_auto_generated_subtitles: False
       subtitles_name: "{episode_file_path}.{lang}.{subtitles_ext}"
 
+    ytdl_options:
+      # Fail fast when YouTube throttles us instead of grinding for hours.
+      retries: 3
+
   # "BEYBLADE EN Episode 1: The Blade Raider"
   beyblade_numbering:
     overrides:
@@ -58,3 +62,32 @@ presets:
     overrides:
       season_number: '{ %array_at(%regex_search("Season ([0-9]+) Episode ([0-9]+)", title), 1) }'
       episode_number: '{ %array_at(%regex_search("Season ([0-9]+) Episode ([0-9]+)", title), 2) }'
+
+  # MST3K encodes its real season/episode in the title as "S*100 + E":
+  #   "MST3K 1313: The Christmas Dragon"  -> S13E13
+  #   "MSK3K 1111: ..." (typo variant)    -> S11E11
+  #   "MST3K: 1114 At the Earth's Core"   -> S11E14
+  # Titles without a number fall back to the playlist position: the 31
+  # "MST3K: <film> (FULL MOVIE)" uploads go to Season 01, the RiffTrax /
+  # MST3K Presents / Turkey Day specials go to Season 00.
+  mst3k_numbering:
+    overrides:
+      mst3k_num: '{ %array_at(%regex_capture_many(title, ["MS[ TK]?3K:?[ ]+([0-9]+)"], ["0"]), 1) }'
+      mst3k_season: '{ %if(%regex_search_any(title, ["MS[ TK]?3K:?[ ]+[0-9]+"]), %slice(mst3k_num, 0, -2), %if(%contains(title, "MST3K:"), "1", "0")) }'
+      mst3k_episode: '{ %if(%regex_search_any(title, ["MS[ TK]?3K:?[ ]+[0-9]+"]), %slice(mst3k_num, -2), %string(playlist_index)) }'
+      season_number: "{mst3k_season}"
+      episode_number: "{mst3k_episode}"
+
+  mst3k:
+    preset:
+      - "mst3k_numbering"
+    ytdl_options:
+      # MST3K's playlist is newest-first, unlike the other shows. Leave the
+      # playlist order alone so ytdl-sub reads the newest end first and
+      # notices newly prepended episodes.
+      playlistreverse: False
+    match_filters:
+      filters:
+        # Three playlist entries are titled "NA" (broken videos). A keyword
+        # filter would also hit "Santa Claus", so match the title exactly.
+        - "title!~=^NA$"

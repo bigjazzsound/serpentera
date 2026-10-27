@@ -1,9 +1,9 @@
 # Subscription names are the show folder names under /downloads/shows.
-# Only shows with no existing files are managed here; MST3K, Kamen Rider and
-# Kamen Rider Geats stay on pinchflat until they are migrated.
+# Kamen Rider, Kamen Rider Geats, Kamen Rider Zeztz and Ultraman Teo stay on
+# pinchflat for now.
 #
-# Chunk Downloads fetches 20 episodes per run, oldest first. Remove it once a
-# show is fully downloaded.
+# Chunk Downloads fetches 20 episodes per run. Remove it once a show is fully
+# downloaded.
 
 tv_show_base | Chunk Downloads | beyblade_numbering:
   "Beyblade (2001)": "https://www.youtube.com/playlist?list=PLJ-JBvtUCWiz1Qtne5HlLBaEeTZUZBc7y"
@@ -13,3 +13,8 @@ tv_show_base | Chunk Downloads | beast_wars_numbering:
 
 tv_show_base | Chunk Downloads | peep_show_numbering:
   "Peep Show (2003)": "https://www.youtube.com/playlist?list=PLgZZ9Y_Cr271Ko4dk7vAH37fAZLOwbIKy"
+
+# MST3K is a title-numbered show: the real season/episode comes from the
+# video title, not from the playlist position.
+tv_show_base | Chunk Downloads | mst3k:
+  "MST3K": "https://www.youtube.com/playlist?list=PLYy4ZargUluf-iyr4vFpe-xaJ46GEDpBI"
