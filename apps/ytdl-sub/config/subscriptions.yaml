@@ -1,6 +1,4 @@
 # Subscription names are the show folder names under /downloads/shows.
-# Kamen Rider, Kamen Rider Geats, Kamen Rider Zeztz and Ultraman Teo stay on
-# pinchflat for now.
 #
 # Chunk Downloads fetches 20 episodes per run. Remove it once a show is fully
 # downloaded.
@@ -18,3 +16,16 @@ tv_show_base | Chunk Downloads | peep_show_numbering:
 # video title, not from the playlist position.
 tv_show_base | Chunk Downloads | mst3k:
   "MST3K": "https://www.youtube.com/playlist?list=PLYy4ZargUluf-iyr4vFpe-xaJ46GEDpBI"
+
+# Ultraman Teo: the episode number comes from the Japanese title (第N話).
+# Previews and special recaps are filtered out by the teo preset.
+tv_show_base | Chunk Downloads | teo:
+  "Ultraman Teo": "https://www.youtube.com/playlist?list=PLL1Nxwb82etw"
+
+# Kamen Rider series: the episode number comes from the "#N" in the title.
+tv_show_base | Chunk Downloads | kamen_rider_numbering:
+  "Kamen Rider Ex-Aid": "https://www.youtube.com/playlist?list=PLRbPLAwA2c3o"
+  "Kamen Rider My-Th": "https://www.youtube.com/playlist?list=PLZM4yPsYEvN0"
+  "Kamen Rider Zeztz": "https://www.youtube.com/playlist?list=PLK4udCtPz63k"
+  "Kamen Rider Kabuto": "https://www.youtube.com/playlist?list=PL4rzcHfrDGhlsRcoUsX9GIqK78qCz-ZC2"
+  "Kamen Rider Agito": "https://www.youtube.com/playlist?list=PL4rzcHfrDGhkp8QdBcspAt0K2w8zm3ycV"

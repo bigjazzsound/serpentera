@@ -86,8 +86,50 @@ presets:
       # playlist order alone so ytdl-sub reads the newest end first and
       # notices newly prepended episodes.
       playlistreverse: False
-    match_filters:
-      filters:
-        # Three playlist entries are titled "NA" (broken videos). A keyword
-        # filter would also hit "Santa Claus", so match the title exactly.
-        - "title!~=^NA$"
+    filter_exclude:
+      # Three playlist entries are titled "NA" (unavailable videos).
+      - >-
+        { %eq(title, "NA") }
+
+  # Kamen Rider series playlists are titled "KAMEN RIDER <SHOW> | #N", and the
+  # number is the episode number. The playlists also carry private videos,
+  # opening themes and official clips; only the numbered episodes are wanted.
+  # Note the official clips say "Episode N" in their titles, so match on "#N".
+  kamen_rider_numbering:
+    overrides:
+      kr_num: '{ %array_at(%regex_capture_many(title, ["#[ ]*([0-9]+)"], ["0"]), 1) }'
+      season_number: "1"
+      episode_number: '{ %string(%int(kr_num)) }'
+    filter_include:
+      # Only the numbered episodes: "KAMEN RIDER <SHOW> | #N"
+      - >-
+        { %regex_search_any(title, ["#[ ]*[0-9]+"]) }
+
+  # Ultraman Teo carries its episode number in the Japanese title:
+  #   『ウルトラマンテオ』第6話「プッチーのお引っ越し」-公式配信-  -> S01E06
+  # The playlist also holds a 20 second 予告 preview of every episode and two
+  # 特別総集編 special recaps. Both are filtered out, so only the episode run
+  # is downloaded.
+  teo_numbering:
+    overrides:
+      teo_num: '{ %array_at(%regex_capture_many(title, ["第([0-9]+)話"], ["0"]), 1) }'
+      teo_season: '{ %if(%regex_search_any(title, ["第[0-9]+話"]), "1", "0") }'
+      teo_episode: '{ %if(%regex_search_any(title, ["第[0-9]+話"]), %string(%int(teo_num)), %string(playlist_index)) }'
+      season_number: "{teo_season}"
+      episode_number: "{teo_episode}"
+
+  teo:
+    preset:
+      - "teo_numbering"
+    ytdl_options:
+      # Newest-first playlist: keep that order so new episodes at the front
+      # are picked up.
+      playlistreverse: False
+    filter_include:
+      # Only the numbered episodes: 第N話
+      - >-
+        { %regex_search_any(title, ["第[0-9]+話"]) }
+    filter_exclude:
+      # 20 second preview clips of the same episodes.
+      - >-
+        { %contains(title, "予告") }
