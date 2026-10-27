@@ -15,7 +15,7 @@ controllers:
   download:
     type: cronjob
     cronjob:
-      schedule: "17 4 * * *"
+      schedule: "17 */4 * * *"
       timeZone: America/New_York
       concurrencyPolicy: Forbid
       backoffLimit: 1
