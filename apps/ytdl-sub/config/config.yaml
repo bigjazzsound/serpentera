@@ -104,6 +104,23 @@ presets:
       # Only the numbered episodes: "KAMEN RIDER <SHOW> | #N"
       - >-
         { %regex_search_any(title, ["#[ ]*[0-9]+"]) }
+    filter_exclude:
+      # Official clips of the same episodes, in case one is added later.
+      - >-
+        { %contains(title, "Official Clip") }
+
+  # Kamen Rider Geats titles carry the episode number in the middle:
+  #   "Kamen Rider Geats | Ep 01 | Daybreak F: ... | Full Episode"  -> S01E01
+  # The playlist holds full episodes only, so nothing needs filtering.
+  kamen_rider_geats_numbering:
+    overrides:
+      geats_num: '{ %array_at(%regex_capture_many(title, ["Ep[ ]+([0-9]+)"], ["0"]), 1) }'
+      season_number: "1"
+      episode_number: '{ %string(%int(geats_num)) }'
+    filter_exclude:
+      # Official clips of the same episodes, in case one is added later.
+      - >-
+        { %contains(title, "Official Clip") }
 
   # Ultraman Teo carries its episode number in the Japanese title:
   #   『ウルトラマンテオ』第6話「プッチーのお引っ越し」-公式配信-  -> S01E06
