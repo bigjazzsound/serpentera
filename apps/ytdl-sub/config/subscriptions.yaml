@@ -29,3 +29,7 @@ tv_show_base | Chunk Downloads | kamen_rider_numbering:
   "Kamen Rider Zeztz": "https://www.youtube.com/playlist?list=PLK4udCtPz63k"
   "Kamen Rider Kabuto": "https://www.youtube.com/playlist?list=PL4rzcHfrDGhlsRcoUsX9GIqK78qCz-ZC2"
   "Kamen Rider Agito": "https://www.youtube.com/playlist?list=PL4rzcHfrDGhkp8QdBcspAt0K2w8zm3ycV"
+
+# Kamen Rider Geats: the episode number comes from the "| Ep NN |" in the title.
+tv_show_base | Chunk Downloads | kamen_rider_geats_numbering:
+  "Kamen Rider Geats": "https://www.youtube.com/playlist?list=PLnY1FL_e1HO6FABDKazuRE_SZhLirm_3D"
