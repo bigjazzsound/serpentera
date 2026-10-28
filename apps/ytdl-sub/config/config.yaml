@@ -67,14 +67,40 @@ presets:
   #   "MST3K 1313: The Christmas Dragon"  -> S13E13
   #   "MSK3K 1111: ..." (typo variant)    -> S11E11
   #   "MST3K: 1114 At the Earth's Core"   -> S11E14
-  # Titles without a number fall back to the playlist position: the 31
-  # "MST3K: <film> (FULL MOVIE)" uploads go to Season 01, the RiffTrax /
-  # MST3K Presents / Turkey Day specials go to Season 00.
+  # The 20 "MST3K: <film> (FULL MOVIE)" uploads carry no number either, but
+  # they are real episodes, so their film title is looked up in mst3k_lookup
+  # below (the key is the film title, the value is the experiment number).
+  # Titles still unknown fall back to the playlist position, which puts the
+  # RiffTrax / MST3K Presents specials in Season 00.
   mst3k_numbering:
     overrides:
+      mst3k_lookup:
+        "The Crawling Eye": "101"
+        "The Robot Vs. The Aztec Mummy": "102"
+        "The Corpse Vanishes": "105"
+        "Moon Zero Two": "111"
+        "Lost Continent": "208"
+        "King Dinosaur": "210"
+        "Time of the Apes": "306"
+        "Earth vs. the Spider": "313"
+        "Master Ninja II": "324"
+        "Hercules": "502"
+        "The Painted Hills": "510"
+        "Mitchell": "512"
+        "The Brain That Wouldn't Die": "513"
+        "Alien From L.A.": "516"
+        "Outlaw (of Gor)": "519"
+        "Kitten With A Whip": "614"
+        "Samson vs. the Vampire Women": "624"
+        "The Mole People": "803"
+        "The Incredibly Strange Creatures": "812"
+        "The Touch of Satan": "908"
       mst3k_num: '{ %array_at(%regex_capture_many(title, ["MS[ TK]?3K:?[ ]+([0-9]+)"], ["0"]), 1) }'
-      mst3k_season: '{ %if(%regex_search_any(title, ["MS[ TK]?3K:?[ ]+[0-9]+"]), %slice(mst3k_num, 0, -2), %if(%contains(title, "MST3K:"), "1", "0")) }'
-      mst3k_episode: '{ %if(%regex_search_any(title, ["MS[ TK]?3K:?[ ]+[0-9]+"]), %slice(mst3k_num, -2), %string(playlist_index)) }'
+      mst3k_film: '{ %regex_sub("[.]{3}", "", %regex_sub("MST3K: ", "", %regex_sub("[ ]*[(]FULL MOVIE[)]", "", title))) }'
+      mst3k_lookup_num: '{ %map_get(mst3k_lookup, mst3k_film, "0") }'
+      mst3k_num_final: '{ %if(%regex_search_any(title, ["MS[ TK]?3K:?[ ]+[0-9]+"]), mst3k_num, mst3k_lookup_num) }'
+      mst3k_season: '{ %if(%ne(mst3k_num_final, "0"), %slice(mst3k_num_final, 0, -2), %if(%contains(title, "MST3K:"), "1", "0")) }'
+      mst3k_episode: '{ %if(%ne(mst3k_num_final, "0"), %slice(mst3k_num_final, -2), %string(playlist_index)) }'
       season_number: "{mst3k_season}"
       episode_number: "{mst3k_episode}"
 
