@@ -24,6 +24,7 @@ tv_show_base | Chunk Downloads | teo:
 
 # Kamen Rider series: the episode number comes from the "#N" in the title.
 tv_show_base | Chunk Downloads | kamen_rider_numbering:
+  "Kamen Rider": "https://www.youtube.com/playlist?list=PLKytEzmkU5jI"
   "Kamen Rider Ex-Aid": "https://www.youtube.com/playlist?list=PLRbPLAwA2c3o"
   "Kamen Rider My-Th": "https://www.youtube.com/playlist?list=PLZM4yPsYEvN0"
   "Kamen Rider Zeztz": "https://www.youtube.com/playlist?list=PLK4udCtPz63k"
