@@ -9,6 +9,12 @@ image:
 deploymentStrategy:
   type: Recreate
 
+runtimeClassName: nvidia
+
+resources:
+  limits:
+    nvidia.com/gpu: "1"
+
 podSecurityContext:
   runAsUser: 1000
   runAsGroup: 1000
@@ -54,6 +60,11 @@ volumes:
       server: 192.168.200.13
       path: /var/tank/media/yt
 
+  - name: youtube
+    nfs:
+      server: 192.168.200.13
+      path: /var/tank/media/youtube
+
   - name: temp-data
     emptyDir: {}
 
@@ -68,6 +79,10 @@ volumeMounts:
 
   - mountPath: /media/yt
     name: yt
+    readOnly: true
+
+  - mountPath: /media/youtube
+    name: youtube
     readOnly: true
 
   - name: temp-data
