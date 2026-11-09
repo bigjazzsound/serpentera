@@ -47,7 +47,7 @@ controllers:
 
 persistence:
   config:
-    type: configMap
+    type: secret
     name: ytdl-sub-config
     globalMounts:
       - path: /config
