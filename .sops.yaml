@@ -1,15 +1,4 @@
 ---
-# SOPS encryption config for this repository.
-#
-# Only the data/stringData sections of a Secret are encrypted: the
-# kustomize-controller needs apiVersion, kind and metadata in plaintext to
-# recognise and apply the object.
-#
-# The age recipient must match the private key in the "sops-age" Secret in the
-# flux-system namespace, which the kustomize-controller uses for decryption.
-#
-# Encrypt:  sops --encrypt --in-place <file>.sops.yml
-# Decrypt:  sops --decrypt --in-place <file>.sops.yml
 creation_rules:
   - path_regex: .*\.sops\.ya?ml$
     encrypted_regex: ^(data|stringData)$
