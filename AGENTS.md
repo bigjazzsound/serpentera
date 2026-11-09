@@ -94,10 +94,10 @@ Points to watch:
 
 - `parentRefs[].sectionName` must be `https`. Use the `http` section only for redirect routes.
 - `backendRefs[].identifier` references a `service.<id>` key in the same values file; `port` is a
-  *named* port from that service, resolved to a number at render time.
+  _named_ port from that service, resolved to a number at render time.
 - `route:` has **no `tls:` block**. TLS terminates once on the Gateway using the cluster-wide
   `*.cjf.sh` wildcard (`cert-manager/cjf-sh-tls`), so per-route TLS config is unnecessary.
-- A chart that uses a *different* `route` schema (e.g. immich's `server.route`) must follow that
+- A chart that uses a _different_ `route` schema (e.g. immich's `server.route`) must follow that
   chart's own conventions - see the app-specific notes below.
 
 Apps on upstream charts that expose no `route` key (jellyfin, grafana) use a standalone
@@ -228,9 +228,9 @@ blocky does longest-match, so a specific hostname overrides the wildcard.
 
 - **immich**: uses the upstream immich chart with its own bjw-s `common` dependency, so its route
   schema is `server.route.main`, not top-level `route:`. It needs `extensionApis` unchanged, and
-  **`backendRefs` must use `identifier:` with no `port:`** - `_route.tpl` only resolves a *string*
+  **`backendRefs` must use `identifier:` with no `port:`** - `_route.tpl` only resolves a _string_
   port through the service lookup, so a literal `name:`/`port:` pair fails to render. See
-  https://github.com/immich-app/immich-charts/issues/165
+  <https://github.com/immich-app/immich-charts/issues/165>
 
 - **stash**: was installed directly via `helm install` outside Flux and was reverse engineered into
   `apps/stash/`. Chart was 5.0.1, moved to 5.3.0 to match the rest of the repo.
