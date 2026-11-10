@@ -14,7 +14,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/0xerr0r/blocky
-          tag: "v0.35.0"
+          tag: "v0.36.0"
 
 service:
   app:
