@@ -3,6 +3,9 @@
 global:
   fullnameOverride: mass
 
+serviceAccount:
+  mass: {}
+
 controllers:
   mass:
     type: statefulset
