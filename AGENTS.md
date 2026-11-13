@@ -196,10 +196,15 @@ Gotchas learned the hard way:
 ### DNS
 
 All `cjf.sh` records are answered by blocky (`apps/blocky/values-config.yml`) from a single wildcard
-mapping under `customDNS.mapping`, currently `cjf.sh: 192.168.200.16` (the Envoy Gateway LoadBalancer).
+mapping under `customDNS.mapping`, currently `cjf.sh: 192.168.200.51` (the Envoy Gateway LoadBalancer).
 To change the gateway's address, edit that one line; blocky reloads and clients pick it up within
 `caching.maxTime` (5m). Do **not** add per-app DNS records unless an app needs to bypass the gateway -
 blocky does longest-match, so a specific hostname overrides the wildcard.
+
+The gateway address is pinned in `apps/envoy-gateway/gateway/envoyproxy.yml`, under
+`spec.provider.kubernetes.envoyService.annotations` (`metallb.universe.tf/loadBalancerIPs`). It has to
+be moved together with the blocky mapping above and the MetalLB pool below - all three name the same
+address.
 
 ### Cluster Environments
 
@@ -211,9 +216,14 @@ blocky does longest-match, so a specific hostname overrides the wildcard.
 - CNI is **kube-router**, with kube-proxy running. Multus is installed for secondary networks
   (`multus-lan`/`iot`/`dmz` NetworkAttachmentDefinitions, macvlan on `eno1.10`)
 - MetalLB (L2 mode) provides LoadBalancer IPs from pools in `apps/metallb-pool/ipaddresspools/`
-  (`k8s` = 192.168.200.11-192.168.203.254, `lan` = 10.0.0.200-250)
-- The Gateway's `192.168.200.16` is **not pinned** via `spec.addresses`. If stability is needed,
-  add `spec.addresses` to the Gateway so MetalLB cannot reassign it
+  (`k8s` = 192.168.200.51-192.168.200.254, `lan` = 10.0.0.200-250)
+- The `k8s` pool starts at `.51` to stay clear of the LAN router's DHCP range
+  (192.168.200.1-192.168.200.50). It also keeps clear of the cluster node addresses (`.13`
+  serpentera, `.19` dairenoh, `.25` daimugen) - a node address inside the pool means MetalLB can
+  hand it to a Service, and the node then answers ARP for it too, so traffic is silently dropped
+- LoadBalancer addresses are pinned per app with the `metallb.universe.tf/loadBalancerIPs`
+  annotation, so MetalLB cannot move them out from under a DNS mapping. `spec.loadBalancerIP` is
+  deprecated in the Kubernetes API and is not used
 
 ### Apps with non-standard routing
 
