@@ -9,6 +9,9 @@ spec:
   provider:
     type: Kubernetes
     kubernetes:
+      envoyService:
+        annotations:
+          metallb.universe.tf/loadBalancerIPs: 192.168.200.100
       envoyDeployment:
         replicas: 2
         container:
