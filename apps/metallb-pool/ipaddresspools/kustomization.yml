@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - lan.yml
   - k8s.yml
+  - k8s-guest.yml

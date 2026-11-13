@@ -1,0 +1,9 @@
+---
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: k8s-guest
+  namespace: metallb
+spec:
+  addresses:
+    - 192.168.252.51-192.168.252.254
