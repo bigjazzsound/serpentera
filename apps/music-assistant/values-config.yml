@@ -16,7 +16,7 @@ controllers:
       app:
         image:
           repository: ghcr.io/music-assistant/server
-          tag: 2.10.10
+          tag: 2.10.11
         securityContext:
           capabilities:
             add:
