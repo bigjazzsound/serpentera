@@ -1,0 +1,4 @@
+[commit.generation]
+command = """
+opencode run --model minimax/MiniMax-M3.1-Flash
+"""
