@@ -18,6 +18,8 @@ metadata:
   name: omada
   namespace: omada-controller
 spec:
+  appProtocols:
+    - gateway.envoyproxy.io/wss
   endpoints:
     - fqdn:
         hostname: omada-controller-app.omada-controller.svc.cluster.local
