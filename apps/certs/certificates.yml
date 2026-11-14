@@ -14,3 +14,5 @@ spec:
   dnsNames:
     - cjf.sh
     - "*.cjf.sh"
+    - "guest.cjf.sh"
+    - "*.guest.cjf.sh"
