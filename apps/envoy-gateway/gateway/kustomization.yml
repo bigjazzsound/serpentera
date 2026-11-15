@@ -8,6 +8,7 @@ resources:
   - envoyproxy.yml
   - gateway.yml
   - httproute-https-redirect.yml
+  - securitypolicy-wg-deny.yml
   - envoyproxy-guest.yml
   - gateway-guest.yml
   - httproute-https-redirect-guest.yml

@@ -1,0 +1,39 @@
+---
+# Denies the WireGuard subnet access to every route attached to the external
+# Gateway.
+#
+# A Gateway-scoped policy applies to routes in all namespaces, so this single
+# object keeps WireGuard clients away from every application except the ones
+# given their own route-level policy (see
+# ../../../jellyfin/securitypolicy-wg.yml).
+#
+# The Envoy LoadBalancer IP serves all applications on one address, so the
+# router's per-client LAN allow-list is what limits which IPs WireGuard
+# clients can reach at all. Keep that list to /32 entries: the kubelet
+# (10250) and kube-apiserver (6443) ports are open on the node IPs.
+#
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: wg-deny
+  namespace: gateway-system
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external
+  authorization:
+    defaultAction: Allow
+    rules:
+      - name: deny-wireguard-clients
+        action: Deny
+        principal:
+          clientCIDRs:
+            # The router hands its WireGuard peers tunnel addresses in
+            # 192.168.254.0/24. Without this the deny rule below would never
+            # match a real WireGuard client.
+            - 192.168.241.0/24
+            # k8s-guest LAN, in case the router masquerades WireGuard traffic
+            # and the client appears to come from the router's address there.
+            - 192.168.252.0/22
