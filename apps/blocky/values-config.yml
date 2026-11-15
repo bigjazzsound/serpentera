@@ -91,6 +91,7 @@ configMaps:
         customDNS:
           mapping:
             cjf.sh: 192.168.200.100
+            guest.cjf.sh: 192.168.252.51
         conditional:
           mapping:
             cjf.lan: 10.106.126.153
