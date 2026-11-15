@@ -1,0 +1,48 @@
+---
+# Gateway for the k8s-guest network.
+#
+# This is the counterpart to gateway.yml: it terminates TLS for the
+# *.guest.cjf.sh names and serves them from 192.168.252.51, an address in the
+# k8s-guest LAN (VLAN 3001) that the router can reach from the WireGuard
+# server.
+#
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/gateway_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: external-guest
+  namespace: gateway-system
+spec:
+  gatewayClassName: eg
+  infrastructure:
+    # LocalParametersReference: the EnvoyProxy must live in this Gateway's
+    # namespace, so no `namespace` field here.
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: external-guest
+  listeners:
+    # Plain HTTP is kept for the HTTP->HTTPS redirect. The wildcard certificate
+    # is issued via DNS-01, so no ACME challenge needs this listener.
+    - name: http
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+    # TLS terminates here using the cluster-wide *.cjf.sh wildcard certificate.
+    # The ReferenceGrant in cert-manager allows any Gateway in gateway-system
+    # to reference the cjf-sh-tls Secret, so no extra grant is needed.
+    - name: https
+      protocol: HTTPS
+      port: 443
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - group: ""
+            kind: Secret
+            name: cjf-sh-tls
+            namespace: cert-manager
+      allowedRoutes:
+        namespaces:
+          from: All

@@ -1,0 +1,48 @@
+---
+# EnvoyProxy for the k8s-guest Gateway.
+#
+# Envoy Gateway creates one Envoy Deployment + Service per Gateway, and the
+# MetalLB pool is selected per *Service* - a route cannot choose a pool. So a
+# second Gateway needs its own EnvoyProxy to get an address from the
+# k8s-guest pool (192.168.252.51-192.168.252.254).
+#
+# 192.168.252.51 is deliberately outside the router's DHCP range for the
+# k8s-guest LAN (192.168.252.1-192.168.252.50), so it cannot collide with a
+# host that gets a DHCP lease.
+#
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/envoyproxy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: external-guest
+  namespace: gateway-system
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyService:
+        annotations:
+          # Pin the LoadBalancer IP instead of letting MetalLB pick one, so
+          # blocky can map the guest hostname to a stable address.
+          metallb.universe.tf/loadBalancerIPs: 192.168.252.51
+        # Local keeps the client address intact for connections that land on
+        # this node. Envoy Gateway's SecurityPolicy clientCIDRs are matched
+        # against the direct TCP peer, so the peer address must survive.
+        externalTrafficPolicy: Local
+        type: LoadBalancer
+      envoyDeployment:
+        replicas: 2
+        container:
+          resources:
+            requests:
+              cpu: 150m
+              memory: 640Mi
+            limits:
+              cpu: 500m
+              memory: 1Gi
+  logging:
+    level:
+      # See the comment in envoyproxy.yml: the key must name a logger
+      # component that Envoy actually registers, or the pod crash-loops on
+      # argv parsing before it logs anything.
+      default: info

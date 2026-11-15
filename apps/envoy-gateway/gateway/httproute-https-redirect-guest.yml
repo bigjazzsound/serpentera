@@ -1,0 +1,29 @@
+---
+# HTTP -> HTTPS redirect for the guest hostname.
+#
+# The catch-all redirect on the `external` Gateway (httproute-https-redirect.yml)
+# is attached to that Gateway's listeners only. The guest hostname resolves to
+# 192.168.252.51, which lands on the `external-guest` Gateway, so that Gateway
+# needs its own redirect route or plain HTTP requests get a 404.
+#
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.networking.k8s.io/httproute_v1.json
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: https-redirect-guest
+  namespace: gateway-system
+spec:
+  parentRefs:
+    - group: gateway.networking.k8s.io
+      kind: Gateway
+      name: external-guest
+      namespace: gateway-system
+      sectionName: http
+  hostnames:
+    - "*.guest.cjf.sh"
+  rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 308
