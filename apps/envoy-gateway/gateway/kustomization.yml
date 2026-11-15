@@ -8,5 +8,9 @@ resources:
   - envoyproxy.yml
   - gateway.yml
   - httproute-https-redirect.yml
+  - envoyproxy-guest.yml
+  - gateway-guest.yml
+  - httproute-https-redirect-guest.yml
+  - securitypolicy-guest.yml
   - referencegrant.yml
   - servicemonitor.yml
