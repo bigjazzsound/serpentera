@@ -5,6 +5,8 @@ resources:
   - ns.yml
   - repo.yml
   - httproute.yml
+  - httproute-guest.yml
+  - securitypolicy-wg.yml
   - release.yml
 configMapGenerator:
   - name: jellyfin-config-values

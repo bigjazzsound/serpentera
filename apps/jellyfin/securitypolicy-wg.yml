@@ -1,0 +1,40 @@
+---
+# Restricts the WireGuard route to the WireGuard subnet and the local LANs.
+#
+# Envoy Gateway applies the most specific policy scope for a route, so this
+# route-level policy replaces the gateway-level policy in
+# ../../../envoy-gateway/gateway/securitypolicy-guest.yml for this route only.
+# The two allow-lists must stay in sync, because this one is what applies.
+#
+# clientCIDRs are matched against the direct TCP peer address, so the router
+# must not masquerade traffic arriving from the WireGuard subnet. The router
+# assigns its WireGuard peers tunnel addresses in 192.168.254.0/24; the
+# k8s-guest LAN entry also covers a masquerading router, which would appear
+# to come from its own address on that LAN.
+#
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: SecurityPolicy
+metadata:
+  name: jellyfin-wg
+  namespace: jellyfin
+spec:
+  targetRefs:
+    - group: gateway.networking.k8s.io
+      kind: HTTPRoute
+      name: jellyfin-guest
+  authorization:
+    defaultAction: Deny
+    rules:
+      - name: allow-wireguard-and-lan
+        action: Allow
+        principal:
+          clientCIDRs:
+            # WireGuard mesh - the peer tunnel addresses the router assigns.
+            - 192.168.254.0/24
+            # k8s-guest LAN (VLAN 3001): the router and the three nodes.
+            - 192.168.252.0/22
+            # k8s LAN (VLAN 3000): cluster nodes and LAN clients.
+            - 192.168.200.0/24
+            # Default LAN.
+            - 10.0.0.0/22
