@@ -31,7 +31,7 @@ spec:
         principal:
           clientCIDRs:
             # WireGuard mesh - the peer tunnel addresses the router assigns.
-            - 192.168.254.0/24
+            - 192.168.241.0/24
             # k8s-guest LAN (VLAN 3001): the router and the three nodes.
             - 192.168.252.0/22
             # k8s LAN (VLAN 3000): cluster nodes and LAN clients.
