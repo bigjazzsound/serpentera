@@ -16,7 +16,7 @@
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: SecurityPolicy
 metadata:
-  name: wg-deny
+  name: external
   namespace: gateway-system
 spec:
   targetRefs:
@@ -24,16 +24,16 @@ spec:
       kind: Gateway
       name: external
   authorization:
-    defaultAction: Allow
+    defaultAction: Deny
     rules:
-      - name: deny-wireguard-clients
-        action: Deny
+      - name: allow-lan
+        action: Allow
         principal:
           clientCIDRs:
-            # The router hands its WireGuard peers tunnel addresses in
-            # 192.168.254.0/24. Without this the deny rule below would never
-            # match a real WireGuard client.
-            - 192.168.241.0/24
-            # k8s-guest LAN, in case the router masquerades WireGuard traffic
-            # and the client appears to come from the router's address there.
-            - 192.168.252.0/22
+            - 10.0.0.0/22
+
+      - name: allow-vpn
+        action: Allow
+        principal:
+          clientCIDRs:
+            - 192.168.240.0/24

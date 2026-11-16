@@ -1,27 +1,9 @@
 ---
-# Access control for the k8s-guest Gateway.
-#
-# This Gateway exists to serve WireGuard clients, so the policy is the inverse
-# of securitypolicy-wg-deny.yml: deny by default, allow only the networks that
-# are meant to reach it. That way a route attached to this Gateway by mistake
-# is not automatically exposed.
-#
-# Envoy Gateway applies the most specific policy scope for a route, so a
-# route-level SecurityPolicy replaces this one entirely for that route (see
-# ../../../jellyfin/securitypolicy-wg.yml). The two allow-lists must stay in
-# sync, otherwise the route-level list is what actually applies.
-#
-# clientCIDRs are matched against the direct TCP peer address. The router
-# hands its WireGuard peers tunnel addresses in 192.168.254.0/24 and must not
-# masquerade them, so that is the address Envoy sees for a WireGuard client.
-# 192.168.252.0/22 is also allowed because it covers the router's own address
-# on the k8s-guest LAN, which is what a masquerading router would appear as.
-#
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/gateway.envoyproxy.io/securitypolicy_v1alpha1.json
 apiVersion: gateway.envoyproxy.io/v1alpha1
 kind: SecurityPolicy
 metadata:
-  name: guest-allowlist
+  name: external-guest
   namespace: gateway-system
 spec:
   targetRefs:
@@ -31,15 +13,14 @@ spec:
   authorization:
     defaultAction: Deny
     rules:
-      - name: allow-wireguard-and-local-lans
+      - name: allow-lan
         action: Allow
         principal:
           clientCIDRs:
-            # WireGuard mesh - the peer tunnel addresses the router assigns.
-            - 192.168.254.0/24
-            # k8s-guest LAN (VLAN 3001): the router and the three nodes.
-            - 192.168.252.0/22
-            # k8s LAN (VLAN 3000): cluster nodes and LAN clients.
-            - 192.168.200.0/24
-            # Default LAN.
             - 10.0.0.0/22
+
+      - name: allow-guest
+        action: Allow
+        principal:
+          clientCIDRs:
+            - 192.168.241.0/24
