@@ -37,3 +37,9 @@ spec:
         principal:
           clientCIDRs:
             - 192.168.240.0/24
+
+      - name: allow-k8s
+        action: Allow
+        principal:
+          clientCIDRs:
+            - 10.244.0.0/16
