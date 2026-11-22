@@ -1,0 +1,43 @@
+---
+# Blocks the SuperSync test-mode routes at the gateway.
+#
+# TEST_MODE=true mounts /api/test/* on the app. Two of those routes are
+# dangerous on an instance that is reachable by anyone:
+#
+#   POST /api/test/create-user
+#     Creates a user with isVerified=1 and returns a JWT immediately - no
+#     password check, no email verification. It also deletes all operations,
+#     devices and sync state if the email already exists.
+#
+#   POST /api/test/cleanup
+#     Deletes every user, operation, device and sync state.
+#
+# The rest read or mutate another user's data:
+#
+#   GET    /api/test/user/:userId/ops
+#   POST   /api/test/user/:userId/legacy-plaintext-ops   (bypasses the
+#          production encrypted-only ingress gate)
+#   DELETE /api/test/user/:userId/ops-after/:serverSeq
+#   DELETE /api/test/user/:userId
+#   POST   /api/test/user/:userId/expire-capture-leases
+#
+# This filter returns a fixed 403 for any request under /api/test, so the
+# request never reaches the app.
+#
+# The filter carries ONLY the response. Its own `spec.matches` field
+# supports cookies only - not paths - so the path match lives in the
+# HTTPRoute rule instead (see values-config.yml). Referencing a filter
+# that does not exist makes Envoy Gateway mark the whole route unresolved
+# and serve 500, so this object must be applied together with the route.
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: HTTPRouteFilter
+metadata:
+  name: super-productivity-deny-test-api
+  namespace: super-productivity
+spec:
+  directResponse:
+    contentType: text/plain
+    statusCode: 403
+    body:
+      type: Inline
+      inline: "Forbidden"

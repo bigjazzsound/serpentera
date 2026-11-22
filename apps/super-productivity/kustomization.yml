@@ -6,6 +6,7 @@ resources:
   - repo.yml
   - secrets.yml
   - db.yml
+  - httproutefilter.yml
   - release.yml
 configMapGenerator:
   - name: super-productivity-config-values

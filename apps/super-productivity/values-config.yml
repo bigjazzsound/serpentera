@@ -41,19 +41,52 @@ controllers:
             value: "1900"
           - name: HOST
             value: "0.0.0.0"
+          # TEST_MODE requires NODE_ENV to be something other than "production"
+          # - the server refuses to start otherwise:
+          #   "TEST_MODE cannot be enabled in production"
+          # It also needs the explicit confirmation string, which exists
+          # precisely to make the switch a deliberate act.
+          #
+          # Consequences of leaving NODE_ENV unset (not "production"):
+          #   - PUBLIC_URL is no longer required to be https://  (it is anyway)
+          #   - CORS_ORIGINS="*" is only warned about, not rejected (we set
+          #     explicit origins, so this is moot)
+          # Neither guard costs us anything here.
+          #
+          # TEST_MODE does two things:
+          #   1. autoVerifyUsers - registration skips the email confirmation
+          #      and activates the passkey immediately.
+          #   2. Exposes /api/test/* and disables the global rate limiter.
+          # (1) is what we want. (2) is why the HTTPRouteFilter in
+          # httproutefilter.yml blocks /api/test/* at the gateway.
+          #
+          # The global rate limiter that TEST_MODE disables (500 requests per
+          # 15 minutes, covering login, magic-link, password reset and
+          # passkey auth) cannot be restored by a path rule - only by not
+          # enabling TEST_MODE.
+          #
+          # NODE_ENV must NOT be "production" or the server throws
+          # "TEST_MODE cannot be enabled in production" and refuses to boot.
           - name: NODE_ENV
-            value: "production"
+            value: "development"
+          - name: TEST_MODE
+            value: "true"
+          - name: TEST_MODE_CONFIRM
+            value: "yes-i-understand-the-risks"
           # PUBLIC_URL must be https:// in production or the server refuses to
           # boot. It is also used for the links in verification / magic-link /
           # recovery emails.
           - name: PUBLIC_URL
-            value: "https://sync-sp.cjf.sh"
+            value: "https://sp.cjf.sh"
           # WEBAUTHN_RP_ID is the host WITHOUT protocol or port. Passkeys bind
           # to it, so a wrong value breaks registration SILENTLY.
+          #
+          # NOTE: changing this invalidates every passkey already registered
+          # against the previous RP ID.
           - name: WEBAUTHN_RP_ID
-            value: "sync-sp.cjf.sh"
+            value: "sp.cjf.sh"
           - name: WEBAUTHN_ORIGIN
-            value: "https://sync-sp.cjf.sh"
+            value: "https://sp.cjf.sh"
           # The default is the hosted web app. The desktop and mobile apps need
           # no CORS entry. `*` is rejected at startup in production.
           - name: CORS_ORIGINS
@@ -112,6 +145,12 @@ controllers:
           #
           # `enabled: true` is REQUIRED on every probe - the chart disables
           # probes by default, so a probe without it is silently dropped.
+          #
+          # `port: http` is a NAMED port and resolves against the
+          # `containerPort` declared above. Both halves are required: the
+          # chart passes the name through verbatim without validating it, so
+          # a name with no matching containerPort fails at probe time, not
+          # at render time.
           startup:
             enabled: true
             type: HTTP
@@ -213,8 +252,32 @@ route:
         namespace: gateway-system
         sectionName: https
     hostnames:
-      - sync-sp.cjf.sh
+      - sp.cjf.sh
     rules:
+      # Block the test-mode routes at the gateway.
+      #
+      # TEST_MODE mounts /api/test/* on the app, which includes
+      # POST /create-user (returns a JWT for any email, no password check)
+      # and POST /cleanup (deletes every user). The rule matches on the path
+      # and returns a fixed 403 without ever reaching the app.
+      #
+      # The filter itself lives in httproutefilter.yml - HTTPRouteFilter
+      # carries only the response, because its own `matches` field supports
+      # cookies only, not paths. The path match therefore has to be here.
+      #
+      # The matching rule must come FIRST - Gateway API evaluates rules in
+      # order and the first match wins, so the catch-all below would
+      # otherwise swallow /api/test/*.
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /api/test
+        filters:
+          - type: ExtensionRef
+            extensionRef:
+              group: gateway.envoyproxy.io
+              kind: HTTPRouteFilter
+              name: super-productivity-deny-test-api
       - matches:
           - path:
               type: PathPrefix
