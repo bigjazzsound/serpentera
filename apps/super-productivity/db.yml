@@ -1,0 +1,60 @@
+---
+# CloudNativePG cluster for the SuperSync server.
+#
+# The compose file ran `postgres:16-alpine` with an explicit `command:` block
+# tuned for a 1.5GiB container cap. The `postgresql.parameters` below mirrors
+# that block, so the database behaves the same here as it did in compose.
+#
+# `connection_limit=60` in the app's DATABASE_URL sits well below
+# `max_connections=120`, which leaves headroom for migrations, psql, the
+# old-ops cleanup job, and the reconnect stampede after an in-place crash
+# recovery - the same reasoning the upstream compose file documents.
+#
+# The password is NOT generated here. It comes from the external-secrets
+# `Password` generator in secrets.yml, and is referenced from three places:
+#   1. managed.roles[].passwordSecret  - the password of the `supersync` role
+#   2. bootstrap.initdb.secret          - the same password, used for initdb
+#   3. the app's env (values-config.yml) - so it can compose DATABASE_URL
+#
+# Because `bootstrap.initdb.secret` is set, CNPG does NOT create an
+# `<cluster>-app` secret; the DATABASE_URL is composed from the keys of the
+# secret below instead. See values-config.yml.
+apiVersion: postgresql.cnpg.io/v1
+kind: Cluster
+metadata:
+  name: supersync-db
+  namespace: super-productivity
+spec:
+  instances: 1
+  # Nothing in the compose file used the postgres superuser. apps/immich
+  # enables this only because vectorchord requires it.
+  enableSuperuserAccess: false
+  postgresql:
+    parameters:
+      shared_buffers: "384MB"
+      effective_cache_size: "1GB"
+      work_mem: "4MB"
+      maintenance_work_mem: "128MB"
+      max_connections: "120"
+      random_page_cost: "1.1"
+      # 5 min - kill leaked Prisma idle-in-tx, but well above the migrator's
+      # 30-min step timeout for CONCURRENTLY index builds.
+      idle_in_transaction_session_timeout: "300000"
+      wal_compression: "on"
+      huge_pages: "off"
+  managed:
+    roles:
+      - name: supersync
+        login: true
+        passwordSecret:
+          name: super-productivity-db
+  bootstrap:
+    initdb:
+      database: supersync
+      owner: supersync
+      encoding: utf8
+      secret:
+        name: super-productivity-db
+  storage:
+    size: 4Gi
+    storageClass: zfs-dataset

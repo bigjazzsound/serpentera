@@ -1,0 +1,13 @@
+---
+# HelmRepository with type: oci, as used by apps/navidrome, apps/pinchflat and
+# apps/ytdl-sub for the same bjw-s chart. The URL points at the OCI registry
+# root; the chart name is given in the HelmRelease's chart.spec.
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: HelmRepository
+metadata:
+  name: super-productivity
+  namespace: flux-system
+spec:
+  interval: 24h0m0s
+  type: oci
+  url: oci://ghcr.io/bjw-s-labs/helm

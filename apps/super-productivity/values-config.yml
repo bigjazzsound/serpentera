@@ -1,0 +1,257 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s-labs/helm-charts/main/charts/other/app-template/schemas/helmrelease-helm-v2.schema.json
+#
+# SuperSync - the Super Productivity sync server.
+#
+# Converted from the upstream docker-compose stack
+# (packages/super-sync-server/docker-compose.yml):
+#   - `postgres` service -> the CNPG Cluster in db.yml
+#   - `caddy` service    -> the cluster's existing Envoy Gateway (`external`)
+#   - `supersync` service -> this HelmRelease
+#
+# SINGLE REPLICA IS A HARD REQUIREMENT. The upstream server keeps WebSocket
+# connection state, WebAuthn challenges and a 30s auth cache in process
+# memory; upstream's own chart hard-fails on replicaCount > 1 for this reason.
+# Do not add an HPA.
+
+global:
+  fullnameOverride: super-productivity
+
+controllers:
+  main:
+    replicas: 1
+    containers:
+      main:
+        image:
+          repository: ghcr.io/super-productivity/supersync
+          # Pinned to a release tag, not `latest`. The `migrate-db`
+          # initContainer runs `prisma migrate deploy`, and a schema migration
+          # is not reversible - an unpinned image could change the schema
+          # under a running database.
+          tag: v20.1.0
+        env:
+          # NOTE: `env` is written as a LIST, not a map, and the order is
+          # load-bearing. As a map the chart sorts the variables
+          # alphabetically, which puts DATABASE_URL *before* the POSTGRES_*
+          # entries below it. Kubernetes only expands $(VAR) against
+          # variables defined EARLIER in the same container's env list, so
+          # that ordering would leave $(POSTGRES_USER) etc. unexpanded and
+          # break the connection string. The list form preserves order.
+          - name: PORT
+            value: "1900"
+          - name: HOST
+            value: "0.0.0.0"
+          - name: NODE_ENV
+            value: "production"
+          # PUBLIC_URL must be https:// in production or the server refuses to
+          # boot. It is also used for the links in verification / magic-link /
+          # recovery emails.
+          - name: PUBLIC_URL
+            value: "https://sync-sp.cjf.sh"
+          # WEBAUTHN_RP_ID is the host WITHOUT protocol or port. Passkeys bind
+          # to it, so a wrong value breaks registration SILENTLY.
+          - name: WEBAUTHN_RP_ID
+            value: "sync-sp.cjf.sh"
+          - name: WEBAUTHN_ORIGIN
+            value: "https://sync-sp.cjf.sh"
+          # The default is the hosted web app. The desktop and mobile apps need
+          # no CORS entry. `*` is rejected at startup in production.
+          - name: CORS_ORIGINS
+            value: "https://app.super-productivity.com"
+          # Private install: the endpoint is publicly reachable (public DNS plus
+          # a public Let's Encrypt cert), so an empty ALLOWED_EMAILS would let
+          # anyone who finds the hostname register an account.
+          - name: ALLOWED_EMAILS
+            value: "todo@cjf.sh"
+          # Upstream's migrator refuses to run without valid pool bounds.
+          - name: REQUIRE_DATABASE_POOL_LIMITS
+            value: "true"
+          #
+          # DATABASE_URL is composed from the CNPG secret's keys. It cannot be
+          # taken verbatim from CNPG's `<cluster>-app` secret: that `uri` has no
+          # connection_limit / pool_timeout, which REQUIRE_DATABASE_POOL_LIMITS
+          # above demands, and Prisma's default pool size is derived from the
+          # HOST's core count rather than the container's CPU limit.
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: super-productivity-db
+                key: username
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: super-productivity-db
+                key: password
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: super-productivity-db
+                key: dbname
+          - name: DATABASE_URL
+            value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@supersync-db-rw:5432/$(POSTGRES_DB)?connection_limit=60&pool_timeout=10"
+        envFrom:
+          - secret: super-productivity-jwt
+        probes:
+          # Startup and readiness both use /health, which reports unhealthy when
+          # the database is unreachable. Liveness uses /live and must NOT
+          # depend on the database: a restart cannot fix a downed DB and would
+          # drop every live-sync websocket on the way.
+          #
+          # The timing parameters go under `spec`; the chart derives the rest
+          # from type/path/port and merges `spec` on top.
+          #
+          # `enabled: true` is REQUIRED on every probe - the chart disables
+          # probes by default, so a probe without it is silently dropped.
+          startup:
+            enabled: true
+            type: HTTP
+            path: /health
+            port: http
+            spec:
+              initialDelaySeconds: 10
+              periodSeconds: 5
+              failureThreshold: 30
+          liveness:
+            enabled: true
+            type: HTTP
+            path: /live
+            port: http
+            spec:
+              periodSeconds: 30
+              timeoutSeconds: 5
+          readiness:
+            enabled: true
+            type: HTTP
+            path: /health
+            port: http
+            spec:
+              periodSeconds: 10
+              timeoutSeconds: 5
+        securityContext:
+          runAsUser: 1001
+          runAsGroup: 1001
+          runAsNonRoot: true
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
+    initContainers:
+      # Runs `prisma migrate deploy` before the app starts. Upstream runs this
+      # as a separate migrator container in deploy.sh; as an initContainer it
+      # is ordered correctly and needs no external orchestration.
+      #
+      # It also validates the pool bounds in DATABASE_URL, which is why the
+      # standalone `database-url-check` Job from upstream's chart is not needed:
+      # upstream's chart runs that one as a `pre-upgrade` Helm hook, and Flux
+      # does not implement Helm hook lifecycles, so it would never run. A
+      # Flux-managed Job is also immutable and would fail every reconcile after
+      # the first.
+      migrate-db:
+        image:
+          repository: ghcr.io/super-productivity/supersync
+          tag: v20.1.0
+        command:
+          - sh
+          - -c
+          - sh scripts/migrate-deploy.sh
+        env:
+          # List form, for the same ordering reason as the main container:
+          # DATABASE_URL must come after the POSTGRES_* entries it expands.
+          - name: REQUIRE_DATABASE_POOL_LIMITS
+            value: "true"
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: super-productivity-db
+                key: username
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: super-productivity-db
+                key: password
+          - name: POSTGRES_DB
+            valueFrom:
+              secretKeyRef:
+                name: super-productivity-db
+                key: dbname
+          - name: DATABASE_URL
+            value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@supersync-db-rw:5432/$(POSTGRES_DB)?connection_limit=60&pool_timeout=10"
+      # The image ships /app/public, but readOnlyRootFilesystem makes it
+      # read-only, and the app copies files into it at startup. Upstream's chart
+      # does the same thing.
+      copy-public:
+        image:
+          repository: ghcr.io/super-productivity/supersync
+          tag: v20.1.0
+        command:
+          - sh
+          - -c
+          - cp -r /app/public/* /tmp/public/
+
+service:
+  app:
+    controller: main
+    ports:
+      http:
+        port: 1900
+
+route:
+  app:
+    parentRefs:
+      - name: external
+        namespace: gateway-system
+        sectionName: https
+    hostnames:
+      - sync-sp.cjf.sh
+    rules:
+      - matches:
+          - path:
+              type: PathPrefix
+              value: /
+        backendRefs:
+          - identifier: app
+            port: http
+
+persistence:
+  # The chart creates this PVC from these values - no standalone PVC manifest
+  # is needed. Only apps/immich carries a separate pvc.yml, and that is because
+  # its volume is an NFS-backed PersistentVolume with ReadWriteMany, which the
+  # chart cannot create. Ours is an ordinary dynamically provisioned PVC on
+  # zfs-dataset, like 12 other apps here (mealie, paperless-ngx, navidrome, ...).
+  #
+  # The compose file mounted `supersync-data:/app/data`; upstream's chart
+  # defaults to a 1Gi PVC for the same volume. Its only documented use is
+  # publishing your own `legal/terms.html`, but we keep the volume because this
+  # is a conversion of the compose stack, not a redesign of it.
+  data:
+    type: persistentVolumeClaim
+    storageClass: zfs-dataset
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    globalMounts:
+      - path: /app/data
+  # scripts/migrate-deploy.sh calls mktemp, and readOnlyRootFilesystem makes
+  # the root filesystem read-only - without a writable /tmp the migrator exits
+  # with "mktemp: Read-only file system" before any migration runs.
+  tmp:
+    type: emptyDir
+    globalMounts:
+      - path: /tmp
+  # Backing store for the copy-public initContainer, and the path the app
+  # writes into at startup. It is mounted into the initContainer at
+  # /tmp/public (where it copies to) and into the app at /app/public (where
+  # the app expects it). The initContainer writes to /tmp/public and the
+  # app reads /app/public, so the two paths must be the same volume - the
+  # initContainer's mount is the source, the app's mount is the destination.
+  public:
+    type: emptyDir
+    advancedMounts:
+      main:
+        copy-public:
+          - path: /tmp/public
+        main:
+          - path: /app/public
+
+serviceAccount:
+  main: {}
