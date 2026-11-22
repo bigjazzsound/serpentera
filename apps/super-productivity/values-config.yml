@@ -89,6 +89,16 @@ controllers:
                 key: dbname
           - name: DATABASE_URL
             value: "postgresql://$(POSTGRES_USER):$(POSTGRES_PASSWORD)@supersync-db-rw:5432/$(POSTGRES_DB)?connection_limit=60&pool_timeout=10"
+        # The container MUST declare this port. The probes below reference it
+        # by name (`port: http`), and Kubernetes resolves a named probe port
+        # against the container's declared containerPort. Without this the
+        # kubelet falls back to Atoi("http") and fails the probe with
+        # "strconv.Atoi: parsing \"http\": invalid syntax" - the pod then never
+        # becomes Ready, even though the app itself is healthy and serving.
+        ports:
+          - name: http
+            containerPort: 1900
+            protocol: TCP
         envFrom:
           - secret: super-productivity-jwt
         probes:
