@@ -4,6 +4,7 @@ flux2 = "2.10.1"
 gh = "2.105.0"
 k0sctl = "0.33.1"
 kubectl = "1.37.2"
+yamlfmt = "0.21.0"
 
 [tasks.bootstrap-flux]
 description = "Bootstrap FluxCD on the cluster"
