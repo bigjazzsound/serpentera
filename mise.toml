@@ -2,7 +2,7 @@
 age = "1.3.2"
 flux2 = "2.10.1"
 gh = "2.106.0"
-k0sctl = "0.33.1"
+k0sctl = "0.34.0"
 kubectl = "1.37.3"
 
 [tasks.bootstrap-flux]
